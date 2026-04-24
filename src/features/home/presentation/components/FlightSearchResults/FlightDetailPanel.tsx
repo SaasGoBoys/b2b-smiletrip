@@ -197,6 +197,8 @@ function FareTierCard({
 function TabChiTiet({ flight }: { flight: Flight }) {
   const [selectedTier, setSelectedTier] = useState(FARE_TIERS[0].id)
 
+  console.log({ flight })
+
   return (
     <div style={{ padding: '16px 0' }}>
       <div
@@ -327,9 +329,7 @@ function TabKhuyenMai() {
             >
               {promo.code}
             </div>
-            <span style={{ fontSize: 13, color: '#374151', fontWeight: 500 }}>
-              {promo.label}
-            </span>
+            <span style={{ fontSize: 13, color: '#374151', fontWeight: 500 }}>{promo.label}</span>
           </div>
         ))}
       </div>

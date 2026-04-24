@@ -28,12 +28,7 @@ const AIRLINES = [
   'Vietravel Airlines',
 ]
 
-const SEAT_CLASSES = [
-  'Vé phổ thông',
-  'Vé phổ thông cao cấp',
-  'Vé hạng nhất',
-  'Vé thương gia',
-]
+const SEAT_CLASSES = ['Vé phổ thông', 'Vé phổ thông cao cấp', 'Vé hạng nhất', 'Vé thương gia']
 
 function formatTime(value: number) {
   const h = Math.floor(value)
@@ -124,7 +119,6 @@ export function FlightFilterPanel({ filters, onFilterChange }: Props) {
                 step={0.5}
                 value={filters.timeFrom}
                 onChange={(val) => onFilterChange({ timeFrom: val as [number, number] })}
-                tooltip={{ formatter: formatTime }}
               />
             </div>
             <div>
@@ -138,7 +132,6 @@ export function FlightFilterPanel({ filters, onFilterChange }: Props) {
                 step={0.5}
                 value={filters.timeTo}
                 onChange={(val) => onFilterChange({ timeTo: val as [number, number] })}
-                tooltip={{ formatter: formatTime }}
               />
             </div>
           </div>
@@ -166,9 +159,7 @@ export function FlightFilterPanel({ filters, onFilterChange }: Props) {
               <Checkbox
                 key={cls}
                 checked={filters.seatClasses.includes(cls)}
-                onChange={(e: CheckboxChangeEvent) =>
-                  handleSeatClassChange(cls, e.target.checked)
-                }
+                onChange={(e: CheckboxChangeEvent) => handleSeatClassChange(cls, e.target.checked)}
               >
                 {cls}
               </Checkbox>
