@@ -43,10 +43,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   return (
     <ThemeContext.Provider value={{ themeMode, toggleTheme, setTheme: setThemeMode }}>
-      <ConfigProvider
-        theme={themeMode === 'dark' ? darkTheme : lightTheme}
-        locale={antdLocale}
-      >
+      <ConfigProvider theme={themeMode === 'dark' ? darkTheme : lightTheme} locale={antdLocale}>
         {children}
       </ConfigProvider>
     </ThemeContext.Provider>

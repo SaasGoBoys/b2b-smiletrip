@@ -138,7 +138,7 @@ export function HomeNavbar() {
           style={{
             borderRadius: 8,
             fontWeight: 500,
-            background: '#2563eb',
+            background: '#4558B6',
           }}
         >
           Đăng ký

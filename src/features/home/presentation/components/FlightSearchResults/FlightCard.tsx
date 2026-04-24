@@ -1,5 +1,9 @@
+import { useState } from 'react'
 import { Button, Tooltip } from 'antd'
-import { DownOutlined } from '@ant-design/icons'
+import { DownOutlined, UpOutlined } from '@ant-design/icons'
+import { FlightDetailPanel } from './FlightDetailPanel'
+
+const PRIMARY = '#4558B6'
 
 export interface Flight {
   id: string
@@ -26,7 +30,6 @@ export interface Flight {
 interface Props {
   flight: Flight
   onBook?: (flight: Flight) => void
-  onDetail?: (flight: Flight) => void
 }
 
 const AIRLINE_COLORS: Record<string, string> = {
@@ -92,8 +95,9 @@ function AmenityIcon({ icon, active, label }: { icon: string; active: boolean; l
       <span
         style={{
           fontSize: 16,
-          opacity: active ? 1 : 0.3,
+          opacity: active ? 1 : 0.25,
           cursor: 'default',
+          filter: active ? 'none' : 'grayscale(100%)',
         }}
       >
         {icon}
@@ -102,94 +106,123 @@ function AmenityIcon({ icon, active, label }: { icon: string; active: boolean; l
   )
 }
 
-export function FlightCard({ flight, onBook, onDetail }: Props) {
+export function FlightCard({ flight, onBook }: Props) {
+  const [showDetail, setShowDetail] = useState(false)
+
   const formattedPrice = flight.price.toLocaleString('vi-VN') + ' đ'
 
+  const rowBg = showDetail ? '#f0f3ff' : flight.isFeatured ? '#fffbf0' : '#fff'
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        padding: '12px 16px',
-        borderBottom: '1px solid #f3f4f6',
-        background: flight.isFeatured ? '#fffbf0' : '#fff',
-        transition: 'background 0.15s',
-        cursor: 'default',
-      }}
-      onMouseEnter={(e) => {
-        if (!flight.isFeatured) (e.currentTarget as HTMLDivElement).style.background = '#f9fafb'
-      }}
-      onMouseLeave={(e) => {
-        if (!flight.isFeatured) (e.currentTarget as HTMLDivElement).style.background = '#fff'
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, width: 280 }}>
-        <AirlineLogo airline={flight.airline} logoUrl={flight.logoUrl} />
-        <div>
-          <div style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>{flight.airline}</div>
-          <div style={{ fontSize: 12, color: '#9ca3af' }}>{flight.flightNumber}</div>
-        </div>
-      </div>
-
-      <div style={{ flex: 1, fontSize: 14, color: '#374151', fontWeight: 500 }}>
-        {flight.departTime} - {flight.arriveTime}
-      </div>
-
+    <div style={{ borderBottom: '1px solid #f3f4f6' }}>
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 8,
-          width: 180,
+          padding: '12px 16px',
+          background: rowBg,
+          transition: 'background 0.15s',
+          cursor: 'default',
+        }}
+        onMouseEnter={(e) => {
+          if (!showDetail && !flight.isFeatured)
+            (e.currentTarget as HTMLDivElement).style.background = '#f9fafb'
+        }}
+        onMouseLeave={(e) => {
+          if (!showDetail && !flight.isFeatured)
+            (e.currentTarget as HTMLDivElement).style.background = '#fff'
         }}
       >
-        <AmenityIcon icon="🧳" active={flight.amenities.handLuggage} label="Hành lý xách tay" />
-        <AmenityIcon icon="🏷️" active={flight.amenities.checkInLuggage} label="Hành lý ký gửi" />
-        <AmenityIcon icon="⚡" active={flight.amenities.charging} label="Sạc điện thoại" />
-        <AmenityIcon icon="🍽️" active={flight.amenities.meal} label="Suất ăn" />
-        <AmenityIcon icon="🎬" active={flight.amenities.entertainment} label="Giải trí" />
-      </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, width: 280 }}>
+          <AirlineLogo airline={flight.airline} logoUrl={flight.logoUrl} />
+          <div>
+            <div style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>
+              {flight.airline}
+            </div>
+            <div style={{ fontSize: 12, color: '#9ca3af' }}>{flight.flightNumber}</div>
+          </div>
+        </div>
 
-      <div style={{ width: 140, textAlign: 'right' }}>
+        <div style={{ width: 160 }}>
+          <div style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>
+            {flight.departTime} – {flight.arriveTime}
+          </div>
+          {flight.isDirectFlight && (
+            <div style={{ fontSize: 11, color: '#059669' }}>✈ Bay thẳng</div>
+          )}
+        </div>
+
         <div
           style={{
-            fontSize: 16,
-            fontWeight: 700,
-            color: '#111827',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            width: 170,
           }}
         >
-          {formattedPrice}
+          <AmenityIcon icon="🧳" active={flight.amenities.handLuggage} label="Hành lý xách tay" />
+          <AmenityIcon
+            icon="🏷️"
+            active={flight.amenities.checkInLuggage}
+            label="Hành lý ký gửi"
+          />
+          <AmenityIcon icon="⚡" active={flight.amenities.charging} label="Sạc điện thoại" />
+          <AmenityIcon icon="🍽️" active={flight.amenities.meal} label="Suất ăn" />
+          <AmenityIcon icon="🎬" active={flight.amenities.entertainment} label="Giải trí" />
         </div>
-      </div>
 
-      <div style={{ width: 100, display: 'flex', justifyContent: 'center' }}>
+        <div style={{ flex: 1 }} />
+
+        <div style={{ textAlign: 'right', marginRight: 16 }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#111827' }}>
+            {formattedPrice}
+          </div>
+          <div
+            style={{ fontSize: 11, color: '#9ca3af', textDecoration: 'line-through' }}
+          >
+            {(flight.price * 2.02).toLocaleString('vi-VN', { maximumFractionDigits: 0 })}đ
+          </div>
+        </div>
+
         <Button
           type="link"
           size="small"
-          icon={<DownOutlined />}
-          onClick={() => onDetail?.(flight)}
-          style={{ color: '#2563eb', fontSize: 13 }}
+          icon={showDetail ? <UpOutlined /> : <DownOutlined />}
+          onClick={() => setShowDetail((v) => !v)}
+          style={{
+            color: showDetail ? PRIMARY : '#4b5563',
+            fontSize: 13,
+            fontWeight: showDetail ? 600 : 400,
+            marginRight: 8,
+            width: 90,
+          }}
         >
           Chi tiết
         </Button>
-      </div>
 
-      <div style={{ width: 110, display: 'flex', justifyContent: 'flex-end' }}>
         <Button
           type="primary"
           size="middle"
           onClick={() => onBook?.(flight)}
           style={{
-            background: '#f97316',
-            borderColor: '#f97316',
+            background: PRIMARY,
+            borderColor: PRIMARY,
             borderRadius: 8,
             fontWeight: 600,
             fontSize: 14,
+            width: 90,
           }}
         >
           Đặt vé
         </Button>
       </div>
+
+      {showDetail && (
+        <FlightDetailPanel
+          flight={flight}
+          onBook={onBook}
+        />
+      )}
     </div>
   )
 }

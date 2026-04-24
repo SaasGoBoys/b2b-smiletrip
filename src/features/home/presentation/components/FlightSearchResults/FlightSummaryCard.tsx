@@ -37,7 +37,7 @@ export function FlightSummaryCard({ flights, totalPrice, onContinue }: Props) {
           borderBottom: '1px solid #f0f0f0',
         }}
       >
-        <SendOutlined style={{ color: '#2563eb', fontSize: 18 }} />
+        <SendOutlined style={{ color: '#4558B6', fontSize: 18 }} />
         <span style={{ fontSize: 15, fontWeight: 600, color: '#111827' }}>Chuyến bay của bạn</span>
       </div>
 
@@ -50,7 +50,7 @@ export function FlightSummaryCard({ flights, totalPrice, onContinue }: Props) {
                   width: 24,
                   height: 24,
                   borderRadius: '50%',
-                  background: '#2563eb',
+                  background: '#4558B6',
                   color: '#fff',
                   fontSize: 12,
                   fontWeight: 700,
@@ -112,8 +112,8 @@ export function FlightSummaryCard({ flights, totalPrice, onContinue }: Props) {
                 style={{
                   borderRadius: 6,
                   fontSize: 12,
-                  color: '#2563eb',
-                  borderColor: '#2563eb',
+                  color: '#4558B6',
+                  borderColor: '#4558B6',
                 }}
               >
                 {flight.changeLabel}
@@ -146,8 +146,8 @@ export function FlightSummaryCard({ flights, totalPrice, onContinue }: Props) {
         <Button
           type="primary"
           style={{
-            background: '#2563eb',
-            borderColor: '#2563eb',
+            background: '#4558B6',
+            borderColor: '#4558B6',
             borderRadius: 8,
             fontWeight: 600,
           }}

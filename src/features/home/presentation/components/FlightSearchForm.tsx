@@ -12,10 +12,10 @@ import dayjs from 'dayjs'
 const { RangePicker } = DatePicker
 
 const TICKET_TYPES = [
-  { key: 'le-dong', label: 'Vé lẻ đợng' },
-  { key: 'doan-dong', label: 'Vé đoàn đợng' },
-  { key: 'ebuoc', label: 'Vé eBuộc' },
-  { key: 'charter', label: 'Vé Charter' },
+  { key: 'lao-dong', label: 'Vé lao động' },
+  { key: 'du-hoc', label: 'Vé du học' },
+  { key: 'block', label: 'Vé block' },
+  { key: 'charter', label: 'Vé charter' },
 ]
 
 const CITIES = [
@@ -55,7 +55,7 @@ export interface FlightSearchParams {
 }
 
 export function FlightSearchForm({ onSearch }: Props) {
-  const [activeTab, setActiveTab] = useState('le-dong')
+  const [activeTab, setActiveTab] = useState('lao-dong')
   const [from, setFrom] = useState<string>('HAN')
   const [to, setTo] = useState<string>('SGN')
   const [tripType, setTripType] = useState('round-trip')
@@ -109,7 +109,6 @@ export function FlightSearchForm({ onSearch }: Props) {
           alignItems: 'center',
           gap: 8,
           padding: '16px 24px',
-          flexWrap: 'wrap',
         }}
       >
         <div style={{ flex: '1 1 180px', minWidth: 160 }}>
@@ -136,7 +135,7 @@ export function FlightSearchForm({ onSearch }: Props) {
           style={{
             flexShrink: 0,
             border: '1px solid #d9d9d9',
-            color: '#2563eb',
+            color: '#4558B6',
           }}
         />
 
@@ -198,17 +197,14 @@ export function FlightSearchForm({ onSearch }: Props) {
           icon={<SearchOutlined />}
           onClick={handleSearch}
           style={{
-            flexShrink: 0,
-            background: '#2563eb',
-            borderColor: '#2563eb',
+            background: '#4558B6',
+            borderColor: '#4558B6',
             borderRadius: 10,
             height: 40,
-            paddingInline: 28,
+            paddingInline: 18,
             fontWeight: 600,
           }}
-        >
-          Tìm kiếm
-        </Button>
+        />
       </div>
     </div>
   )

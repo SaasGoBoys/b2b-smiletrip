@@ -101,7 +101,7 @@ export function DatePriceSlider({ selectedDate, onDateChange }: Props) {
                 justifyContent: 'center',
                 gap: 4,
                 position: 'relative',
-                borderBottom: isActive ? '3px solid #2563eb' : '3px solid transparent',
+                borderBottom: isActive ? '3px solid #4558B6' : '3px solid transparent',
                 transition: 'all 0.2s',
               }}
             >
@@ -109,7 +109,7 @@ export function DatePriceSlider({ selectedDate, onDateChange }: Props) {
                 style={{
                   fontSize: 16,
                   fontWeight: isActive ? 700 : 400,
-                  color: isActive ? '#2563eb' : '#3a3a3a',
+                  color: isActive ? '#4558B6' : '#3a3a3a',
                   lineHeight: 1.2,
                 }}
               >

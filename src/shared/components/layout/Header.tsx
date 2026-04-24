@@ -1,40 +1,77 @@
-import { Layout, Space, Button } from 'antd'
-import { MoonOutlined, SunOutlined } from '@ant-design/icons'
+import { Layout, Space, Button, Input } from 'antd'
+import { DownOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons'
 import { useAuth } from '@/features/auth'
-import { LanguageSwitcher } from '../common/LanguageSwitcher'
-import { useTheme } from '@/app/providers/ThemeProvider'
 
 const { Header: AntHeader } = Layout
 
 export function Header() {
   const { logout, user } = useAuth()
-  const { themeMode, toggleTheme } = useTheme()
 
   return (
     <AntHeader
       style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-end',
-        gap: 16,
+        gap: 20,
         paddingInline: 24,
-        background: 'var(--ant-color-bg-container)',
-        borderBottom: '1px solid var(--ant-color-border-secondary)',
+        height: 72,
+        background: '#4558B6',
+        borderBottom: 'none',
       }}
     >
-      <span style={{ marginRight: 'auto' }}>{user?.fullName ?? user?.email ?? ''}</span>
-      <Space>
-        <LanguageSwitcher />
-        <Button
-          type="text"
-          icon={themeMode === 'dark' ? <SunOutlined /> : <MoonOutlined />}
-          onClick={toggleTheme}
-          aria-label="Toggle theme"
+      <div style={{ display: 'flex', alignItems: 'center', gap: 20, minWidth: 430 }}>
+        <Button type="text" style={{ color: '#fff', fontWeight: 500, paddingInline: 0 }}>
+          Sản Phẩm <DownOutlined style={{ fontSize: 10 }} />
+        </Button>
+        <Button type="text" style={{ color: '#fff', fontWeight: 500, paddingInline: 0 }}>
+          Chính sách đại lý
+        </Button>
+        <Button type="text" style={{ color: '#fff', fontWeight: 500, paddingInline: 0 }}>
+          Thông tin liên hệ
+        </Button>
+      </div>
+
+      <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+        <Input
+          prefix={<SearchOutlined style={{ color: '#9ca3af' }} />}
+          placeholder="Tìm kiếm"
+          style={{
+            maxWidth: 420,
+            borderRadius: 20,
+            border: 'none',
+            height: 40,
+          }}
         />
-        <Button type="link" onClick={logout}>
-          Log out
+      </div>
+
+      <Space size={10}>
+        <Button
+          shape="circle"
+          icon={<UserOutlined />}
+          style={{
+            background: '#F05A3E',
+            borderColor: '#F05A3E',
+            color: '#fff',
+          }}
+        />
+        <Button
+          type="default"
+          style={{
+            background: 'transparent',
+            borderColor: 'rgba(255,255,255,0.8)',
+            color: '#fff',
+            fontWeight: 500,
+          }}
+        >
+          Đăng nhập
+        </Button>
+        <Button type="primary" onClick={logout} style={{ fontWeight: 600 }}>
+          Đăng ký
         </Button>
       </Space>
+      <span style={{ color: 'rgba(255,255,255,0.85)', fontSize: 12 }}>
+        {user?.fullName ?? user?.email ?? ''}
+      </span>
     </AntHeader>
   )
 }

@@ -231,9 +231,9 @@ export function FlightResultList({ from, to }: Props) {
             style={{
               padding: '4px 14px',
               borderRadius: 20,
-              border: sortKey === opt.key ? '1px solid #2563eb' : '1px solid #e5e7eb',
+              border: sortKey === opt.key ? '1px solid #4558B6' : '1px solid #e5e7eb',
               background: sortKey === opt.key ? '#eff6ff' : '#fff',
-              color: sortKey === opt.key ? '#2563eb' : '#374151',
+              color: sortKey === opt.key ? '#4558B6' : '#374151',
               fontSize: 13,
               fontWeight: sortKey === opt.key ? 600 : 400,
               cursor: 'pointer',
@@ -270,7 +270,6 @@ export function FlightResultList({ from, to }: Props) {
             key={flight.id}
             flight={flight}
             onBook={(f) => console.log('Book:', f.id)}
-            onDetail={(f) => console.log('Detail:', f.id)}
           />
         ))}
       </div>

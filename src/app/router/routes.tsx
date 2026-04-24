@@ -1,6 +1,5 @@
 import type { RouteObject } from 'react-router-dom'
 import { AppLayout } from '@/shared/components/layout/AppLayout'
-import { ProtectedRoute } from './ProtectedRoute'
 
 import { authRoutes } from '@/features/auth/presentation/routes/auth.routes'
 import { dashboardChildRoutes } from '@/features/dashboard/presentation/routes/dashboard.routes'
@@ -13,15 +12,11 @@ import { homeRoutes } from '@/features/home/presentation/routes/home.routes'
  */
 export const routes: RouteObject[] = [
   ...authRoutes,
-  ...homeRoutes,
+
   {
     path: '/',
-    element: (
-      <ProtectedRoute>
-        <AppLayout />
-      </ProtectedRoute>
-    ),
-    children: [...dashboardChildRoutes, ...usersChildRoutes],
+    element: <AppLayout />,
+    children: [...dashboardChildRoutes, ...usersChildRoutes, ...homeRoutes],
   },
   {
     path: '/403',

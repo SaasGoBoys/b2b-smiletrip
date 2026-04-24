@@ -83,7 +83,7 @@ export function TopDestinations() {
                   minWidth: 28,
                   height: 28,
                   borderRadius: 6,
-                  background: '#2563eb',
+                  background: '#4558B6',
                   color: '#fff',
                   fontSize: 12,
                   fontWeight: 700,
@@ -100,7 +100,7 @@ export function TopDestinations() {
                   transition: 'color 0.15s',
                 }}
                 onMouseEnter={(e) => {
-                  ;(e.currentTarget as HTMLSpanElement).style.color = '#2563eb'
+                  ;(e.currentTarget as HTMLSpanElement).style.color = '#4558B6'
                 }}
                 onMouseLeave={(e) => {
                   ;(e.currentTarget as HTMLSpanElement).style.color = '#374151'

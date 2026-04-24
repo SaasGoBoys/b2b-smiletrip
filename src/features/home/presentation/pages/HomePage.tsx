@@ -54,7 +54,7 @@ export default function HomePage() {
   })
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f9fafb', fontFamily: 'Inter, sans-serif' }}>
+    <>
       <HeroBanner>
         <div
           style={{
@@ -120,6 +120,6 @@ export default function HomePage() {
       <Suspense fallback={null}>
         <HomeFooter />
       </Suspense>
-    </div>
+    </>
   )
 }

@@ -1,7 +1,7 @@
 export const brandColors = {
-  primary: '#1677ff',
-  primaryHover: '#4096ff',
-  primaryActive: '#0958d9',
+  primary: '#4558B6',
+  primaryHover: '#5469c7',
+  primaryActive: '#3447a0',
   secondary: '#722ed1',
   success: '#52c41a',
   warning: '#faad14',
