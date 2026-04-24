@@ -1,7 +1,5 @@
-import { Button, Divider, Typography } from 'antd'
+import { Button, Divider } from 'antd'
 import { SendOutlined } from '@ant-design/icons'
-
-const { Text } = Typography
 
 interface SelectedFlight {
   leg: number
@@ -40,9 +38,7 @@ export function FlightSummaryCard({ flights, totalPrice, onContinue }: Props) {
         }}
       >
         <SendOutlined style={{ color: '#2563eb', fontSize: 18 }} />
-        <span style={{ fontSize: 15, fontWeight: 600, color: '#111827' }}>
-          Chuyến bay của bạn
-        </span>
+        <span style={{ fontSize: 15, fontWeight: 600, color: '#111827' }}>Chuyến bay của bạn</span>
       </div>
 
       {flights.map((flight, index) => (

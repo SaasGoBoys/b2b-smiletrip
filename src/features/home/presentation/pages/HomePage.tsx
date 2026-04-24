@@ -1,35 +1,31 @@
 import { lazy, Suspense, useState } from 'react'
 import { Spin } from 'antd'
-import { HomeNavbar } from '../components/HomeNavbar'
 import { HeroBanner } from '../components/HeroBanner'
 
-const FlightSearchForm = lazy(
-  () => import('../components/FlightSearchForm').then((m) => ({ default: m.FlightSearchForm })),
+const FlightSearchForm = lazy(() =>
+  import('../components/FlightSearchForm').then((m) => ({ default: m.FlightSearchForm }))
 )
 
-const DatePriceSlider = lazy(
-  () =>
-    import('../components/DatePriceSlider').then((m) => ({ default: m.DatePriceSlider })),
+const DatePriceSlider = lazy(() =>
+  import('../components/DatePriceSlider').then((m) => ({ default: m.DatePriceSlider }))
 )
 
-const FlightSearchResults = lazy(
-  () =>
-    import('../components/FlightSearchResults/index').then((m) => ({
-      default: m.FlightSearchResults,
-    })),
+const FlightSearchResults = lazy(() =>
+  import('../components/FlightSearchResults/index').then((m) => ({
+    default: m.FlightSearchResults,
+  }))
 )
 
-const WhyChooseUs = lazy(
-  () => import('../components/WhyChooseUs').then((m) => ({ default: m.WhyChooseUs })),
+const WhyChooseUs = lazy(() =>
+  import('../components/WhyChooseUs').then((m) => ({ default: m.WhyChooseUs }))
 )
 
-const TopDestinations = lazy(
-  () =>
-    import('../components/TopDestinations').then((m) => ({ default: m.TopDestinations })),
+const TopDestinations = lazy(() =>
+  import('../components/TopDestinations').then((m) => ({ default: m.TopDestinations }))
 )
 
-const HomeFooter = lazy(
-  () => import('../components/HomeFooter').then((m) => ({ default: m.HomeFooter })),
+const HomeFooter = lazy(() =>
+  import('../components/HomeFooter').then((m) => ({ default: m.HomeFooter }))
 )
 
 function SectionLoader() {
@@ -107,10 +103,7 @@ export default function HomePage() {
             </div>
 
             <Suspense fallback={<SectionLoader />}>
-              <FlightSearchResults
-                from={searchParams.from}
-                to={searchParams.to}
-              />
+              <FlightSearchResults from={searchParams.from} to={searchParams.to} />
             </Suspense>
           </>
         )}

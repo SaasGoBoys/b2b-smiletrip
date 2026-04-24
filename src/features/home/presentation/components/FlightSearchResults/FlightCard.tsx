@@ -1,4 +1,4 @@
-import { Button, Tag, Tooltip } from 'antd'
+import { Button, Tooltip } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
 export interface Flight {
@@ -117,20 +117,16 @@ export function FlightCard({ flight, onBook, onDetail }: Props) {
         cursor: 'default',
       }}
       onMouseEnter={(e) => {
-        if (!flight.isFeatured)
-          (e.currentTarget as HTMLDivElement).style.background = '#f9fafb'
+        if (!flight.isFeatured) (e.currentTarget as HTMLDivElement).style.background = '#f9fafb'
       }}
       onMouseLeave={(e) => {
-        if (!flight.isFeatured)
-          (e.currentTarget as HTMLDivElement).style.background = '#fff'
+        if (!flight.isFeatured) (e.currentTarget as HTMLDivElement).style.background = '#fff'
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, width: 280 }}>
         <AirlineLogo airline={flight.airline} logoUrl={flight.logoUrl} />
         <div>
-          <div style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>
-            {flight.airline}
-          </div>
+          <div style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>{flight.airline}</div>
           <div style={{ fontSize: 12, color: '#9ca3af' }}>{flight.flightNumber}</div>
         </div>
       </div>
@@ -148,11 +144,7 @@ export function FlightCard({ flight, onBook, onDetail }: Props) {
         }}
       >
         <AmenityIcon icon="🧳" active={flight.amenities.handLuggage} label="Hành lý xách tay" />
-        <AmenityIcon
-          icon="🏷️"
-          active={flight.amenities.checkInLuggage}
-          label="Hành lý ký gửi"
-        />
+        <AmenityIcon icon="🏷️" active={flight.amenities.checkInLuggage} label="Hành lý ký gửi" />
         <AmenityIcon icon="⚡" active={flight.amenities.charging} label="Sạc điện thoại" />
         <AmenityIcon icon="🍽️" active={flight.amenities.meal} label="Suất ăn" />
         <AmenityIcon icon="🎬" active={flight.amenities.entertainment} label="Giải trí" />

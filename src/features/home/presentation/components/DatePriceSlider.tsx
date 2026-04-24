@@ -1,9 +1,5 @@
 import { useState } from 'react'
-import { Button } from 'antd'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
-
-const LEFT_ARROW = 'http://localhost:3845/assets/c7583eb1c0ffcb3197a976983c2f5985ddb47bf1.svg'
-const RIGHT_ARROW = 'http://localhost:3845/assets/c88ca7c333fe9d9eafde2e433d4019ff2aec9d0f.svg'
 
 interface DatePrice {
   date: string

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Space, Tabs, Tag, Typography } from 'antd'
+import { Button, Tabs, Typography } from 'antd'
 import { FlightCard, type Flight } from './FlightCard'
 
 const { Text } = Typography
