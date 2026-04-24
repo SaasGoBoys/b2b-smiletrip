@@ -1,0 +1,4 @@
+/* Optional Ant Design overrides — extend as needed */
+[data-theme='dark'] .ant-layout-sider {
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.06);
+}

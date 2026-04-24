@@ -1,0 +1,25 @@
+{
+  "app": {
+    "name": "My App",
+    "loading": "Loading...",
+    "error": "Something went wrong"
+  },
+  "action": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "confirm": "Confirm",
+    "createSuccess": "Created successfully"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "settings": "Settings"
+  },
+  "pagination": {
+    "total": "Total {{total}} records"
+  }
+}

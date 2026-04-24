@@ -1,0 +1,25 @@
+{
+  "app": {
+    "name": "Ứng dụng của tôi",
+    "loading": "Đang tải...",
+    "error": "Có lỗi xảy ra"
+  },
+  "action": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "create": "Tạo mới",
+    "search": "Tìm kiếm",
+    "confirm": "Xác nhận",
+    "createSuccess": "Tạo thành công"
+  },
+  "nav": {
+    "dashboard": "Tổng quan",
+    "users": "Người dùng",
+    "settings": "Cài đặt"
+  },
+  "pagination": {
+    "total": "Tổng {{total}} bản ghi"
+  }
+}
