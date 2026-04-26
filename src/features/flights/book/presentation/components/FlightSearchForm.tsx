@@ -94,14 +94,7 @@ export function FlightSearchForm({ onSearch }: Props) {
         }}
       />
 
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          padding: '16px 24px',
-        }}
-      >
+      <div className="flex items-end gap-2 px-6 py-4">
         <div style={{ flex: '1 1 180px', minWidth: 160 }}>
           <p className="text-sm text-[#3A3A3A] text-left mb-2">Điểm đi</p>
           <Select
