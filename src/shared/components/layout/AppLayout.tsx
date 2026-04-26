@@ -11,7 +11,14 @@ export function AppLayout() {
       <Sidebar />
       <Layout>
         <Header />
-        <Content style={{ padding: 0, background: 'var(--ant-color-bg-layout)' }}>
+        <Content
+          style={{
+            padding: 0,
+            background: 'var(--ant-color-bg-layout)',
+            height: 'calc(100vh - 72px)',
+            overflowY: 'auto',
+          }}
+        >
           <Outlet />
         </Content>
       </Layout>

@@ -2,3 +2,19 @@
 [data-theme='dark'] .ant-layout-sider {
   box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.06);
 }
+
+.sidebar-menu.ant-menu-dark,
+.sidebar-menu.ant-menu-dark .ant-menu-sub,
+.sidebar-menu.ant-menu-dark .ant-menu-item,
+.sidebar-menu.ant-menu-dark .ant-menu-submenu-title {
+  background: transparent !important;
+  color: #fff !important;
+}
+
+.sidebar-menu.ant-menu-dark .ant-menu-item-selected {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.ant-menu-dark.ant-menu-submenu-popup > .ant-menu {
+  background: #4f65cd !important;
+}

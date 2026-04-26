@@ -1,0 +1,27 @@
+export const sidebarPaths = {
+  flightReservations: '/flights/reservations',
+  flightCheckin: '/flights/check-in',
+  flightStatus: '/flights/status',
+  flightImmigration: '/flights/immigration',
+  flightSchedule: '/flights/schedule',
+  tourBooking: '/tours/book',
+  tourList: '/tours/reservations',
+  trainBooking: '/trains/book',
+  trainReservations: '/trains/reservations',
+  hotelSearchByLocation: '/hotels/search-by-location',
+  hotelList: '/hotels',
+  hotelReservations: '/hotels/reservations',
+  airportTransferBooking: '/airport-transfer/book',
+  airportTransferList: '/airport-transfer/reservations',
+  ticketHunting: '/ticket-hunting',
+  simBooking: '/sim/book',
+  simList: '/sim/reservations',
+  insuranceBuy: '/insurance/buy',
+  insuranceList: '/insurance/purchased',
+  combo: '/combo-saving',
+  agentPolicy: '/agent-policy',
+  aboutUs: '/about-us',
+  settings: '/settings',
+} as const
+
+export const sidebarScreenPaths = Object.values(sidebarPaths)

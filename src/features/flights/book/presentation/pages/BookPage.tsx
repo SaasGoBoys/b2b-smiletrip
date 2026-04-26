@@ -42,7 +42,7 @@ function SectionLoader() {
   )
 }
 
-export default function HomePage() {
+export default function BookPage() {
   const [searchParams, setSearchParams] = useState<{
     from: string
     to: string
