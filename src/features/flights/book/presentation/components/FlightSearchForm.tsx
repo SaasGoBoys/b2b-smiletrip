@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, DatePicker, Select, Tabs } from 'antd'
+import { Button, DatePicker, Select, Tabs, Typography } from 'antd'
 import {
   SwapOutlined,
   SearchOutlined,
@@ -82,16 +82,7 @@ export function FlightSearchForm({ onSearch }: Props) {
   }
 
   return (
-    <div
-      style={{
-        background: '#fff',
-        borderRadius: 16,
-        boxShadow: '0 8px 40px rgba(0,0,0,0.18)',
-        overflow: 'hidden',
-        width: '100%',
-        maxWidth: 1120,
-      }}
-    >
+    <div className="w-full overflow-hidden rounded-lg bg-white shadow-lg">
       <Tabs
         activeKey={activeTab}
         onChange={setActiveTab}
@@ -112,6 +103,7 @@ export function FlightSearchForm({ onSearch }: Props) {
         }}
       >
         <div style={{ flex: '1 1 180px', minWidth: 160 }}>
+          <p className="text-sm text-[#3A3A3A] text-left mb-2">Điểm đi</p>
           <Select
             style={{ width: '100%' }}
             size="large"
@@ -140,6 +132,7 @@ export function FlightSearchForm({ onSearch }: Props) {
         />
 
         <div style={{ flex: '1 1 180px', minWidth: 160 }}>
+          <p className="text-sm text-[#3A3A3A] text-left mb-2">Điểm đến</p>
           <Select
             style={{ width: '100%' }}
             size="large"
@@ -156,6 +149,7 @@ export function FlightSearchForm({ onSearch }: Props) {
         </div>
 
         <div style={{ flex: '1 1 260px', minWidth: 220 }}>
+          <p className="text-sm text-[#3A3A3A] text-left mb-2">Ngày đi</p>
           <RangePicker
             style={{ width: '100%' }}
             size="large"
@@ -171,6 +165,7 @@ export function FlightSearchForm({ onSearch }: Props) {
         </div>
 
         <div style={{ flex: '0 0 130px' }}>
+          <p className="text-sm text-[#3A3A3A] text-left mb-2">Loại vé</p>
           <Select
             style={{ width: '100%' }}
             size="large"
@@ -181,6 +176,7 @@ export function FlightSearchForm({ onSearch }: Props) {
         </div>
 
         <div style={{ flex: '1 1 200px', minWidth: 180 }}>
+          <p className="text-sm text-[#3A3A3A] text-left mb-2">Số lượng</p>
           <Select
             style={{ width: '100%' }}
             size="large"

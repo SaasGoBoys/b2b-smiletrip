@@ -56,13 +56,7 @@ export default function BookPage() {
   return (
     <>
       <HeroBanner>
-        <div
-          style={{
-            width: '100%',
-            maxWidth: 1200,
-            paddingInline: 24,
-          }}
-        >
+        <div className="absolute -bottom-full left-1/2 -translate-x-1/2 w-full max-w-[1200px] px-6">
           <Suspense fallback={<SectionLoader />}>
             <FlightSearchForm
               onSearch={(params) => {
@@ -87,13 +81,7 @@ export default function BookPage() {
         </div>
       </HeroBanner>
 
-      <div
-        style={{
-          maxWidth: 1620,
-          margin: '0 auto',
-          paddingInline: 20,
-        }}
-      >
+      <div className="container mx-auto max-w-[1200px] px-6 mt-30">
         {searchParams.searched && (
           <>
             <div style={{ marginTop: 24, marginBottom: 16 }}>

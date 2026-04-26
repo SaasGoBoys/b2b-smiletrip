@@ -1,7 +1,7 @@
 import { SafetyCertificateOutlined } from '@ant-design/icons'
 
-const BANNER_IMG = 'http://localhost:3845/assets/86dfffd8d2e44a87911db030ae4b650c5b370ebd.png'
-const SHIELD_ICON = 'http://localhost:3845/assets/fb40f24c3927b5cbe35d8b36c358f1bb202361df.svg'
+const BANNER_IMG = '/images/banner.jpg'
+const SHIELD_ICON = '/images/shield-check.svg'
 
 interface Props {
   children?: React.ReactNode
@@ -9,42 +9,11 @@ interface Props {
 
 export function HeroBanner({ children }: Props) {
   return (
-    <div
-      style={{
-        position: 'relative',
-        width: '100%',
-        minHeight: 480,
-        overflow: 'hidden',
-      }}
-    >
+    <div className="relative w-full h-[300px]">
       <img
         src={BANNER_IMG}
         alt="VFJLink banner"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          pointerEvents: 'none',
-        }}
-        onError={(e) => {
-          const target = e.currentTarget
-          target.style.display = 'none'
-          const parent = target.parentElement
-          if (parent) {
-            parent.style.background =
-              'linear-gradient(135deg, #0f2d6b 0%, #1a5276 40%, #1abc9c 100%)'
-          }
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(180deg, rgba(10,30,80,0.55) 0%, rgba(10,30,80,0.3) 60%, rgba(10,30,80,0.5) 100%)',
-        }}
+        className="w-full h-full object-cover pointer-events-none absolute inset-0"
       />
 
       <div
@@ -54,8 +23,7 @@ export function HeroBanner({ children }: Props) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          paddingTop: 140,
-          paddingBottom: 80,
+          paddingTop: 70,
           textAlign: 'center',
         }}
       >
@@ -78,7 +46,6 @@ export function HeroBanner({ children }: Props) {
             display: 'flex',
             alignItems: 'center',
             gap: 48,
-            marginBottom: 32,
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -103,7 +70,7 @@ export function HeroBanner({ children }: Props) {
               Thanh toán an toàn
             </span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div className="flex items-center gap-2">
             <img
               src={SHIELD_ICON}
               alt="shield"
@@ -112,15 +79,7 @@ export function HeroBanner({ children }: Props) {
                 e.currentTarget.style.display = 'none'
               }}
             />
-            <span
-              style={{
-                color: '#fff',
-                fontSize: 18,
-                fontWeight: 600,
-              }}
-            >
-              Hỗ trợ nhanh chóng
-            </span>
+            <span className="text-white text-sm font-medium">Hỗ trợ nhanh chóng</span>
           </div>
         </div>
 
