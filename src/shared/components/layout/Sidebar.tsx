@@ -132,6 +132,8 @@ const getPathOpenKeysDefault = (pathname: string) => {
   if (pathname.startsWith('/airport-transfer/')) return ['airport-transfer']
   if (pathname.startsWith('/sim/')) return ['sim']
   if (pathname.startsWith('/insurance/')) return ['insurance']
+
+  return []
 }
 
 export function Sidebar() {
