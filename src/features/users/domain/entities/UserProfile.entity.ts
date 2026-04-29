@@ -38,4 +38,8 @@ export class UserProfile {
   equals(other: UserProfile): boolean {
     return this.id === other.id
   }
+
+  canUpdate() {
+    return this.email === 'minh@gmail.com'
+  }
 }

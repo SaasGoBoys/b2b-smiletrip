@@ -6,7 +6,6 @@ import { AuthorizationBehavior } from '../bus/pipelines/AuthorizationBehavior'
 import { ErrorBehavior } from '../bus/pipelines/ErrorBehavior'
 
 import { AuthRepository } from '@/features/auth/infrastructure/repositories/AuthRepository'
-import { UserRepository } from '@/features/users/infrastructure/repositories/UserRepository'
 import { useAuthStore } from '@/features/auth/infrastructure/store/authStore'
 import { configureHttpClientAuth } from '@/shared/lib/axios'
 
@@ -14,7 +13,6 @@ import { registerCriticalModules } from './featureBusTiered'
 
 export async function bootstrapApplication(): Promise<void> {
   const authRepository = new AuthRepository()
-  const userRepository = new UserRepository()
 
   configureHttpClientAuth({
     getAccessToken: () => useAuthStore.getState().accessToken,
@@ -48,9 +46,5 @@ export async function bootstrapApplication(): Promise<void> {
   await registerCriticalModules({
     commandBus,
     queryBus,
-    deps: {
-      auth: { repository: authRepository },
-      users: { repository: userRepository },
-    },
   })
 }

@@ -9,9 +9,10 @@ import {
 } from './application/commands/UpdateUserCommand'
 import { GetUsersQuery, GetUsersQueryHandler } from './application/queries/GetUsersQuery'
 import { GetUserByIdQuery, GetUserByIdQueryHandler } from './application/queries/GetUserByIdQuery'
+import { UserRepository } from './infrastructure/repositories/UserRepository'
 
-const registerUsersBus: FeatureBusModule = ({ commandBus, queryBus, deps }) => {
-  const { repository: userRepository } = deps.users
+const registerUsersBus: FeatureBusModule = ({ commandBus, queryBus }) => {
+  const userRepository = new UserRepository()
 
   commandBus
     .register(CreateUserCommand, new CreateUserCommandHandler(userRepository))

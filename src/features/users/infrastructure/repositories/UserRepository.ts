@@ -42,11 +42,7 @@ export class UserRepository implements IUserRepository {
     }
   }
 
-  async create(input: {
-    email: string
-    fullName: string
-    role: UserRole
-  }): Promise<UserProfile> {
+  async create(input: { email: string; fullName: string; role: UserRole }): Promise<UserProfile> {
     const response = await apiClient.post<ApiUserRow>('/users', input)
     return this.mapRow(response.data)
   }

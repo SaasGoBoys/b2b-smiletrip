@@ -28,7 +28,8 @@ export function UserTable({ users, loading }: Props) {
     {
       title: '',
       key: 'actions',
-      render: (_, record) => <Link to={`/users/${record.id}`}>View</Link>,
+      render: (_, record) =>
+        record.canUpdate() ? <Link to={`/users/${record.id}`}>View</Link> : null,
     },
   ]
 

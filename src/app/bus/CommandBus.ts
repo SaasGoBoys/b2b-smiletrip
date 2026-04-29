@@ -1,8 +1,7 @@
-import type { ICommand, ICommandHandler, IPipelineBehavior, HandlerMetadata } from './types'
+import type { ICommand, ICommandHandler, IPipelineBehavior } from './types'
 
 type HandlerEntry<T extends ICommand, R> = {
   handler: ICommandHandler<T, R>
-  metadata?: HandlerMetadata
 }
 
 export class CommandBus {
@@ -12,12 +11,10 @@ export class CommandBus {
   register<T extends ICommand, R>(
     // Constructor arity differs per command; registry only needs the prototype name.
     commandType: new (...args: never[]) => T,
-    handler: ICommandHandler<T, R>,
-    metadata?: HandlerMetadata
+    handler: ICommandHandler<T, R>
   ): this {
     this.handlers.set(commandType.name, {
       handler: handler as ICommandHandler<ICommand, unknown>,
-      metadata,
     })
     return this
   }
