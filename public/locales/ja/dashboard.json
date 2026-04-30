@@ -1,0 +1,8 @@
+{
+  "title": "ダッシュボード",
+  "stats": {
+    "activeUsers": "アクティブユーザー",
+    "revenue": "収益（デモ）",
+    "tasks": "タスク"
+  }
+}

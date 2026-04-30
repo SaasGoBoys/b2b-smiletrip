@@ -1,8 +1,9 @@
-import { createContext, type ReactNode,useContext, useEffect, useState } from 'react'
+import { createContext, type ReactNode, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ConfigProvider } from 'antd'
-import enUS from 'antd/locale/en_US'
+import frFR from 'antd/locale/fr_FR'
+import jaJP from 'antd/locale/ja_JP'
 import viVN from 'antd/locale/vi_VN'
 
 import { darkTheme } from '@/shared/lib/antd-theme/darkTheme'
@@ -25,8 +26,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const { i18n } = useTranslation()
 
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
-    const saved = localStorage.getItem(THEME_STORAGE_KEY) as ThemeMode | null
-    if (saved === 'light' || saved === 'dark') return saved
+    // const saved = localStorage.getItem(THEME_STORAGE_KEY) as ThemeMode | null
+    // if (saved === 'light' || saved === 'dark') return saved
     return 'light'
   })
 
@@ -41,7 +42,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const toggleTheme = () => setThemeMode((prev) => (prev === 'light' ? 'dark' : 'light'))
 
-  const antdLocale = i18n.language.startsWith('vi') ? viVN : enUS
+  const antdLocale = i18n.language.startsWith('vi')
+    ? viVN
+    : i18n.language.startsWith('ja')
+      ? jaJP
+      : frFR
 
   return (
     <ThemeContext.Provider value={{ themeMode, toggleTheme, setTheme: setThemeMode }}>

@@ -1,0 +1,33 @@
+{
+  "app": {
+    "name": "Mon application",
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite"
+  },
+  "action": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "create": "Créer",
+    "search": "Rechercher",
+    "confirm": "Confirmer",
+    "createSuccess": "Créé avec succès"
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "users": "Utilisateurs",
+    "settings": "Paramètres",
+    "products": "Produits",
+    "agentPolicy": "Politique agent",
+    "contactInfo": "Contact"
+  },
+  "pagination": {
+    "total": "Total {{total}} enregistrements"
+  },
+  "header": {
+    "search": "Rechercher",
+    "login": "Connexion",
+    "register": "S'inscrire"
+  }
+}

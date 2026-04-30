@@ -1,14 +1,14 @@
 import type { FeatureBusModule } from '@/app/composition/types'
 
-import { LoginCommand, LoginCommandHandler } from './application/commands/LoginCommand'
 import { LogoutCommand, LogoutCommandHandler } from './application/commands/LogoutCommand'
+import { SignInCommand, SignInCommandHandler } from './application/commands/SignInCommand'
 import { AuthRepository } from './infrastructure/repositories/AuthRepository'
 
 const registerAuthBus: FeatureBusModule = ({ commandBus }) => {
   const authRepository = new AuthRepository()
 
   commandBus
-    .register(LoginCommand, new LoginCommandHandler(authRepository))
+    .register(SignInCommand, new SignInCommandHandler(authRepository))
     .register(LogoutCommand, new LogoutCommandHandler(authRepository))
 }
 

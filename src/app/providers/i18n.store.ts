@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware'
 
 import i18n from './i18n.config'
 
-export type Language = 'vi' | 'en'
+export type Language = 'vi' | 'ja' | 'fr' | 'en'
 
 interface I18nState {
   language: Language

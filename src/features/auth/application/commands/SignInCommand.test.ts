@@ -3,12 +3,12 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { User, UserRoles } from '../../domain/entities/User.entity'
 import type { IAuthRepository } from '../../domain/repositories/IAuthRepository'
 
-import { LoginCommand, LoginCommandHandler } from './LoginCommand'
+import { SignInCommand, SignInCommandHandler } from './SignInCommand'
 
-describe('LoginCommandHandler', () => {
+describe('SignInCommandHandler', () => {
   const mockLogin = vi.fn<IAuthRepository['login']>()
   const repo = { login: mockLogin } as unknown as IAuthRepository
-  const handler = new LoginCommandHandler(repo)
+  const handler = new SignInCommandHandler(repo)
 
   const user = User.create({
     id: 'u-login',
@@ -29,7 +29,7 @@ describe('LoginCommandHandler', () => {
         refreshToken: 'token-r',
       },
     })
-    const cmd = new LoginCommand('USER@Test.com', 'secret123')
+    const cmd = new SignInCommand('USER@Test.com', 'secret123')
 
     const result = await handler.handle(cmd)
 
@@ -46,7 +46,7 @@ describe('LoginCommandHandler', () => {
   })
 
   it('throws for invalid email before calling repository', async () => {
-    const cmd = new LoginCommand('invalid', 'secret123')
+    const cmd = new SignInCommand('invalid', 'secret123')
     await expect(handler.handle(cmd)).rejects.toThrow('Invalid email: invalid')
     expect(mockLogin).not.toHaveBeenCalled()
   })
