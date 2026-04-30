@@ -1,6 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { LogoutCommand, LogoutCommandHandler } from './LogoutCommand'
+
 import type { IAuthRepository } from '../../domain/repositories/IAuthRepository'
+
+import { LogoutCommand, LogoutCommandHandler } from './LogoutCommand'
 
 describe('LogoutCommandHandler', () => {
   const mockLogout = vi.fn<IAuthRepository['logout']>()

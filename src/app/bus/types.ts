@@ -17,9 +17,3 @@ export interface IQueryHandler<TQuery extends IQuery, TResult> {
 export interface IPipelineBehavior {
   handle<T>(request: ICommand | IQuery, next: () => Promise<T>): Promise<T>
 }
-
-export interface HandlerMetadata {
-  requiredPermissions?: string[]
-  skipLogging?: boolean
-  skipValidation?: boolean
-}

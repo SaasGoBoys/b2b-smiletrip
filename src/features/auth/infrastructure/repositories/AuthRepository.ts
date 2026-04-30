@@ -1,12 +1,13 @@
+import { apiClient, postWithoutAuthInterceptors } from '@/shared/lib/axios'
+
+import type { Permission } from '../../domain/entities/Permission.entity'
+import type { User, UserRole } from '../../domain/entities/User.entity'
+import { User as UserEntity } from '../../domain/entities/User.entity'
 import type {
   AuthTokens,
   IAuthRepository,
   LoginCredentials,
 } from '../../domain/repositories/IAuthRepository'
-import type { User, UserRole } from '../../domain/entities/User.entity'
-import { User as UserEntity } from '../../domain/entities/User.entity'
-import type { Permission } from '../../domain/entities/Permission.entity'
-import { apiClient, postWithoutAuthInterceptors } from '@/shared/lib/axios'
 
 interface ApiUserPayload {
   id: string

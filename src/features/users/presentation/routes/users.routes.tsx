@@ -1,8 +1,10 @@
 import { lazy } from 'react'
 import { Outlet, type RouteObject } from 'react-router-dom'
+
 import { featureRouteLoader } from '@/app/composition/featureBusTiered'
-import { SuspenseWrapper } from '@/shared/router/SuspenseWrapper'
 import { PermissionRoute } from '@/app/router/PermissionRoute'
+
+import { SuspenseWrapper } from '@/shared/router/SuspenseWrapper'
 
 const UserListPage = lazy(() => import('@/features/users/presentation/pages/UserListPage'))
 const UserDetailPage = lazy(() => import('@/features/users/presentation/pages/UserDetailPage'))

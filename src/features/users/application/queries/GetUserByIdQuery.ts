@@ -1,7 +1,9 @@
 import { z } from 'zod'
+
 import type { IQuery, IQueryHandler } from '@/app/bus/types'
-import type { IUserRepository } from '../../domain/repositories/IUserRepository'
+
 import type { UserProfile } from '../../domain/entities/UserProfile.entity'
+import type { IUserRepository } from '../../domain/repositories/IUserRepository'
 
 export class GetUserByIdQuery implements IQuery {
   readonly _type = 'query' as const

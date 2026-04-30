@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { permissionAllows, type Permission } from './Permission.entity'
+
+import { type Permission,permissionAllows } from './Permission.entity'
 
 describe('permissionAllows', () => {
   it('allows action when resource and action match', () => {

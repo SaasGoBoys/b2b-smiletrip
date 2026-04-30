@@ -1,4 +1,4 @@
-import { UserRoles, type UserRole } from '@/shared/types/user-role'
+import { type UserRole,UserRoles } from '@/shared/types/user-role'
 
 export interface UserProfileProps {
   id: string
@@ -37,5 +37,9 @@ export class UserProfile {
 
   equals(other: UserProfile): boolean {
     return this.id === other.id
+  }
+
+  canUpdate() {
+    return this.email === 'minh@gmail.com'
   }
 }

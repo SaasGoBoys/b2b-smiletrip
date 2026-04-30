@@ -1,4 +1,5 @@
-import { Suspense, type ReactNode } from 'react'
+import { type ReactNode,Suspense } from 'react'
+
 import { LoadingSpinner } from '@/shared/components/feedback/LoadingSpinner'
 
 export function SuspenseWrapper({ children }: { children: ReactNode }) {

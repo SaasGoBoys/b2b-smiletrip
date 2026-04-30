@@ -1,5 +1,6 @@
 import type { PaginatedResponse } from '@/shared/types/api.types'
 import type { UserRole } from '@/shared/types/user-role'
+
 import type { UserProfile } from '../entities/UserProfile.entity'
 
 export interface UserListFilters {

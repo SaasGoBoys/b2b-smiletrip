@@ -1,8 +1,11 @@
 import { z } from 'zod'
+
 import type { ICommand, ICommandHandler } from '@/app/bus/types'
-import { UserRoles, type UserRole } from '@/shared/types/user-role'
-import type { IUserRepository } from '../../domain/repositories/IUserRepository'
+
+import { type UserRole,UserRoles } from '@/shared/types/user-role'
+
 import type { UserProfile } from '../../domain/entities/UserProfile.entity'
+import type { IUserRepository } from '../../domain/repositories/IUserRepository'
 
 const userRoleSchema = z.enum([UserRoles.ADMIN, UserRoles.USER, UserRoles.MODERATOR])
 

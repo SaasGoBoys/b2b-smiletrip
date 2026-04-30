@@ -1,5 +1,6 @@
 import { lazy } from 'react'
 import type { RouteObject } from 'react-router-dom'
+
 import { SuspenseWrapper } from '@/shared/router/SuspenseWrapper'
 
 const LoginPage = lazy(() => import('@/features/auth/presentation/pages/LoginPage'))

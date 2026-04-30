@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import { Button, Tag, Tabs, Tooltip } from 'antd'
+
+import { Button, Tabs, Tag, Tooltip } from 'antd'
 import {
-  WarningFilled,
   CheckCircleFilled,
   CloseCircleFilled,
   SwapOutlined,
+  WarningFilled,
 } from '@ant-design/icons'
+
 import type { Flight } from './FlightCard'
 
 const PRIMARY = '#4558B6'

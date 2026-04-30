@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
+
 import { queryBus } from '@/app/bus'
-import type { UserListFilters } from '../../domain/repositories/IUserRepository'
-import { GetUsersQuery } from '../../application/queries/GetUsersQuery'
+
 import type { PaginatedResponse } from '@/shared/types/api.types'
+
+import { GetUsersQuery } from '../../application/queries/GetUsersQuery'
 import type { UserProfile } from '../../domain/entities/UserProfile.entity'
+import type { UserListFilters } from '../../domain/repositories/IUserRepository'
 
 export const userKeys = {
   all: ['users'] as const,

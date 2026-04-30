@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { UserProfile } from './UserProfile.entity'
+
 import { UserRoles } from '@/shared/types/user-role'
+
+import { UserProfile } from './UserProfile.entity'
 
 describe('UserProfile Entity', () => {
   it('uses fullName as displayName when fullName is present', () => {

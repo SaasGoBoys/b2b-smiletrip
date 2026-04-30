@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { UserRepository } from './UserRepository'
+
 import { UserRoles } from '@/shared/types/user-role'
+
+import { UserRepository } from './UserRepository'
 
 describe('UserRepository (integration with MSW)', () => {
   it('getMany returns paginated users mapped to domain model', async () => {

@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
+
 import type { UserRole } from '@/shared/types/user-role'
 
 interface UserFilters {

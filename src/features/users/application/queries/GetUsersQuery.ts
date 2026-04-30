@@ -1,9 +1,12 @@
 import { z } from 'zod'
+
 import type { IQuery, IQueryHandler } from '@/app/bus/types'
-import { UserRoles, type UserRole } from '@/shared/types/user-role'
-import type { IUserRepository, UserListFilters } from '../../domain/repositories/IUserRepository'
+
 import type { PaginatedResponse } from '@/shared/types/api.types'
+import { type UserRole,UserRoles } from '@/shared/types/user-role'
+
 import type { UserProfile } from '../../domain/entities/UserProfile.entity'
+import type { IUserRepository, UserListFilters } from '../../domain/repositories/IUserRepository'
 
 const userRoleFilterSchema = z.union([
   z.enum([UserRoles.ADMIN, UserRoles.USER, UserRoles.MODERATOR]),

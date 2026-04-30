@@ -1,7 +1,9 @@
 import { useCallback } from 'react'
-import { useAuthStore } from '../../infrastructure/store/authStore'
+
 import { permissionService } from '@/app/bus'
+
 import type { PermissionAction, PermissionResource } from '../../domain/entities/Permission.entity'
+import { useAuthStore } from '../../infrastructure/store/authStore'
 
 export function usePermission() {
   const { user } = useAuthStore()

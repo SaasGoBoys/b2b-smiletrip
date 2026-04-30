@@ -1,8 +1,10 @@
 import { useState } from 'react'
+
 import { Col, Row } from 'antd'
-import { FlightSummaryCard } from './FlightSummaryCard'
-import { FlightFilterPanel, type FilterState } from './FlightFilterPanel'
+
+import { type FilterState,FlightFilterPanel } from './FlightFilterPanel'
 import { FlightResultList } from './FlightResultList'
+import { FlightSummaryCard } from './FlightSummaryCard'
 
 const DEFAULT_SUMMARY_FLIGHTS = [
   {

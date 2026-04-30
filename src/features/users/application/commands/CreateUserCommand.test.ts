@@ -1,8 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { CreateUserCommand, CreateUserCommandHandler } from './CreateUserCommand'
-import type { IUserRepository } from '../../domain/repositories/IUserRepository'
+
 import { UserRoles } from '@/shared/types/user-role'
+
 import { UserProfile } from '../../domain/entities/UserProfile.entity'
+import type { IUserRepository } from '../../domain/repositories/IUserRepository'
+
+import { CreateUserCommand, CreateUserCommandHandler } from './CreateUserCommand'
 
 describe('CreateUserCommandHandler', () => {
   const mockCreate = vi.fn<IUserRepository['create']>()

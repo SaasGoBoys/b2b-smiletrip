@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+
 import i18n from './i18n.config'
 
 export type Language = 'vi' | 'en'

@@ -1,7 +1,9 @@
 import { z } from 'zod'
+
 import type { ICommand, ICommandHandler } from '@/app/bus/types'
-import type { IAuthRepository } from '../../domain/repositories/IAuthRepository'
+
 import type { User } from '../../domain/entities/User.entity'
+import type { IAuthRepository } from '../../domain/repositories/IAuthRepository'
 import { Email } from '../../domain/value-objects/Email.vo'
 
 export class LoginCommand implements ICommand {

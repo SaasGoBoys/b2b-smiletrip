@@ -1,11 +1,14 @@
-import { Typography } from 'antd'
-import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useUserDetail } from '../hooks/useUserDetail'
-import { UserCard } from '../components/UserCard'
-import { LoadingSpinner } from '@/shared/components/feedback/LoadingSpinner'
+import { useParams } from 'react-router-dom'
+
+import { Typography } from 'antd'
+
 import { EmptyState } from '@/shared/components/feedback/EmptyState'
+import { LoadingSpinner } from '@/shared/components/feedback/LoadingSpinner'
 import { PageWrapper } from '@/shared/components/layout/PageWrapper'
+
+import { UserCard } from '../components/UserCard'
+import { useUserDetail } from '../hooks/useUserDetail'
 
 const { Title } = Typography
 

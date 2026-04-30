@@ -1,5 +1,6 @@
-import { Card, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
+
+import { Card, Typography } from 'antd'
 
 const { Title, Paragraph } = Typography
 

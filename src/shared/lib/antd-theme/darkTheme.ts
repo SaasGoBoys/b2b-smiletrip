@@ -1,6 +1,7 @@
 import type { ThemeConfig } from 'antd'
 import { theme } from 'antd'
-import { brandColors, typography, spacing } from './tokens'
+
+import { brandColors, spacing,typography } from './tokens'
 
 export const darkTheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,

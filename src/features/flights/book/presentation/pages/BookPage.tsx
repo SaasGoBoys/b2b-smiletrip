@@ -1,5 +1,7 @@
 import { lazy, Suspense, useState } from 'react'
+
 import { Spin } from 'antd'
+
 import { HeroBanner } from '../components/HeroBanner'
 
 const FlightSearchForm = lazy(() =>
@@ -81,7 +83,7 @@ export default function BookPage() {
         </div>
       </HeroBanner>
 
-      <div className="container mx-auto max-w-[1200px] px-6 mt-30">
+      <div className="container mx-auto max-w-300 px-6 mt-30">
         {searchParams.searched && (
           <>
             <div style={{ marginTop: 24, marginBottom: 16 }}>

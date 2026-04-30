@@ -1,7 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { LoginCommand, LoginCommandHandler } from './LoginCommand'
-import type { IAuthRepository } from '../../domain/repositories/IAuthRepository'
+
 import { User, UserRoles } from '../../domain/entities/User.entity'
+import type { IAuthRepository } from '../../domain/repositories/IAuthRepository'
+
+import { LoginCommand, LoginCommandHandler } from './LoginCommand'
 
 describe('LoginCommandHandler', () => {
   const mockLogin = vi.fn<IAuthRepository['login']>()

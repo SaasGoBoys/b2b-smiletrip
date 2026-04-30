@@ -1,5 +1,5 @@
-export { commandBus } from './CommandBus'
-export { queryBus } from './QueryBus'
 export { permissionService } from '../composition/permissionService'
-export type { ICommand, IQuery } from './types'
+export { commandBus } from './CommandBus'
 export { AppError } from './pipelines/ErrorBehavior'
+export { queryBus } from './QueryBus'
+export type { ICommand, IQuery } from './types'

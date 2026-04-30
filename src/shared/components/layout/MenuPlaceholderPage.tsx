@@ -1,5 +1,6 @@
-import { Card } from 'antd'
 import { useLocation } from 'react-router-dom'
+
+import { Card } from 'antd'
 
 export function MenuPlaceholderPage() {
   const { pathname } = useLocation()

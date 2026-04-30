@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+
 import { Email } from './Email.vo'
 
 describe('Email value object', () => {

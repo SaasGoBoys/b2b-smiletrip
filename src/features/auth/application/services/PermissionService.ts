@@ -1,7 +1,7 @@
-import type { IPermissionService } from '../../domain/repositories/IPermissionService'
+import type { PermissionAction, PermissionResource } from '../../domain/entities/Permission.entity'
 import type { User, UserRole } from '../../domain/entities/User.entity'
 import { UserRoles } from '../../domain/entities/User.entity'
-import type { PermissionAction, PermissionResource } from '../../domain/entities/Permission.entity'
+import type { IPermissionService } from '../../domain/repositories/IPermissionService'
 
 const PERMISSION_MAP: Record<UserRole, Record<string, PermissionAction[]>> = {
   [UserRoles.ADMIN]: {

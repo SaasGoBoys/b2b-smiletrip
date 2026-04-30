@@ -1,7 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
+
 import { queryBus } from '@/app/bus'
+
 import { GetUserByIdQuery } from '../../application/queries/GetUserByIdQuery'
 import type { UserProfile } from '../../domain/entities/UserProfile.entity'
+
 import { userKeys } from './useUsersQuery'
 
 export function useUserDetail(id: string | undefined) {

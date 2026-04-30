@@ -1,8 +1,11 @@
 import { createRoot } from 'react-dom/client'
+
 import { bootstrapApplication } from '@/app/composition/AppModule'
+
+import App from './app/App.tsx'
+
 import './styles/global.css'
 import './styles/antd-override.css'
-import App from './app/App.tsx'
 
 async function start() {
   if (import.meta.env.DEV && import.meta.env.VITE_ENABLE_MSW === 'true') {

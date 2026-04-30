@@ -5,6 +5,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import { flatConfigs } from 'eslint-plugin-import'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 
 export default tseslint.config(
   {
@@ -18,6 +19,7 @@ export default tseslint.config(
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       import: flatConfigs.recommended.plugins.import,
+      'simple-import-sort': simpleImportSort,
     },
     languageOptions: {
       ecmaVersion: 2020,
@@ -30,6 +32,67 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [
+            // ── Group 1: Node built-ins ─────────────────────────────────
+            ['^node:'],
+
+            // ── Group 2: External packages ──────────────────────────────
+            // React first, then other externals
+            ['^react', '^react-dom', '^react-router'],
+            ['^@tanstack', '^zustand', '^zod'],
+            ['^antd', '^@ant-design'],
+            ['^(?!@/)\\w', '^@(?!/)'], // Tất cả packages còn lại
+
+            // ── Group 3: App layer ──────────────────────────────────────
+            // Outer-most layer — infra của app
+            ['^@/app/'],
+
+            // ── Group 4: Shared Kernel ──────────────────────────────────
+            // Domain concepts dùng chung — ổn định nhất
+            ['^@/shared/kernel/'],
+
+            // ── Group 5: Shared utilities (không có domain logic) ───────
+            ['^@/shared/'],
+
+            // ── Group 6: Cross-feature imports ─────────────────────────
+            // Khi feature A cần dùng gì đó của feature B
+            // Nhìn thấy ngay để review kỹ hơn
+            ['^@/features/(?!.*current-feature)'],
+
+            // ── Group 7: Cùng feature — theo layer (inward dependency) ──
+            // Domain → Application → Infrastructure → Presentation
+            ['^@/features/.*/domain/'],
+            ['^@/features/.*/application/'],
+            ['^@/features/.*/infrastructure/'],
+            ['^@/features/.*/presentation/'],
+
+            // ── Group 8: Relative imports ───────────────────────────────
+            // Cùng layer, cùng thư mục
+            ['^\\.\\./'], // Parent directory trước
+            ['^\\.\\./domain/'],
+            ['^\\.\\./application/'],
+            ['^\\.\\./infrastructure/'],
+            ['^\\.\\./presentation/'],
+            ['^\\./', '^\\.'], // Same directory cuối cùng
+          ],
+        },
+      ],
+
+      'simple-import-sort/exports': ['error'],
+
+      // Không được import vòng tròn
+      'import/no-cycle': ['error', { maxDepth: 3 }],
+
+      // Không import thứ không tồn tại
+      'import/no-unresolved': 'off', // Để TypeScript lo
+
+      // Phải có newline giữa các groups
+      'import/first': 'error',
+      'import/newline-after-import': ['error', { count: 1 }],
+      'import/no-duplicates': 'error',
     },
   },
   {

@@ -1,10 +1,13 @@
-import type { IPipelineBehavior } from '../types'
-import { useAuthStore } from '@/features/auth/infrastructure/store/authStore'
 import { permissionService } from '@/app/composition/permissionService'
+
 import type {
   PermissionAction,
   PermissionResource,
 } from '@/features/auth/domain/entities/Permission.entity'
+
+import { useAuthStore } from '@/features/auth/infrastructure/store/authStore'
+
+import type { IPipelineBehavior } from '../types'
 
 interface Authorizable {
   constructor: { requiredPermission?: string }

@@ -1,8 +1,11 @@
 import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Card, Checkbox, Form, Input, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { loginSchema, type LoginDto } from '../../application/dtos/LoginDto'
+
+import { Button, Card, Checkbox, Form, Input, Typography } from 'antd'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+
+import { type LoginDto,loginSchema } from '../../application/dtos/LoginDto'
 import { useAuth } from '../hooks/useAuth'
 
 const { Title } = Typography

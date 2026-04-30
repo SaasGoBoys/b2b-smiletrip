@@ -1,5 +1,7 @@
 import { http, HttpResponse } from 'msw'
-import { UserRoles, toUserRole } from '@/shared/types/user-role'
+
+import { toUserRole,UserRoles } from '@/shared/types/user-role'
+
 import {
   buildMockLoginUser,
   createMockUser,
