@@ -17,9 +17,17 @@
   "nav": {
     "dashboard": "Tổng quan",
     "users": "Người dùng",
-    "settings": "Cài đặt"
+    "settings": "Cài đặt",
+    "products": "Sản Phẩm",
+    "agentPolicy": "Chính sách đại lý",
+    "contactInfo": "Thông tin liên hệ"
   },
   "pagination": {
     "total": "Tổng {{total}} bản ghi"
+  },
+  "header": {
+    "search": "Tìm kiếm",
+    "login": "Đăng nhập",
+    "register": "Đăng ký"
   }
 }

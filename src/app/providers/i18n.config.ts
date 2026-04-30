@@ -9,7 +9,7 @@ void i18n
   .init({
     lng: 'vi',
     fallbackLng: 'vi',
-    supportedLngs: ['vi', 'en'],
+    supportedLngs: ['vi', 'ja', 'fr', 'en'],
     defaultNS: 'common',
     ns: ['common', 'auth', 'users', 'dashboard'],
     backend: {

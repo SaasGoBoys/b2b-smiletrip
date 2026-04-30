@@ -1,11 +1,15 @@
+import { useForm } from 'react-hook-form'
+
 import { useMutation } from '@tanstack/react-query'
 
 import { message } from 'antd'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+
 import { commandBus } from '@/app/bus'
 
 import { SignInCommand, type SignInCommandResult } from '../../application/commands/SignInCommand'
-import type { LoginDto } from '../../application/dtos/LoginDto'
+import { type LoginDto, loginSchema } from '../../application/dtos/LoginDto'
 import { useAuthStore } from '../../infrastructure/store/authStore'
 
 function getErrorMessage(error: unknown): string {
@@ -13,8 +17,13 @@ function getErrorMessage(error: unknown): string {
   return 'Đăng nhập thất bại'
 }
 
-export function useAuth() {
-  const { user, isAuthenticated, setUser, clearAuth } = useAuthStore()
+const useSignInController = () => {
+  const { setUser } = useAuthStore()
+
+  const methods = useForm<LoginDto>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: '', password: '', rememberMe: false },
+  })
 
   const loginMutation = useMutation({
     mutationFn: (data: LoginDto) =>
@@ -30,15 +39,14 @@ export function useAuth() {
     },
   })
 
-  const logout = () => {
-    clearAuth()
-  }
+  const onSubmit = (data: LoginDto) => loginMutation.mutate(data)
 
   return {
-    user,
-    isAuthenticated,
+    form: methods,
+
+    onSubmit,
     isLoading: loginMutation.isPending,
-    login: loginMutation.mutate,
-    logout,
   }
 }
+
+export default useSignInController

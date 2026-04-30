@@ -14,10 +14,10 @@ This document describes how `CommandBus` / `QueryBus` work, how pipeline behavio
 
 ## 2. Command vs Query (CQRS)
 
-| Concept | Purpose | Bus API |
-|--------|---------|---------|
+| Concept   | Purpose                                             | Bus API                    |
+| --------- | --------------------------------------------------- | -------------------------- |
 | `Command` | Change state (login, create user, update user, ...) | `commandBus.send(command)` |
-| `Query` | Read data (user list/detail, ...) | `queryBus.query(query)` |
+| `Query`   | Read data (user list/detail, ...)                   | `queryBus.query(query)`    |
 
 File convention:
 
@@ -136,7 +136,7 @@ When a new feature needs a new repository:
 
 - Hooks/components call bus APIs, not repositories directly.
 - Example:
-  - `commandBus.send(new LoginCommand(...))`
+  - `commandBus.send(new SignInCommand(...))`
   - `queryBus.query(new GetUsersQuery(...))`
 
 Avoid creating repository instances in hooks/components.
@@ -155,11 +155,11 @@ UI guards and bus authorization should complement each other.
 
 ## 11. Testing suggestions
 
-| Goal | Approach |
-|------|----------|
-| Unit test handlers | Mock repository ports and call `handler.handle(...)` |
-| Validate schema behavior | Use bus + `ValidationBehavior` with invalid commands |
-| Repository integration | Use MSW + real adapter (`AuthRepository`, `UserRepository`) |
+| Goal                     | Approach                                                    |
+| ------------------------ | ----------------------------------------------------------- |
+| Unit test handlers       | Mock repository ports and call `handler.handle(...)`        |
+| Validate schema behavior | Use bus + `ValidationBehavior` with invalid commands        |
+| Repository integration   | Use MSW + real adapter (`AuthRepository`, `UserRepository`) |
 
 ---
 

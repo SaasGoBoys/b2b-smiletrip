@@ -1,0 +1,8 @@
+{
+  "title": "Tableau de bord",
+  "stats": {
+    "activeUsers": "Utilisateurs actifs",
+    "revenue": "Revenus (démo)",
+    "tasks": "Tâches"
+  }
+}

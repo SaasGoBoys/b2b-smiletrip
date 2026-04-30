@@ -6,7 +6,7 @@ import type { User } from '../../domain/entities/User.entity'
 import type { IAuthRepository } from '../../domain/repositories/IAuthRepository'
 import { Email } from '../../domain/value-objects/Email.vo'
 
-export class LoginCommand implements ICommand {
+export class SignInCommand implements ICommand {
   readonly _type = 'command' as const
   static readonly schema = z.object({
     email: z.string().email(),
@@ -22,20 +22,20 @@ export class LoginCommand implements ICommand {
   }
 }
 
-export interface LoginCommandResult {
+export interface SignInCommandResult {
   user: User
   accessToken: string
   refreshToken: string
 }
 
-export class LoginCommandHandler implements ICommandHandler<LoginCommand, LoginCommandResult> {
+export class SignInCommandHandler implements ICommandHandler<SignInCommand, SignInCommandResult> {
   private readonly authRepository: IAuthRepository
 
   constructor(authRepository: IAuthRepository) {
     this.authRepository = authRepository
   }
 
-  async handle(cmd: LoginCommand): Promise<LoginCommandResult> {
+  async handle(cmd: SignInCommand): Promise<SignInCommandResult> {
     const email = Email.create(cmd.email)
 
     const result = await this.authRepository.login({
