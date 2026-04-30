@@ -1,5 +1,6 @@
-import { Modal } from 'antd'
 import type { ReactNode } from 'react'
+
+import { Modal } from 'antd'
 
 interface Props {
   open: boolean

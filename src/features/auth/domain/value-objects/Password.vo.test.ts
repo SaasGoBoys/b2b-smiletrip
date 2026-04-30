@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+
 import { Password } from './Password.vo'
 
 describe('Password value object', () => {

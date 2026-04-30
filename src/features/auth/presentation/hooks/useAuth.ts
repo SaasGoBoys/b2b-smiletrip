@@ -1,10 +1,14 @@
-import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+
+import { useMutation } from '@tanstack/react-query'
+
 import { message } from 'antd'
+
 import { commandBus } from '@/app/bus'
+
 import { LoginCommand, type LoginCommandResult } from '../../application/commands/LoginCommand'
-import { useAuthStore } from '../../infrastructure/store/authStore'
 import type { LoginDto } from '../../application/dtos/LoginDto'
+import { useAuthStore } from '../../infrastructure/store/authStore'
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) return error.message

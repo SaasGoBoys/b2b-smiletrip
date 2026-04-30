@@ -1,4 +1,5 @@
 import { Card, Descriptions } from 'antd'
+
 import type { UserProfile } from '../../domain/entities/UserProfile.entity'
 
 interface Props {

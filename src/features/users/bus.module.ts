@@ -1,4 +1,5 @@
 import type { FeatureBusModule } from '@/app/composition/types'
+
 import {
   CreateUserCommand,
   CreateUserCommandHandler,
@@ -7,8 +8,8 @@ import {
   UpdateUserCommand,
   UpdateUserCommandHandler,
 } from './application/commands/UpdateUserCommand'
-import { GetUsersQuery, GetUsersQueryHandler } from './application/queries/GetUsersQuery'
 import { GetUserByIdQuery, GetUserByIdQueryHandler } from './application/queries/GetUserByIdQuery'
+import { GetUsersQuery, GetUsersQueryHandler } from './application/queries/GetUsersQuery'
 import { UserRepository } from './infrastructure/repositories/UserRepository'
 
 const registerUsersBus: FeatureBusModule = ({ commandBus, queryBus }) => {

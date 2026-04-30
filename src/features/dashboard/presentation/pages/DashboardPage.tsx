@@ -1,8 +1,11 @@
-import { Col, Row, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { StatCard } from '../components/StatCard'
-import { RecentActivityList } from '../components/RecentActivityList'
+
+import { Col, Row, Typography } from 'antd'
+
 import { PageWrapper } from '@/shared/components/layout/PageWrapper'
+
+import { RecentActivityList } from '../components/RecentActivityList'
+import { StatCard } from '../components/StatCard'
 
 const { Title } = Typography
 

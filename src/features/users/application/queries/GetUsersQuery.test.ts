@@ -1,8 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { GetUsersQuery, GetUsersQueryHandler } from './GetUsersQuery'
-import type { IUserRepository } from '../../domain/repositories/IUserRepository'
+
 import { UserRoles } from '@/shared/types/user-role'
+
 import { UserProfile } from '../../domain/entities/UserProfile.entity'
+import type { IUserRepository } from '../../domain/repositories/IUserRepository'
+
+import { GetUsersQuery, GetUsersQueryHandler } from './GetUsersQuery'
 
 describe('GetUsersQueryHandler', () => {
   const mockGetMany = vi.fn<IUserRepository['getMany']>()

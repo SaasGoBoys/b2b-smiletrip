@@ -1,4 +1,4 @@
-import type { IQuery, IQueryHandler, IPipelineBehavior } from './types'
+import type { IPipelineBehavior,IQuery, IQueryHandler } from './types'
 
 export class QueryBus {
   private readonly handlers = new Map<string, { handler: IQueryHandler<IQuery, unknown> }>()

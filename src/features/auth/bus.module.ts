@@ -1,4 +1,5 @@
 import type { FeatureBusModule } from '@/app/composition/types'
+
 import { LoginCommand, LoginCommandHandler } from './application/commands/LoginCommand'
 import { LogoutCommand, LogoutCommandHandler } from './application/commands/LogoutCommand'
 import { AuthRepository } from './infrastructure/repositories/AuthRepository'

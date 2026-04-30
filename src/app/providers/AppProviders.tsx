@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
-import { QueryProvider } from './QueryProvider'
+
 import { I18nProvider } from './I18nProvider'
+import { QueryProvider } from './QueryProvider'
 import { ThemeProvider } from './ThemeProvider'
 
 export function AppProviders({ children }: { children: ReactNode }) {

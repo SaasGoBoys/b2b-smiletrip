@@ -1,5 +1,7 @@
 import { lazy, Suspense, useState } from 'react'
+
 import { Spin } from 'antd'
+
 import { HeroBanner } from '../components/HeroBanner'
 
 const FlightSearchForm = lazy(() =>

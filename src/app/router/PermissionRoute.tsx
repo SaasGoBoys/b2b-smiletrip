@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react'
 import { Navigate } from 'react-router-dom'
-import { usePermission } from '@/features/auth/presentation/hooks/usePermission'
+
 import type { PermissionAction, PermissionResource } from '@/features/auth/domain/entities/Permission.entity'
+
+import { usePermission } from '@/features/auth/presentation/hooks/usePermission'
 
 interface PermissionRouteProps {
   children: ReactNode

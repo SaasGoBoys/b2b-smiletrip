@@ -1,10 +1,12 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
-import { ConfigProvider } from 'antd'
-import viVN from 'antd/locale/vi_VN'
-import enUS from 'antd/locale/en_US'
+import { createContext, type ReactNode,useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { lightTheme } from '@/shared/lib/antd-theme/lightTheme'
+
+import { ConfigProvider } from 'antd'
+import enUS from 'antd/locale/en_US'
+import viVN from 'antd/locale/vi_VN'
+
 import { darkTheme } from '@/shared/lib/antd-theme/darkTheme'
+import { lightTheme } from '@/shared/lib/antd-theme/lightTheme'
 import { configureDayjsLocale } from '@/shared/lib/dayjs'
 
 type ThemeMode = 'light' | 'dark'

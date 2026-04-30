@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom'
+
 import { Table } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
+
 import type { UserProfile } from '../../domain/entities/UserProfile.entity'
-import { Link } from 'react-router-dom'
 
 interface Props {
   users: UserProfile[]

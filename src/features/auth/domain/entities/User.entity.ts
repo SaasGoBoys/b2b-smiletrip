@@ -1,7 +1,8 @@
+import { type UserRole,UserRoles } from '@/shared/types/user-role'
+
 import type { Permission } from './Permission.entity'
 
-export { UserRoles, type UserRole, toUserRole } from '@/shared/types/user-role'
-import { UserRoles, type UserRole } from '@/shared/types/user-role'
+export { toUserRole,type UserRole, UserRoles } from '@/shared/types/user-role'
 
 export interface UserProps {
   id: string

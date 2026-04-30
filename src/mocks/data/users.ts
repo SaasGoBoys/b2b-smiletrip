@@ -1,7 +1,8 @@
-import { UserRoles } from '@/features/auth/domain/entities/User.entity'
-import type { Permission } from '@/features/auth/domain/entities/Permission.entity'
 import type { PaginatedResponse } from '@/shared/types/api.types'
 import type { UserRole } from '@/shared/types/user-role'
+
+import type { Permission } from '@/features/auth/domain/entities/Permission.entity'
+import { UserRoles } from '@/features/auth/domain/entities/User.entity'
 
 export interface MockApiUser {
   id: string

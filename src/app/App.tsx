@@ -1,7 +1,9 @@
 import { useMemo } from 'react'
 import { RouterProvider } from 'react-router-dom'
-import { AppProviders } from './providers/AppProviders'
+
 import { ErrorBoundary } from '@/shared/components/feedback/ErrorBoundary'
+
+import { AppProviders } from './providers/AppProviders'
 import { createAppRouter } from './router'
 
 export default function App() {

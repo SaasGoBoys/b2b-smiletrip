@@ -1,8 +1,8 @@
 import { Button, Input, Space } from 'antd'
 import {
+  DownOutlined,
   SearchOutlined,
   UserOutlined,
-  DownOutlined,
 } from '@ant-design/icons'
 
 const BANNER_IMG = 'http://localhost:3845/assets/86dfffd8d2e44a87911db030ae4b650c5b370ebd.png'

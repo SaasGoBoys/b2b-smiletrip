@@ -1,4 +1,5 @@
 import type { ICommand, ICommandHandler } from '@/app/bus/types'
+
 import type { IAuthRepository } from '../../domain/repositories/IAuthRepository'
 
 export class LogoutCommand implements ICommand {

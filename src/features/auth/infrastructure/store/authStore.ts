@@ -1,7 +1,8 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import type { User } from '../../domain/entities/User.entity'
+
 import type { Permission } from '../../domain/entities/Permission.entity'
+import type { User } from '../../domain/entities/User.entity'
 
 interface AuthState {
   user: User | null

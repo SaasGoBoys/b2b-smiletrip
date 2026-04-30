@@ -1,8 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { UpdateUserCommand, UpdateUserCommandHandler } from './UpdateUserCommand'
-import type { IUserRepository } from '../../domain/repositories/IUserRepository'
+
 import { UserRoles } from '@/shared/types/user-role'
+
 import { UserProfile } from '../../domain/entities/UserProfile.entity'
+import type { IUserRepository } from '../../domain/repositories/IUserRepository'
+
+import { UpdateUserCommand, UpdateUserCommandHandler } from './UpdateUserCommand'
 
 describe('UpdateUserCommandHandler', () => {
   const mockUpdate = vi.fn<IUserRepository['update']>()

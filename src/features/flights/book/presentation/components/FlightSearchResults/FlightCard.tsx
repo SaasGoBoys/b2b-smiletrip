@@ -1,6 +1,8 @@
 import { useState } from 'react'
+
 import { Button, Tooltip } from 'antd'
 import { DownOutlined, UpOutlined } from '@ant-design/icons'
+
 import { FlightDetailPanel } from './FlightDetailPanel'
 
 const PRIMARY = '#4558B6'

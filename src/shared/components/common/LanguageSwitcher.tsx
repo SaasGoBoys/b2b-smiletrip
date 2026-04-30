@@ -1,5 +1,6 @@
 import { Select } from 'antd'
-import { useI18nStore, type Language } from '@/app/providers/i18n.store'
+
+import { type Language,useI18nStore } from '@/app/providers/i18n.store'
 
 const LANGUAGE_OPTIONS = [
   { value: 'vi', label: '🇻🇳 Tiếng Việt' },

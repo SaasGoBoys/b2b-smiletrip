@@ -1,9 +1,10 @@
-import type { IUserRepository, UserListFilters } from '../../domain/repositories/IUserRepository'
+import { apiClient } from '@/shared/lib/axios'
 import type { PaginatedResponse } from '@/shared/types/api.types'
 import type { UserRole } from '@/shared/types/user-role'
 import { toUserRole } from '@/shared/types/user-role'
+
 import { UserProfile } from '../../domain/entities/UserProfile.entity'
-import { apiClient } from '@/shared/lib/axios'
+import type { IUserRepository, UserListFilters } from '../../domain/repositories/IUserRepository'
 
 interface ApiUserRow {
   id: string

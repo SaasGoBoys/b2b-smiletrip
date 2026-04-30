@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { PermissionService } from './PermissionService'
+
 import { User, UserRoles } from '../../domain/entities/User.entity'
+
+import { PermissionService } from './PermissionService'
 
 function makeUser(role: (typeof UserRoles)[keyof typeof UserRoles]) {
   return User.create({

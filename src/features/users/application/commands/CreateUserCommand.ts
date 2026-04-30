@@ -1,7 +1,9 @@
 import type { ICommand, ICommandHandler } from '@/app/bus/types'
+
 import type { UserRole } from '@/shared/types/user-role'
-import type { IUserRepository } from '../../domain/repositories/IUserRepository'
+
 import type { UserProfile } from '../../domain/entities/UserProfile.entity'
+import type { IUserRepository } from '../../domain/repositories/IUserRepository'
 import { createUserSchema } from '../dtos/UserDto'
 
 export class CreateUserCommand implements ICommand {
