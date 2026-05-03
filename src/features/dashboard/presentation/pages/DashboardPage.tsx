@@ -1,32 +1,34 @@
-import { useTranslation } from 'react-i18next'
-
-import { Col, Row, Typography } from 'antd'
-
-import { PageWrapper } from '@/shared/components/layout/PageWrapper'
-
-import { RecentActivityList } from '../components/RecentActivityList'
-import { StatCard } from '../components/StatCard'
-
-const { Title } = Typography
+import { DashboardAgentTable } from '../components/vfjlink/DashboardAgentTable'
+import { DashboardFeedCard } from '../components/vfjlink/DashboardFeedCard'
+import { DashboardSectionLabel } from '../components/vfjlink/DashboardSectionLabel'
+import { DashboardServiceTabs } from '../components/vfjlink/DashboardServiceTabs'
+import { KpiStrip } from '../components/vfjlink/KpiStrip'
+import { RevenueLineChartCard } from '../components/vfjlink/RevenueLineChartCard'
+import { ServiceDonutCard } from '../components/vfjlink/ServiceDonutCard'
+import { useVfjlinkDashboard } from '../hooks/useVfjlinkDashboard'
 
 export default function DashboardPage() {
-  const { t } = useTranslation('dashboard')
+  const data = useVfjlinkDashboard()
 
   return (
-    <PageWrapper>
-      <Title level={3}>{t('title')}</Title>
-      <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
-        <Col xs={24} sm={12} lg={8}>
-          <StatCard title={t('stats.activeUsers')} value={128} />
-        </Col>
-        <Col xs={24} sm={12} lg={8}>
-          <StatCard title={t('stats.revenue')} value={45820} />
-        </Col>
-        <Col xs={24} sm={12} lg={8}>
-          <StatCard title={t('stats.tasks')} value={12} />
-        </Col>
-      </Row>
-      <RecentActivityList />
-    </PageWrapper>
+    <div className="min-h-full bg-slate-100 text-slate-800 text-[13px]">
+      <div className="max-w-[1600px] mx-auto px-5 py-5 flex flex-col gap-4">
+        <DashboardSectionLabel>📊 Tổng quan {data.monthLabel}</DashboardSectionLabel>
+        <KpiStrip kpis={data.kpis} />
+
+        <DashboardSectionLabel>📈 Biểu đồ doanh thu &amp; phân loại dịch vụ</DashboardSectionLabel>
+        <div className="grid grid-cols-1 xl:grid-cols-[1fr_220px_400px] gap-3">
+          <RevenueLineChartCard pack={data.revenue} />
+          <ServiceDonutCard data={data.donut} />
+          <DashboardFeedCard alerts={data.alerts} important={data.important} news={data.news} />
+        </div>
+
+        <DashboardSectionLabel>🛫 Thống kê theo loại dịch vụ</DashboardSectionLabel>
+        <DashboardServiceTabs panes={data.servicePanes} />
+
+        <DashboardSectionLabel>🏢 Mạng lưới Đại lý F2 — Hiệu suất &amp; Năng lực kinh doanh</DashboardSectionLabel>
+        <DashboardAgentTable agents={data.agents} summary={data.agentSummary} />
+      </div>
+    </div>
   )
 }

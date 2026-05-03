@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 
 import { useQueryClient } from '@tanstack/react-query'
 
-import { Button, message,Modal, Space, Typography } from 'antd'
+import { Button, message, Modal, Space, Typography } from 'antd'
 
 import { EmptyState } from '@/shared/components/feedback/EmptyState'
 import { PageWrapper } from '@/shared/components/layout/PageWrapper'
@@ -11,7 +11,7 @@ import type { CreateUserDto } from '../../application/dtos/UserDto'
 import { UserForm } from '../components/UserForm'
 import { UserTable } from '../components/UserTable'
 import { useCreateUserMutation } from '../hooks/useCreateUserMutation'
-import { userKeys,useUsersQuery } from '../hooks/useUsersQuery'
+import { userKeys, useUsersQuery } from '../hooks/useUsersQuery'
 import { useUserUIStore } from '../store/userStore'
 
 const { Title } = Typography
@@ -59,9 +59,7 @@ export default function UserListPage() {
           <UserTable users={users} loading={isLoading} />
         )}
         {!isLoading && !isError && (
-          <Typography.Text type="secondary">
-            {t('pagination.total', { total })}
-          </Typography.Text>
+          <Typography.Text type="secondary">{t('pagination.total', { total })}</Typography.Text>
         )}
       </Space>
 
