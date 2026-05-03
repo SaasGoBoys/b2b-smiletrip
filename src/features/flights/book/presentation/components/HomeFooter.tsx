@@ -1,10 +1,13 @@
 import { Col, Divider, Row, Space, Typography } from 'antd'
+
 import {
-  FacebookOutlined,
-  InstagramOutlined,
-  TwitterOutlined,
-  YoutubeOutlined,
-} from '@ant-design/icons'
+  FacebookBoxIcon,
+  InstagramBoxIcon,
+  MastercardIcon,
+  ThreadsBoxIcon,
+  TikTokBoxIcon,
+  VisaIcon,
+} from '@/assets/icons/icons'
 
 const { Title, Text, Link } = Typography
 
@@ -27,45 +30,24 @@ const FOOTER_LINKS = {
 
 export function HomeFooter() {
   return (
-    <footer
-      style={{
-        background: '#fff',
-        borderTop: '1px solid #f0f0f0',
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1580,
-          margin: '0 auto',
-          paddingInline: 16,
-          paddingTop: 40,
-          paddingBottom: 24,
-        }}
-      >
+    <footer className="bg-white border-t border-border-main">
+      {/* Main links section */}
+      <div className="container mx-auto px-4 py-10">
         <Row gutter={[40, 32]}>
           {Object.entries(FOOTER_LINKS).map(([section, links]) => (
             <Col xs={24} sm={12} md={6} key={section}>
               <Title
                 level={5}
-                style={{
-                  fontSize: 16,
-                  fontWeight: 700,
-                  color: '#111827',
-                  marginBottom: 16,
-                }}
+                className="!text-[18px] !font-semibold !text-text-main !mb-4"
               >
                 {section}
               </Title>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div className="flex flex-col gap-[10px]">
                 {links.map((link) => (
                   <Link
                     key={link}
                     href="#"
-                    style={{
-                      fontSize: 14,
-                      color: '#6b7280',
-                      textDecoration: 'none',
-                    }}
+                    className="!text-[14px] !text-text-main !font-normal hover:!text-primary hover:!underline transition-colors duration-150"
                   >
                     {link}
                   </Link>
@@ -74,75 +56,53 @@ export function HomeFooter() {
             </Col>
           ))}
 
+          {/* Payment channels */}
           <Col xs={24} sm={12} md={6}>
             <Title
               level={5}
-              style={{
-                fontSize: 16,
-                fontWeight: 700,
-                color: '#111827',
-                marginBottom: 16,
-              }}
+              className="!text-[18px] !font-semibold !text-text-main !mb-4"
             >
               Kênh thanh toán
             </Title>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              {['Mastercard', 'Visa'].map((payment) => (
-                <div
-                  key={payment}
-                  style={{
-                    width: 56,
-                    height: 36,
-                    border: '1px solid #e5e7eb',
-                    borderRadius: 6,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: 10,
-                    fontWeight: 700,
-                    color: '#374151',
-                    background: '#f9fafb',
-                    letterSpacing: '-0.3px',
-                  }}
-                >
-                  {payment}
-                </div>
-              ))}
+            <div className="flex gap-2 flex-wrap items-center">
+              <MastercardIcon />
+              <VisaIcon />
             </div>
           </Col>
         </Row>
       </div>
 
-      <Divider style={{ margin: 0 }} />
+      <Divider className="!m-0" />
 
-      <div
-        style={{
-          maxWidth: 1580,
-          margin: '0 auto',
-          paddingInline: 16,
-          paddingBlock: 20,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: 12,
-        }}
-      >
-        <Text style={{ fontSize: 13, color: '#9ca3af' }}>
+      {/* Bottom bar */}
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between flex-wrap gap-3">
+        <Text className="!text-[16px] !text-text-main">
           © 2014-2026 VFJLink. All Rights Reserved.
         </Text>
-        <Space size={16}>
-          <Link href="#" style={{ color: '#9ca3af', fontSize: 18 }}>
-            <FacebookOutlined />
+        <Space size={8}>
+          <Link
+            href="#"
+            className="flex items-center opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-150"
+          >
+            <FacebookBoxIcon width={25} height={25} />
           </Link>
-          <Link href="#" style={{ color: '#9ca3af', fontSize: 18 }}>
-            <InstagramOutlined />
+          <Link
+            href="#"
+            className="flex items-center opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-150"
+          >
+            <TikTokBoxIcon width={25} height={25} />
           </Link>
-          <Link href="#" style={{ color: '#9ca3af', fontSize: 18 }}>
-            <TwitterOutlined />
+          <Link
+            href="#"
+            className="flex items-center opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-150"
+          >
+            <InstagramBoxIcon width={25} height={25} />
           </Link>
-          <Link href="#" style={{ color: '#9ca3af', fontSize: 18 }}>
-            <YoutubeOutlined />
+          <Link
+            href="#"
+            className="flex items-center opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-150"
+          >
+            <ThreadsBoxIcon width={25} height={25} />
           </Link>
         </Space>
       </div>

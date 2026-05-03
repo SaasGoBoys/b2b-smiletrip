@@ -1,451 +1,197 @@
-import { useState } from 'react'
+import { ConfigProvider,Select } from 'antd'
 
-import { Button, Tabs, Tag, Tooltip } from 'antd'
-import {
-  CheckCircleFilled,
-  CloseCircleFilled,
-  SwapOutlined,
-  WarningFilled,
-} from '@ant-design/icons'
+import { AirlineLogo } from '@/shared/components/common/AirlineLogo'
 
 import type { Flight } from './FlightCard'
+import { FlightDetailTabs } from './FlightDetailTabs/FlightDetailTabs'
 
-const PRIMARY = '#4558B6'
+import {
+  AirplaneCharterIcon,
+  BoltIcon,
+  ChevronDownCircleIcon,
+  EntertainmentAmenityIcon,
+  FlightWarningRedIcon,
+  GroupIcon,
+  LaborIcon,
+  LuggageIcon,
+  MealAmenityIcon,
+  PromotionStarIcon,
+  StudyIcon,
+  TicketIcon,
+  TravelBagIcon,
+} from '@/assets/icons/icons'
 
-interface FareTier {
-  id: string
-  name: string
-  price: number
-  originalPrice?: number
-  tag?: string
-  tagColor?: string
-  baggage: string
-  changeFee: string
-  refundFee: string
-  meal: boolean
-  entertainment: boolean
-  charging: boolean
-}
-
-const FARE_TIERS: FareTier[] = [
-  {
-    id: 'eco-basic',
-    name: 'Phổ thông cơ bản',
-    price: 2882660,
-    originalPrice: 5834000,
-    tag: 'Rẻ nhất',
-    tagColor: '#059669',
-    baggage: '7kg xách tay',
-    changeFee: '550.000đ',
-    refundFee: 'Không hoàn',
-    meal: false,
-    entertainment: false,
-    charging: false,
-  },
-  {
-    id: 'eco-flex',
-    name: 'Phổ thông linh hoạt',
-    price: 3450000,
-    baggage: '7kg xách tay + 23kg ký gửi',
-    changeFee: '220.000đ',
-    refundFee: '550.000đ',
-    meal: true,
-    entertainment: false,
-    charging: true,
-  },
-  {
-    id: 'business',
-    name: 'Thương gia',
-    price: 6900000,
-    baggage: '10kg xách tay + 32kg ký gửi',
-    changeFee: 'Miễn phí',
-    refundFee: 'Miễn phí',
-    meal: true,
-    entertainment: true,
-    charging: true,
-  },
-]
 
 const PROMOTIONS = [
-  { code: 'BAYFSHOLIDAY', label: 'BAYFSHOLIDAY giảm đến 50%', color: '#ef4444' },
-  { code: 'BAYFS44', label: 'BAYFS44 giảm đến 999K', color: '#f97316' },
-  { code: 'UU_DAI', label: 'Ưu đãi mừng 30/4', color: '#dc2626' },
+  { code: 'UU_DAI', label: 'Ưu đãi mừng đại lễ', variant: 'fill', icon: <PromotionStarIcon width={18} height={18} /> },
+  { code: 'BAYFSHOLIDAY', label: 'BAYFSHOLIDAY giảm đến 50%', variant: 'outline', icon: <TicketIcon width={18} height={18} /> },
+  { code: 'BAYFS44', label: 'BAYFS44 giảm đến 999k', variant: 'outline', icon: <TicketIcon width={18} height={18} /> },
+  { code: 'BAYFSHOLIDAY2', label: 'BAYFSHOLIDAY giảm đến 50%', variant: 'outline', icon: <TicketIcon width={18} height={18} /> },
 ]
 
-interface Benefit {
-  label: string
-  included: boolean
-}
 
-function BenefitRow({ label, included }: Benefit) {
+function SpecialTag({ icon, label, className = 'bg-[#86CED9]/40 text-[#54858C] font-semibold' }: { icon?: React.ReactNode; label?: string; className?: string }) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 8,
-        padding: '6px 0',
-        borderBottom: '1px solid #f3f4f6',
-        fontSize: 13,
-        color: included ? '#111827' : '#9ca3af',
-      }}
-    >
-      {included ? (
-        <CheckCircleFilled style={{ color: '#059669', fontSize: 15 }} />
-      ) : (
-        <CloseCircleFilled style={{ color: '#d1d5db', fontSize: 15 }} />
-      )}
+    <div className={`h-[28px] flex items-center gap-1.5 px-2 py-1 rounded-[5px] text-[13px] whitespace-nowrap ${className}`}>
+      {icon}
       {label}
     </div>
   )
 }
 
-function FareTierCard({
-  tier,
-  selected,
-  onSelect,
-}: {
-  tier: FareTier
-  selected: boolean
-  onSelect: () => void
-}) {
+function PromotionTag({ label, variant = 'fill', icon }: { label: string; variant?: 'fill' | 'outline'; icon?: React.ReactNode }) {
+  const isOutline = variant === 'outline'
   return (
     <div
-      onClick={onSelect}
-      style={{
-        border: selected ? `2px solid ${PRIMARY}` : '2px solid #e5e7eb',
-        borderRadius: 10,
-        padding: '14px 16px',
-        cursor: 'pointer',
-        background: selected ? '#f0f3ff' : '#fff',
-        transition: 'all 0.15s',
-        flex: '1 1 0',
-        minWidth: 0,
+      className={`flex items-center gap-1.5 pl-[7px] pr-[10px] py-[5px] rounded-[15px] text-[13px] font-semibold whitespace-nowrap ${isOutline
+        ? 'border border-danger text-danger bg-white'
+        : 'bg-danger text-white'
+        }`}
+    >
+      {icon}
+      {label}
+    </div>
+  )
+}
+
+
+
+export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?: (flight: Flight) => void }) {
+  const formattedPrice = flight.price.toLocaleString('vi-VN') + 'đ'
+
+
+  return (
+    <ConfigProvider
+      theme={{
+        components: {
+          Select: {
+            borderRadius: 5,
+            controlHeight: 28,
+            fontSize: 13,
+            colorBorder: '#54858C',
+            colorText: '#54858C',
+            colorPrimary: '#54858C',
+            colorPrimaryHover: '#14363bff',
+            colorTextPlaceholder: '#54858C',
+          },
+        },
       }}
     >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-          marginBottom: 10,
-        }}
-      >
-        <div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: 2 }}>
-            {tier.name}
-          </div>
-          {tier.tag && (
-            <Tag
-              style={{
-                background: tier.tagColor,
-                borderColor: tier.tagColor,
-                color: '#fff',
-                fontSize: 11,
-                borderRadius: 4,
-                padding: '0 6px',
-              }}
-            >
-              {tier.tag}
-            </Tag>
-          )}
-        </div>
-        <div style={{ textAlign: 'right' }}>
-          {tier.originalPrice && (
-            <div
-              style={{
-                fontSize: 11,
-                color: '#9ca3af',
-                textDecoration: 'line-through',
-                lineHeight: 1.2,
-              }}
-            >
-              {tier.originalPrice.toLocaleString('vi-VN')}đ
+      <div className="bg-[#f0f3ff] mb-3">
+        <div className="bg-white pt-2 space-y-3">
+          {/* Row 1: Status & Special Tags */}
+          <div className="flex items-center justify-between overflow-x-auto no-scrollbar px-2">
+            <div className="flex items-center gap-2">
+              <SpecialTag label="Rẻ nhất" className="bg-[#54858C] text-white font-semibold" />
+              <SpecialTag icon={<LaborIcon width={18} height={18} color="currentColor" />} label="Vé lao động" />
+              <SpecialTag icon={<StudyIcon width={18} height={18} color="currentColor" />} label="Vé du học" />
+              <SpecialTag icon={<GroupIcon width={18} height={18} color="currentColor" />} label="Vé Block" />
+              <SpecialTag icon={<AirplaneCharterIcon width={18} height={18} color="currentColor" />} label="Vé Charter" />
+              <div className="flex items-center gap-1.5">
+                <SpecialTag
+                  icon={<div className='flex items-center gap-1.5'>
+                    <TravelBagIcon width={18} height={18} color="#54858C" />
+                    <LuggageIcon width={18} height={18} color="#54858C" />
+                  </div>}
+                  // label='Có hành lý xách tay'
+                  className='bg-[#86CED9]/20 text-[12px] text-[#54858C] font-regular'
+                />
+
+                <SpecialTag
+                  icon={<div className='flex items-center gap-1.5'>
+                    <BoltIcon width={18} height={18} color="#54858C" />
+                    <MealAmenityIcon width={18} height={18} color="#54858C" />
+                    <EntertainmentAmenityIcon width={18} height={18} color="#54858C" />
+                  </div>}
+                  className='bg-[#86CED9]/20'
+                />
+              </div>
             </div>
-          )}
-          <div style={{ fontSize: 15, fontWeight: 700, color: PRIMARY }}>
-            {tier.price.toLocaleString('vi-VN')}đ
+            <Select
+              defaultValue="eco1"
+              style={{ width: 170 }}
+              className="ticket-select"
+              suffixIcon={<ChevronDownCircleIcon width={18} height={18} color="#54858C" />}
+              labelRender={({ label }) => (
+                <span style={{ fontWeight: 600, fontSize: 13, color: '#54858C' }}>{label}</span>
+              )}
+              options={[
+                { value: 'eco1', label: "Vé Phổ thông" },
+                { value: 'eco2', label: "Vé Phổ thông 2" },
+                { value: 'eco3', label: "Vé Phổ thông 3" }
+              ]}
+            />
           </div>
-        </div>
-      </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        <div style={{ fontSize: 12, color: '#6b7280' }}>🧳 {tier.baggage}</div>
-        <div style={{ fontSize: 12, color: '#6b7280' }}>
-          <SwapOutlined style={{ fontSize: 11 }} /> Đổi lịch: {tier.changeFee}
-        </div>
-        <div style={{ fontSize: 12, color: '#6b7280' }}>↩ Hoàn vé: {tier.refundFee}</div>
-      </div>
-
-      <Button
-        type={selected ? 'primary' : 'default'}
-        size="small"
-        block
-        style={{
-          marginTop: 12,
-          borderRadius: 6,
-          background: selected ? PRIMARY : undefined,
-          borderColor: selected ? PRIMARY : undefined,
-          fontWeight: 600,
-          fontSize: 12,
-        }}
-      >
-        {selected ? 'Đã chọn' : 'Chọn hạng này'}
-      </Button>
-    </div>
-  )
-}
-
-function TabChiTiet({ flight }: { flight: Flight }) {
-  const [selectedTier, setSelectedTier] = useState(FARE_TIERS[0].id)
-
-  console.log({ flight })
-
-  return (
-    <div style={{ padding: '16px 0' }}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          padding: '8px 12px',
-          background: '#fffbeb',
-          border: '1px solid #fde68a',
-          borderRadius: 8,
-          marginBottom: 16,
-        }}
-      >
-        <WarningFilled style={{ color: '#f59e0b', fontSize: 16 }} />
-        <span style={{ fontSize: 13, color: '#92400e', fontWeight: 500 }}>
-          Còn 9 ghế cho chuyến bay này
-        </span>
-      </div>
-
-      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-        {FARE_TIERS.map((tier) => (
-          <FareTierCard
-            key={tier.id}
-            tier={tier}
-            selected={selectedTier === tier.id}
-            onSelect={() => setSelectedTier(tier.id)}
-          />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function TabLoiIch({ flight }: { flight: Flight }) {
-  const benefits: Benefit[] = [
-    { label: 'Hành lý xách tay (7kg)', included: flight.amenities.handLuggage },
-    { label: 'Hành lý ký gửi (23kg)', included: flight.amenities.checkInLuggage },
-    { label: 'Sạc điện thoại / cổng USB', included: flight.amenities.charging },
-    { label: 'Suất ăn trên máy bay', included: flight.amenities.meal },
-    { label: 'Màn hình giải trí cá nhân', included: flight.amenities.entertainment },
-    { label: 'Chọn chỗ ngồi', included: true },
-    { label: 'Ưu tiên lên máy bay', included: false },
-    { label: 'Phòng chờ thương gia', included: false },
-  ]
-
-  return (
-    <div style={{ padding: '16px 0' }}>
-      {benefits.map((b) => (
-        <BenefitRow key={b.label} {...b} />
-      ))}
-    </div>
-  )
-}
-
-function TabHoanVe() {
-  return (
-    <div style={{ padding: '16px 0', fontSize: 13, color: '#374151', lineHeight: 1.8 }}>
-      <p>
-        <strong>Phí hoàn vé:</strong> Theo quy định của hãng hàng không
-      </p>
-      <p>
-        <strong>Hạng Phổ thông cơ bản:</strong> Không được hoàn vé
-      </p>
-      <p>
-        <strong>Hạng Phổ thông linh hoạt:</strong> Phí hoàn 550.000đ/hành khách
-      </p>
-      <p>
-        <strong>Hạng Thương gia:</strong> Miễn phí hoàn vé trước 24 giờ khởi hành
-      </p>
-      <p style={{ color: '#6b7280', fontSize: 12, marginTop: 8 }}>
-        * Chính sách hoàn vé có thể thay đổi theo quy định của hãng và thời điểm đặt vé
-      </p>
-    </div>
-  )
-}
-
-function TabDoiLich() {
-  return (
-    <div style={{ padding: '16px 0', fontSize: 13, color: '#374151', lineHeight: 1.8 }}>
-      <p>
-        <strong>Phí đổi lịch:</strong> Theo quy định của hãng hàng không
-      </p>
-      <p>
-        <strong>Hạng Phổ thông cơ bản:</strong> 550.000đ/hành khách + chênh lệch giá vé
-      </p>
-      <p>
-        <strong>Hạng Phổ thông linh hoạt:</strong> 220.000đ/hành khách + chênh lệch giá vé
-      </p>
-      <p>
-        <strong>Hạng Thương gia:</strong> Miễn phí đổi lịch (1 lần)
-      </p>
-      <p style={{ color: '#6b7280', fontSize: 12, marginTop: 8 }}>
-        * Đổi lịch phải thực hiện trước giờ khởi hành ít nhất 2 giờ
-      </p>
-    </div>
-  )
-}
-
-function TabKhuyenMai() {
-  return (
-    <div style={{ padding: '16px 0' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {PROMOTIONS.map((promo) => (
-          <div
-            key={promo.code}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              padding: '12px 16px',
-              border: '1px dashed #e5e7eb',
-              borderRadius: 8,
-              background: '#fff',
-            }}
-          >
-            <div
-              style={{
-                padding: '4px 10px',
-                borderRadius: 6,
-                background: promo.color,
-                color: '#fff',
-                fontSize: 12,
-                fontWeight: 700,
-                letterSpacing: '0.5px',
-                flexShrink: 0,
-              }}
-            >
-              {promo.code}
+          {/* Row 2: Main Flight Details */}
+          <div className="flex items-center justify-between px-2">
+            {/* Airline Info */}
+            <div className="flex flex-col items-center min-w-[160px]">
+              <AirlineLogo airline={flight.airline} logoUrl={flight.logoUrl} className="w-10 h-10 mb-1" />
+              <div className="text-center">
+                <div className="text-[14px] font-normal text-text-main">{flight.airline}</div>
+                <div className="text-[13px] text-text-secondary font-normal">
+                  {flight.airlineCode}{flight.flightNumber} • Airbus A321-100
+                </div>
+              </div>
             </div>
-            <span style={{ fontSize: 13, color: '#374151', fontWeight: 500 }}>{promo.label}</span>
+
+            {/* Time & Route */}
+            <div className="flex items-center gap-4 flex-1 justify-center max-w-[550px]">
+              <div className="text-center">
+                <div className="text-[30px] font-semibold text-text-main leading-tight">{flight.departTime}</div>
+                <div className="text-[16px] text-text-secondary font-semibold uppercase">HAN T1</div>
+              </div>
+
+              <div className="flex flex-col items-center px-2 relative min-w-[220px]">
+                <div className="w-full h-[3px] bg-[#D9D9D9] relative flex items-center justify-center">
+                  <div className="absolute left-0 w-[9px] h-[9px] bg-[#D9D9D9]" />
+                  <div className="absolute right-0 w-[9px] h-[9px] bg-[#D9D9D9]" />
+                </div>
+                <div className="text-[16px] text-text-secondary mt-2 font-normal">Bay thẳng</div>
+              </div>
+
+              <div className="text-center">
+                <div className="text-[30px] font-semibold text-text-main leading-tight">{flight.arriveTime}</div>
+                <div className="text-[16px] text-text-secondary font-semibold uppercase">SGN T1</div>
+              </div>
+            </div>
+
+            {/* Price Section */}
+            <div className="text-right min-w-[220px]">
+              <div className="text-[20px] text-text-secondary line-through font-normal mb-1">5.6324.000 đ</div>
+              <div className="text-[40px] font-semibold text-text-main leading-none tracking-tight">
+                {formattedPrice}
+              </div>
+            </div>
           </div>
-        ))}
+
+          {/* Row 3: Promotions */}
+          <div className="flex flex-wrap gap-2 px-2">
+            {PROMOTIONS.map((promo, idx) => (
+              <PromotionTag
+                key={`${promo.code}-${idx}`}
+                label={promo.label}
+                variant={promo.variant as 'fill' | 'outline'}
+                icon={promo.icon}
+              />
+            ))}
+          </div>
+
+          {/* Row 4: Custom Tabs & Action */}
+          <FlightDetailTabs flight={flight} onBook={onBook} />
+        </div>
+
+        {/* Footer Info Bar */}
+        <div className="bg-[#E1E1E1] px-5 py-2.5 flex items-center gap-2">
+          <div className="flex items-center gap-2 text-danger">
+            <img src="/icons/seat-icon.png" className="w-5 h-5 object-contain" alt="seat" onError={(e) => (e.currentTarget.style.display = 'none')} />
+            <FlightWarningRedIcon width={18} height={18} />
+            <span className="text-[13px] font-bold">Còn 9 ghế</span>
+          </div>
+        </div>
+
       </div>
-      <p style={{ fontSize: 12, color: '#9ca3af', marginTop: 12 }}>
-        * Áp dụng mã khuyến mãi khi thanh toán. Điều kiện áp dụng tùy theo từng chương trình.
-      </p>
-    </div>
-  )
-}
-
-interface Props {
-  flight: Flight
-  onBook?: (flight: Flight) => void
-}
-
-export function FlightDetailPanel({ flight, onBook }: Props) {
-  const [activeTab, setActiveTab] = useState('chi-tiet')
-
-  const tabItems = [
-    {
-      key: 'chi-tiet',
-      label: 'Chi tiết',
-      children: <TabChiTiet flight={flight} />,
-    },
-    {
-      key: 'loi-ich',
-      label: 'Các lợi ích đi kèm',
-      children: <TabLoiIch flight={flight} />,
-    },
-    {
-      key: 'hoan-ve',
-      label: 'Hoàn vé',
-      children: <TabHoanVe />,
-    },
-    {
-      key: 'doi-lich',
-      label: 'Đổi lịch',
-      children: <TabDoiLich />,
-    },
-    {
-      key: 'khuyen-mai',
-      label: 'Khuyến mãi',
-      children: <TabKhuyenMai />,
-    },
-  ]
-
-  return (
-    <div
-      style={{
-        background: '#f8f9ff',
-        border: '1px solid #dde3f7',
-        borderTop: `3px solid ${PRIMARY}`,
-        padding: '0 20px 20px',
-        animation: 'slideDown 0.2s ease',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          gap: 8,
-          padding: '12px 0',
-          flexWrap: 'wrap',
-        }}
-      >
-        {PROMOTIONS.map((promo) => (
-          <Tooltip key={promo.code} title={promo.label}>
-            <span
-              style={{
-                padding: '3px 10px',
-                borderRadius: 20,
-                background: promo.color,
-                color: '#fff',
-                fontSize: 11,
-                fontWeight: 600,
-                cursor: 'default',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {promo.label}
-            </span>
-          </Tooltip>
-        ))}
-      </div>
-
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Tabs
-          activeKey={activeTab}
-          onChange={setActiveTab}
-          items={tabItems}
-          size="small"
-          style={{ flex: 1 }}
-          tabBarStyle={{ marginBottom: 0 }}
-          tabBarExtraContent={
-            <Button
-              type="primary"
-              style={{
-                background: PRIMARY,
-                borderColor: PRIMARY,
-                borderRadius: 8,
-                fontWeight: 600,
-              }}
-              onClick={() => onBook?.(flight)}
-            >
-              Đặt vé ngay
-            </Button>
-          }
-        />
-      </div>
-    </div>
+    </ConfigProvider>
   )
 }

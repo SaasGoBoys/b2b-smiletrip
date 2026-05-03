@@ -32,82 +32,27 @@ const DESTINATIONS: Destination[] = [
 
 export function TopDestinations() {
   return (
-    <div
-      style={{
-        padding: '40px 0 60px',
-        background: '#f9fafb',
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1580,
-          margin: '0 auto',
-          paddingInline: 16,
-        }}
-      >
+    <div className="py-[60px] bg-white">
+      <div className="mx-auto px-4 container">
         <Title
           level={2}
-          style={{
-            fontSize: 32,
-            fontWeight: 700,
-            color: '#111827',
-            marginBottom: 32,
-          }}
+          className="!mb-10 !text-[40px] !font-normal !text-text-main"
         >
           Các điểm tham quan hàng đầu Việt Nam
         </Title>
 
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '12px 0',
-          }}
-        >
+        <div className="flex flex-wrap gap-x-2 gap-y-2">
           {DESTINATIONS.map((dest) => (
             <div
               key={dest.rank}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                marginRight: 24,
-                cursor: 'pointer',
-              }}
+              className="flex overflow-hidden border border-primary-soft-border rounded-[10px] cursor-pointer transition-all duration-150 hover:shadow-sm"
             >
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  minWidth: 28,
-                  height: 28,
-                  borderRadius: 6,
-                  background: '#4558B6',
-                  color: '#fff',
-                  fontSize: 12,
-                  fontWeight: 700,
-                  flexShrink: 0,
-                }}
-              >
+              <div className="bg-primary-soft-bg w-8 flex items-center justify-center border-r border-primary-soft-border text-primary font-normal text-[14px]">
                 {dest.rank}
-              </span>
-              <span
-                style={{
-                  fontSize: 14,
-                  color: '#374151',
-                  fontWeight: 500,
-                  transition: 'color 0.15s',
-                }}
-                onMouseEnter={(e) => {
-                  ;(e.currentTarget as HTMLSpanElement).style.color = '#4558B6'
-                }}
-                onMouseLeave={(e) => {
-                  ;(e.currentTarget as HTMLSpanElement).style.color = '#374151'
-                }}
-              >
+              </div>
+              <div className="bg-white flex items-center px-2 py-[5px] text-text-main text-[14px] font-normal whitespace-nowrap">
                 {dest.name}
-              </span>
+              </div>
             </div>
           ))}
         </div>
@@ -115,3 +60,4 @@ export function TopDestinations() {
     </div>
   )
 }
+

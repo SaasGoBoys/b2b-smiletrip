@@ -9,7 +9,7 @@ const { Content } = Layout
 
 export function AppLayout() {
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ height: '100vh' }}>
       <Sidebar />
       <Layout>
         <Header />
@@ -17,7 +17,7 @@ export function AppLayout() {
           style={{
             padding: 0,
             background: 'var(--ant-color-bg-layout)',
-            height: 'calc(100vh - 72px)',
+            height: 'calc(100vh - 84px)',
             overflowY: 'auto',
           }}
         >

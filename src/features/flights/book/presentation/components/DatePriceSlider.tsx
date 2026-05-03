@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
-import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import { brandColors } from '@/shared/lib/antd-theme/tokens'
+
+import { ChevronLeftLargeIcon, ChevronRightLargeIcon } from '@/assets/icons/icons'
 
 interface DatePrice {
   date: string
@@ -9,18 +11,16 @@ interface DatePrice {
 }
 
 const DATE_PRICES: DatePrice[] = [
-  { date: '14/04', displayDate: '14/04', price: '6.667.500đ' },
-  { date: '15/04', displayDate: '15/04', price: '6.667.500đ' },
-  { date: '16/04', displayDate: '16/04', price: '6.667.500đ' },
-  { date: '17/04', displayDate: '17/04', price: '6.667.500đ' },
-  { date: '18/04', displayDate: '18/04', price: '6.667.500đ' },
-  { date: '19/04', displayDate: '19/04', price: '6.667.500đ' },
-  { date: '20/04', displayDate: '20/04', price: '6.667.500đ' },
-  { date: '21/04', displayDate: '21/04', price: '6.667.500đ' },
-  { date: '22/04', displayDate: '22/04', price: '6.667.500đ' },
-  { date: '23/04', displayDate: '23/04', price: '6.667.500đ' },
-  { date: '24/04', displayDate: '24/04', price: '6.667.500đ' },
-  { date: '25/04', displayDate: '25/04', price: '6.667.500đ' },
+  { date: '26/03', displayDate: '26/03', price: '6.667.500đ' },
+  { date: '27/03', displayDate: '27/03', price: '6.667.500đ' },
+  { date: '28/03', displayDate: '28/03', price: '6.667.500đ' },
+  { date: '29/03', displayDate: '29/03', price: '6.667.500đ' },
+  { date: '30/03', displayDate: '30/03', price: '6.667.500đ' },
+  { date: '31/03', displayDate: '31/03', price: '6.667.500đ' },
+  { date: '01/04', displayDate: '01/04', price: '6.667.500đ' },
+  { date: '02/04', displayDate: '02/04', price: '6.667.500đ' },
+  { date: '03/04', displayDate: '03/04', price: '6.667.500đ' },
+  { date: '04/04', displayDate: '04/04', price: '6.667.500đ' },
 ]
 
 const VISIBLE_COUNT = 7
@@ -31,8 +31,8 @@ interface Props {
 }
 
 export function DatePriceSlider({ selectedDate, onDateChange }: Props) {
-  const [startIndex, setStartIndex] = useState(2)
-  const [active, setActive] = useState(selectedDate ?? '20/04')
+  const [startIndex, setStartIndex] = useState(0)
+  const [active, setActive] = useState(selectedDate ?? '28/03')
 
   const visibleDates = DATE_PRICES.slice(startIndex, startIndex + VISIBLE_COUNT)
 
@@ -50,105 +50,51 @@ export function DatePriceSlider({ selectedDate, onDateChange }: Props) {
   }
 
   return (
-    <div
-      style={{
-        background: '#fff',
-        borderRadius: 20,
-        boxShadow: '0 2px 16px rgba(0,0,0,0.08)',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 4px',
-        height: 90,
-        overflow: 'hidden',
-      }}
-    >
+    <div className="w-full bg-white rounded-[20px] shadow-[0_4px_20px_rgba(0,0,0,0.08)] flex items-center h-[74px] overflow-hidden">
+      {/* Nút Prev */}
       <button
         onClick={handlePrev}
         disabled={startIndex === 0}
-        style={{
-          flexShrink: 0,
-          width: 36,
-          height: 36,
-          borderRadius: '50%',
-          border: '1px solid #e5e7eb',
-          background: startIndex === 0 ? '#f9fafb' : '#fff',
-          cursor: startIndex === 0 ? 'not-allowed' : 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: startIndex === 0 ? '#d1d5db' : '#374151',
-          fontSize: 14,
-        }}
+        className={`w-[74px] h-full flex items-center justify-center border-r-[4px] border-surface-hover transition-colors
+          ${startIndex === 0 ? 'cursor-not-allowed opacity-30' : 'cursor-pointer hover:bg-surface-hover'}`}
       >
-        <LeftOutlined />
+        <ChevronLeftLargeIcon width={20} height={36} color={brandColors.textMain} />
       </button>
 
-      <div style={{ flex: 1, display: 'flex' }}>
+      {/* Danh sách ngày */}
+      <div className="flex-1 flex h-full">
         {visibleDates.map((item) => {
           const isActive = item.date === active
           return (
             <button
               key={item.date}
               onClick={() => handleSelect(item.date)}
-              style={{
-                flex: 1,
-                height: 90,
-                border: 'none',
-                background: 'transparent',
-                cursor: 'pointer',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 4,
-                position: 'relative',
-                borderBottom: isActive ? '3px solid #4558B6' : '3px solid transparent',
-                transition: 'all 0.2s',
-              }}
+              className="flex-1 flex flex-col items-center justify-center gap-1 relative cursor-pointer group"
             >
-              <span
-                style={{
-                  fontSize: 16,
-                  fontWeight: isActive ? 700 : 400,
-                  color: isActive ? '#4558B6' : '#3a3a3a',
-                  lineHeight: 1.2,
-                }}
-              >
+              <span className={`text-[17px] ${isActive ? 'font-semibold text-text-main' : 'text-text-main'}`}>
                 {item.displayDate}
               </span>
-              <span
-                style={{
-                  fontSize: 13,
-                  color: '#909090',
-                  fontWeight: isActive ? 600 : 400,
-                }}
-              >
+              <span className={`text-[17px] ${isActive ? 'text-text-secondary' : 'text-text-secondary'}`}>
                 {item.price}
               </span>
+
+              {/* Thanh gạch chân khi active */}
+              {isActive && (
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[4px] bg-text-main" />
+              )}
             </button>
           )
         })}
       </div>
 
+      {/* Nút Next */}
       <button
         onClick={handleNext}
         disabled={startIndex + VISIBLE_COUNT >= DATE_PRICES.length}
-        style={{
-          flexShrink: 0,
-          width: 36,
-          height: 36,
-          borderRadius: '50%',
-          border: '1px solid #e5e7eb',
-          background: startIndex + VISIBLE_COUNT >= DATE_PRICES.length ? '#f9fafb' : '#fff',
-          cursor: startIndex + VISIBLE_COUNT >= DATE_PRICES.length ? 'not-allowed' : 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: startIndex + VISIBLE_COUNT >= DATE_PRICES.length ? '#d1d5db' : '#374151',
-          fontSize: 14,
-        }}
+        className={`w-[74px] h-full flex items-center justify-center border-l-[4px] border-surface-hover transition-colors
+          ${startIndex + VISIBLE_COUNT >= DATE_PRICES.length ? 'cursor-not-allowed opacity-30' : 'cursor-pointer hover:bg-surface-hover'}`}
       >
-        <RightOutlined />
+        <ChevronRightLargeIcon width={20} height={36} color={brandColors.textMain} />
       </button>
     </div>
   )

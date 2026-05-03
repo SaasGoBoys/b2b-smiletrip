@@ -36,6 +36,8 @@ const DEFAULT_FILTERS: FilterState = {
   checkInLuggage: false,
   timeFrom: [0, 24],
   timeTo: [0, 24],
+  transitTime: [1, 24],
+  flightDuration: [2, 27.5],
   airlines: ['Vietnam Airlines', 'Bamboo Airways', 'Vietjet Air', 'Sun Phu Quoc Airway', 'Vietravel Airlines'],
   seatClasses: ['Vé phổ thông'],
 }
@@ -50,8 +52,8 @@ export function FlightSearchResults({ from = 'Hà Nội', to = 'TP. Hồ Chí Mi
 
   return (
     <Row gutter={[20, 20]}>
-      <Col xs={24} lg={7}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Col xs={24} lg={6}>
+        <div className="flex flex-col gap-4">
           <FlightSummaryCard
             flights={DEFAULT_SUMMARY_FLIGHTS}
             totalPrice={6882660}
@@ -63,7 +65,7 @@ export function FlightSearchResults({ from = 'Hà Nội', to = 'TP. Hồ Chí Mi
           />
         </div>
       </Col>
-      <Col xs={24} lg={17}>
+      <Col xs={24} lg={18}>
         <FlightResultList from={from} to={to} />
       </Col>
     </Row>
