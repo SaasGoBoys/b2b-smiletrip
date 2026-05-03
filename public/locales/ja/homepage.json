@@ -1,0 +1,168 @@
+{
+  "hero": {
+    "title": "VFJLinkとどこへでも",
+    "badge": {
+      "safe": "安全なお支払い",
+      "support": "迅速なカスタマーサポート"
+    }
+  },
+  "booking": {
+    "tabs": {
+      "flight": "航空券",
+      "tour": "ツアー",
+      "train": "鉄道",
+      "hotel": "ホテル",
+      "transfer": "空港送迎"
+    },
+    "trip": {
+      "one": "片道",
+      "round": "往復",
+      "multi": "マルチシティ"
+    },
+    "from": "出発地",
+    "to": "到着地",
+    "depart": "出発日",
+    "return": "復路",
+    "pax": "人数・クラス",
+    "paxOptions": {
+      "1econ": "大人1名・エコノミー",
+      "2econ": "大人2名・エコノミー"
+    }
+  },
+  "promos": {
+    "sectionTitle": "新規ユーザー限定",
+    "seeAll": "すべて見る",
+    "items": {
+      "new-user-1": {
+        "title": "初回予約で最大10%オフ",
+        "description": "オンライン決済時に適用されます。",
+        "cta": "特典を受け取る",
+        "emoji": "🎁"
+      },
+      "new-user-2": {
+        "title": "マイル2倍キャンペーン",
+        "description": "飛べば飛ぶほどお得に。",
+        "cta": "登録する",
+        "emoji": "✈️"
+      },
+      "new-user-3": {
+        "title": "ホテルセット割",
+        "description": "航空券＋ホテルでお得な価格。",
+        "cta": "見る",
+        "emoji": "🏨"
+      }
+    }
+  },
+  "banners": {
+    "spring": {
+      "kicker": "04.04 – 07.04",
+      "title": "4.4 セール",
+      "sub": "最大150万₫オフのフラッシュセール · 169.9万₫〜",
+      "cta": "今すぐ予約"
+    },
+    "tripCoin": {
+      "kicker": "Trip Coin",
+      "title": "マイル＋Trip Coin",
+      "sub": "会員限定で最大30%オフ。",
+      "cta": "今すぐ予約 ›"
+    }
+  },
+  "flights": {
+    "sectionTitle": "人気のフライト",
+    "buyNow": "購入",
+    "from": "〜",
+    "deals": {
+      "hn-sgn": { "route": "ハノイ → ホーチミン", "leg": "片道" },
+      "sgn-dad": { "route": "ホーチミン → ダナン", "leg": "片道" },
+      "hn-cxr": { "route": "ハノイ → ニャチャン", "leg": "片道" },
+      "hn-pqc": { "route": "ハノイ → フーコック", "leg": "片道" },
+      "hn-cdo": { "route": "ハノイ → コンソン", "leg": "片道" }
+    }
+  },
+  "destinations": {
+    "sectionTitle": "どこへ行きますか？",
+    "seeMore": "もっと見る",
+    "explore": "探索",
+    "activityCount": "アクティビティ {{count}}件",
+    "spots": {
+      "hanoi": { "name": "ハノイ" },
+      "halong": { "name": "ハロン" },
+      "sapa": { "name": "サパ" },
+      "fansipan": { "name": "ファンシパン" },
+      "hoian": { "name": "ホイアン" }
+    }
+  },
+  "activities": {
+    "sectionTitle": "おすすめアクティビティ",
+    "priceFrom": "価格：",
+    "tags": { "hot": "Hot", "sale": "Sale", "travel": "旅行" },
+    "items": {
+      "act-halong": { "title": "ハロン湾クルーズ" },
+      "act-hoian": { "title": "ホイアン旧市街ナイトツアー" },
+      "act-nhatrang": { "title": "ニャチャンダイビング" },
+      "act-danang": { "title": "バナヒルズ ゴールデンブリッジ" }
+    }
+  },
+  "why": {
+    "sectionTitle": "VFJLinkが選ばれる理由",
+    "items": {
+      "choice": {
+        "title": "お得な航空券",
+        "description": "数百の路線を比較して最適な価格を。"
+      },
+      "price": {
+        "title": "品質と透明な価格",
+        "description": "隠れた手数料なし。条件と手荷物も明確。"
+      },
+      "support": {
+        "title": "丁寧なサポート",
+        "description": "旅行前・旅行中も24時間サポート。"
+      },
+      "variety": {
+        "title": "サービスが充実",
+        "description": "航空券・ホテル・ツアー・送迎を一元化。"
+      }
+    }
+  },
+  "attractions": {
+    "sectionTitle": "ベトナムの人気スポット",
+    "names": {
+      "halong-bay": "ハロン湾",
+      "ba-na": "サンワールド・バナヒル",
+      "cu-chi": "クチトンネル",
+      "train-street": "ハノイの線路沿い通り",
+      "hon-gam-ghi": "ホンガムギー",
+      "trang-an": "チャンアン（ニンビン）",
+      "marble-mountains": "マーブルマウンテン",
+      "hoi-an-old": "ホイアン旧市街",
+      "mekong": "メコンデルタ",
+      "saigon-river": "サイゴン川",
+      "dragon-bridge": "ドラゴンブリッジ（ダナン）",
+      "lan-ha": "ラン・ハ湾",
+      "hanoi-old-quarter": "ハノイ旧市街",
+      "cat-cat": "キャットキャット村",
+      "bai-sao": "バイサオビーチ",
+      "fansipan-peak": "ファンシパン山頂",
+      "grand-phu-quoc": "グランド・フーコック",
+      "tam-coc": "タムコック",
+      "my-khe": "ミーケービーチ",
+      "golden-bridge": "ゴールデンブリッジ"
+    }
+  },
+  "footer": {
+    "col1": {
+      "title": "VFJLinkについて",
+      "links": ["会社概要", "利用規約", "プライバシー"]
+    },
+    "col2": {
+      "title": "サポート",
+      "links": ["ヘルプセンター", "予約ガイド", "お問い合わせ"]
+    },
+    "col3": {
+      "title": "よくある質問",
+      "links": ["お支払い", "払い戻し", "手荷物"]
+    },
+    "payments": { "title": "お支払い方法" },
+    "copyright": "© 2018-2026 VFJLink. All rights reserved."
+  }
+}

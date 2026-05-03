@@ -1,0 +1,189 @@
+{
+  "hero": {
+    "title": "Đi khắp muôn nơi cùng VFJLink",
+    "badge": {
+      "safe": "Thanh toán an toàn",
+      "support": "Hỗ trợ khách hàng nhanh chóng"
+    }
+  },
+  "booking": {
+    "tabs": {
+      "flight": "Vé máy bay",
+      "tour": "Tour",
+      "train": "Vé tàu",
+      "hotel": "Khách sạn",
+      "transfer": "Đưa đón sân bay"
+    },
+    "trip": {
+      "one": "Một chiều",
+      "round": "Khứ hồi",
+      "multi": "Nhiều chặng"
+    },
+    "from": "Chọn điểm đi",
+    "to": "Chọn điểm đến",
+    "depart": "Thời gian",
+    "return": "Khứ hồi",
+    "pax": "Số khách, hạng ghế",
+    "paxOptions": {
+      "1econ": "1 người lớn, Phổ thông",
+      "2econ": "2 người lớn, Phổ thông"
+    }
+  },
+  "promos": {
+    "sectionTitle": "Dành riêng cho người dùng mới",
+    "seeAll": "Xem tất cả",
+    "items": {
+      "new-user-1": {
+        "title": "Giảm đến 10% cho lần đặt đầu",
+        "description": "Ưu đãi áp dụng khi thanh toán trực tuyến.",
+        "cta": "Nhận ưu đãi",
+        "emoji": "🎁"
+      },
+      "new-user-2": {
+        "title": "Tích dặm thưởng x2",
+        "description": "Bay càng nhiều, nhận thưởng càng lớn.",
+        "cta": "Đăng ký ngay",
+        "emoji": "✈️"
+      },
+      "new-user-3": {
+        "title": "Ưu đãi combo khách sạn",
+        "description": "Kết hợp vé + phòng với giá tốt nhất.",
+        "cta": "Khám phá",
+        "emoji": "🏨"
+      }
+    }
+  },
+  "banners": {
+    "spring": {
+      "kicker": "04.04 – 07.04",
+      "title": "4.4 SALE TỚI BẾN",
+      "sub": "Flash sale mã giảm đến 1,5 triệu · Vé bay đồng giá chỉ từ 1.699k",
+      "cta": "ĐẶT NGAY"
+    },
+    "tripCoin": {
+      "kicker": "Trip Coin",
+      "title": "Tích dặm bay + Trip Coin",
+      "sub": "Săn deal độc quyền đến 30% cho thành viên.",
+      "cta": "ĐẶT NGAY ›"
+    }
+  },
+  "flights": {
+    "sectionTitle": "Các chuyến bay được ưa thích nhất",
+    "buyNow": "Mua ngay",
+    "from": "Từ",
+    "deals": {
+      "hn-sgn": {
+        "route": "Hà Nội đến TP. Hồ Chí Minh",
+        "leg": "Một chiều"
+      },
+      "sgn-dad": {
+        "route": "TP. Hồ Chí Minh đến Đà Nẵng",
+        "leg": "Một chiều"
+      },
+      "hn-cxr": {
+        "route": "Hà Nội đến Nha Trang",
+        "leg": "Một chiều"
+      },
+      "hn-pqc": {
+        "route": "Hà Nội đến Phú Quốc",
+        "leg": "Một chiều"
+      },
+      "hn-cdo": {
+        "route": "Hà Nội đến Côn Đảo",
+        "leg": "Một chiều"
+      }
+    }
+  },
+  "destinations": {
+    "sectionTitle": "Bạn muốn đi đâu",
+    "seeMore": "Xem thêm",
+    "explore": "Khám phá",
+    "activityCount": "{{count}} hoạt động",
+    "spots": {
+      "hanoi": { "name": "Hà Nội" },
+      "halong": { "name": "Hạ Long" },
+      "sapa": { "name": "Sa Pa" },
+      "fansipan": { "name": "Fansipan" },
+      "hoian": { "name": "Hội An" }
+    }
+  },
+  "activities": {
+    "sectionTitle": "Các hoạt động nổi bật",
+    "priceFrom": "Giá từ:",
+    "tags": {
+      "hot": "Hot",
+      "sale": "Sale",
+      "travel": "Du lịch"
+    },
+    "items": {
+      "act-halong": { "title": "Tour tham quan Vịnh Hạ Long" },
+      "act-hoian": { "title": "Phố cổ Hội An về đêm" },
+      "act-nhatrang": { "title": "Lặn biển Nha Trang" },
+      "act-danang": { "title": "Cầu Vàng Bà Nà Hills" }
+    }
+  },
+  "why": {
+    "sectionTitle": "Vì sao bạn nên chọn VFJLink",
+    "items": {
+      "choice": {
+        "title": "Vé máy bay giá tốt",
+        "description": "So sánh hàng trăm hành trình, chọn giá phù hợp nhất cho bạn."
+      },
+      "price": {
+        "title": "Chất lượng, giá minh bạch",
+        "description": "Không phụ phí ẩn, hiển thị rõ điều kiện vé và hành lý."
+      },
+      "support": {
+        "title": "Tư vấn tận tình",
+        "description": "Đội ngũ hỗ trợ 24/7 đồng hành trước và trong chuyến đi."
+      },
+      "variety": {
+        "title": "Đa dạng dịch vụ",
+        "description": "Vé máy bay, khách sạn, tour và đưa đón — tất cả trong một nền tảng."
+      }
+    }
+  },
+  "attractions": {
+    "sectionTitle": "Các điểm tham quan hàng đầu Việt Nam",
+    "names": {
+      "halong-bay": "Vịnh Hạ Long",
+      "ba-na": "Sun World Bà Nà Hills",
+      "cu-chi": "Địa đạo Củ Chi",
+      "train-street": "Phố đường tàu Hà Nội",
+      "hon-gam-ghi": "Hòn Gầm Ghì",
+      "trang-an": "Di sản Tràng An - Ninh Bình",
+      "marble-mountains": "Ngũ Hành Sơn",
+      "hoi-an-old": "Phố cổ Hội An",
+      "mekong": "Đồng bằng sông Cửu Long",
+      "saigon-river": "Sông Sài Gòn",
+      "dragon-bridge": "Cầu Rồng Đà Nẵng",
+      "lan-ha": "Vịnh Lan Hạ",
+      "hanoi-old-quarter": "Khu phố cổ Hà Nội",
+      "cat-cat": "Bản Cát Cát",
+      "bai-sao": "Bãi Sao Phú Quốc",
+      "fansipan-peak": "Đỉnh Fansipan",
+      "grand-phu-quoc": "Grand Phú Quốc",
+      "tam-coc": "Tam Cốc - Bích Động",
+      "my-khe": "Bãi biển Mỹ Khê",
+      "golden-bridge": "Cầu Vàng"
+    }
+  },
+  "footer": {
+    "col1": {
+      "title": "Về VFJLink",
+      "links": ["Giới thiệu", "Điều khoản", "Chính sách bảo mật"]
+    },
+    "col2": {
+      "title": "Hỗ trợ",
+      "links": ["Trung tâm hỗ trợ", "Hướng dẫn đặt vé", "Liên hệ"]
+    },
+    "col3": {
+      "title": "Câu hỏi thường gặp",
+      "links": ["Thanh toán", "Hoàn vé", "Hành lý"]
+    },
+    "payments": {
+      "title": "Kênh thanh toán"
+    },
+    "copyright": "© 2018-2026 VFJLink. All rights reserved."
+  }
+}
