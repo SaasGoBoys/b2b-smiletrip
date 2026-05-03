@@ -88,8 +88,8 @@ export function HeroBookingSection() {
               <Radio value="multi">{t('booking.trip.multi')}</Radio>
             </Radio.Group>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-end">
-              <div className="lg:col-span-3 space-y-1">
+            <div className="flex flex-wrap gap-3 items-end mt-3">
+              <div className="flex-1 space-y-1">
                 <p className="text-xs font-medium text-gray-500">{t('booking.from')}</p>
                 <Select
                   size="large"
@@ -104,7 +104,7 @@ export function HeroBookingSection() {
                   }
                 />
               </div>
-              <div className="lg:col-span-3 space-y-1">
+              <div className="flex-1 space-y-1">
                 <p className="text-xs font-medium text-gray-500">{t('booking.to')}</p>
                 <Select
                   size="large"
@@ -119,7 +119,7 @@ export function HeroBookingSection() {
                   }
                 />
               </div>
-              <div className="lg:col-span-2 space-y-1">
+              <div className="space-y-1">
                 <p className="text-xs font-medium text-gray-500">{t('booking.depart')}</p>
                 <DatePicker
                   size="large"
@@ -129,7 +129,7 @@ export function HeroBookingSection() {
                   suffixIcon={<CalendarOutlined />}
                 />
               </div>
-              <div className="lg:col-span-2 space-y-1">
+              <div className="space-y-1">
                 <p className="text-xs font-medium text-gray-500">{t('booking.return')}</p>
                 <DatePicker
                   size="large"
@@ -139,7 +139,7 @@ export function HeroBookingSection() {
                   suffixIcon={<CalendarOutlined />}
                 />
               </div>
-              <div className="lg:col-span-1 space-y-1 min-w-[140px]">
+              <div className="space-y-1 min-w-[140px]">
                 <p className="text-xs font-medium text-gray-500">{t('booking.pax')}</p>
                 <Select
                   size="large"
@@ -153,7 +153,7 @@ export function HeroBookingSection() {
                   ]}
                 />
               </div>
-              <div className="lg:col-span-1 flex lg:justify-end">
+              <div className="flex justify-end">
                 <Button
                   type="primary"
                   size="large"
