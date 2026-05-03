@@ -1,69 +1,51 @@
-import { useRef, useState } from 'react'
+import { Dropdown, type MenuProps } from 'antd'
 
 import { type Language, useI18nStore } from '@/app/providers/i18n.store'
 
-import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
+import { EnglishFlagIcon,FranceFlagIcon, JapanFlagIcon, VietnamFlagIcon } from '@/assets/icons/icons'
 
 interface LanguageOption {
   value: Language
   label: string
-  flag: string
+  flag: React.ReactNode
   code: string
 }
 
 const LANGUAGE_OPTIONS: LanguageOption[] = [
-  { value: 'vi', label: 'Tiếng Việt', flag: '🇻🇳', code: 'VNI' },
-  { value: 'ja', label: '日本語', flag: '🇯🇵', code: 'JPN' },
-  { value: 'fr', label: 'Français', flag: '🇫🇷', code: 'FRA' },
-  { value: 'en', label: 'English', flag: '🇺🇸', code: 'ENG' },
+  { value: 'vi', label: 'Tiếng Việt', flag: <VietnamFlagIcon />, code: 'VNI' },
+  { value: 'ja', label: '日本語', flag: <JapanFlagIcon />, code: 'JPN' },
+  { value: 'fr', label: 'Français', flag: <FranceFlagIcon />, code: 'FRA' },
+  { value: 'en', label: 'English', flag: <EnglishFlagIcon />, code: 'ENG' },
 ]
 
 export function LanguageSwitcher() {
   const { language, setLanguage } = useI18nStore()
-  const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useOnClickOutside(ref, () => setOpen(false))
-
+  
   const current = LANGUAGE_OPTIONS.find((o) => o.value === language) ?? LANGUAGE_OPTIONS[0]
 
-  return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-sm font-medium text-white hover:bg-white/25 transition-colors"
-      >
-        <span className="text-base leading-none">{current.flag}</span>
-        <span className="text-xs font-semibold tracking-wide">{current.code}</span>
-        <svg
-          className={`w-3 h-3 transition-transform ${open ? 'rotate-180' : ''}`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2.5}
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
+  const items: MenuProps['items'] = LANGUAGE_OPTIONS.map((opt) => ({
+    key: opt.value,
+    label: (
+      <div className="flex items-center gap-3 w-full min-w-[140px]">
+        <span className="flex items-center justify-center shrink-0">
+          {opt.flag}
+        </span>
+        <span className={language === opt.value ? 'text-blue-600 font-semibold' : 'text-gray-700'}>
+          {opt.label}
+        </span>
+      </div>
+    ),
+    onClick: () => setLanguage(opt.value),
+  }))
 
-      {open && (
-        <div className="absolute right-0 top-full mt-2 w-40 rounded-xl bg-white shadow-lg ring-1 ring-black/5 overflow-hidden z-50">
-          {LANGUAGE_OPTIONS.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => {
-                setLanguage(opt.value)
-                setOpen(false)
-              }}
-              className={`flex w-full items-center gap-2.5 px-3.5 py-2.5 text-sm text-left transition-colors
-                ${language === opt.value ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-50'}`}
-            >
-              <span className="text-base">{opt.flag}</span>
-              <span>{opt.label}</span>
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+  return (
+    <Dropdown menu={{ items }}>
+      <button className="h-[42px] flex items-center gap-2 rounded-[20px] bg-[#687EEC] px-[14px] py-[6px] text-base font-medium text-white hover:bg-[#6c82ef] transition-colors cursor-pointer">
+        <span className="flex items-center justify-center shrink-0">
+          {current.flag}
+        </span>
+        <span className="font-semibold tracking-wide">{current.code}</span>
+      </button>
+    </Dropdown>
   )
 }

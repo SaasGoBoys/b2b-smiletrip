@@ -1,17 +1,12 @@
 import { useState } from 'react'
 
-import { Button, DatePicker, Select, Tabs } from 'antd'
-import {
-  CalendarOutlined,
-  EnvironmentOutlined,
-  SearchOutlined,
-  SwapOutlined,
-  TeamOutlined,
-} from '@ant-design/icons'
+import { Button, Checkbox, ConfigProvider, DatePicker, Select, Tabs } from 'antd'
 
 import dayjs from 'dayjs'
 
-const { RangePicker } = DatePicker
+import { brandColors } from '@/shared/lib/antd-theme/tokens'
+
+import { ArrowExchangeIcon, CalendarIcon, PlaneLandingIcon, PlaneTakeoffIcon, Search2Icon, UsersIcon } from '@/assets/icons/icons'
 
 const TICKET_TYPES = [
   { key: 'lao-dong', label: 'Vé lao động' },
@@ -31,10 +26,6 @@ const CITIES = [
   { value: 'HUI', label: 'Huế (HUI)' },
 ]
 
-const TRIP_TYPES = [
-  { value: 'round-trip', label: 'Khứ hồi' },
-  { value: 'one-way', label: 'Một chiều' },
-]
 
 const PASSENGER_OPTIONS = [
   { value: '1-1', label: '1 người lớn, Phổ thông' },
@@ -77,125 +68,178 @@ export function FlightSearchForm({ onSearch }: Props) {
       ticketType: activeTab,
       from,
       to,
-      dates: [dates[0].format('DD/MM/YYYY'), dates[1].format('DD/MM/YYYY')],
+      dates: tripType === 'round-trip'
+        ? [dates[0].format('DD/MM/YYYY'), dates[1].format('DD/MM/YYYY')]
+        : [dates[0].format('DD/MM/YYYY'), ''],
       tripType,
       passengers,
     })
   }
 
   return (
-    <div className="w-full overflow-hidden rounded-lg bg-white shadow-lg">
-      <Tabs
-        activeKey={activeTab}
-        onChange={setActiveTab}
-        items={TICKET_TYPES.map((t) => ({ key: t.key, label: t.label }))}
-        style={{ padding: '0 24px' }}
-        tabBarStyle={{
-          marginBottom: 0,
-          borderBottom: '1px solid #f0f0f0',
+    <div className="w-full overflow-hidden rounded-[20px] bg-white shadow-lg">
+      <ConfigProvider
+        theme={{
+          components: {
+            Tabs: {
+              titleFontSize: 18,
+              itemColor: brandColors.textMain,
+              itemHoverColor: brandColors.primary,
+              itemSelectedColor: brandColors.primary,
+            },
+          },
         }}
-      />
-
-      <div className="flex items-end gap-2 px-6 py-4">
-        <div style={{ flex: '1 1 180px', minWidth: 160 }}>
-          <p className="text-sm text-[#3A3A3A] text-left mb-2">Điểm đi</p>
-          <Select
-            style={{ width: '100%' }}
-            size="large"
-            value={from}
-            onChange={setFrom}
-            options={CITIES}
-            showSearch
-            filterOption={(input, option) =>
-              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-            }
-            suffixIcon={<EnvironmentOutlined />}
-            placeholder="Chọn điểm đi"
-          />
-        </div>
-
-        <Button
-          icon={<SwapOutlined />}
-          shape="circle"
-          size="large"
-          onClick={handleSwap}
-          style={{
-            flexShrink: 0,
-            border: '1px solid #d9d9d9',
-            color: '#4558B6',
+      >
+        <Tabs
+          activeKey={activeTab}
+          onChange={setActiveTab}
+          items={TICKET_TYPES.map((t) => ({
+            key: t.key,
+            label: <span className="font-semibold">{t.label}</span>,
+          }))}
+          style={{ padding: '0 24px' }}
+          tabBarStyle={{
+            marginBottom: 0,
+            borderBottom: '1px solid #f0f0f0',
           }}
         />
+      </ConfigProvider>
 
-        <div style={{ flex: '1 1 180px', minWidth: 160 }}>
-          <p className="text-sm text-[#3A3A3A] text-left mb-2">Điểm đến</p>
-          <Select
-            style={{ width: '100%' }}
-            size="large"
-            value={to}
-            onChange={setTo}
-            options={CITIES}
-            showSearch
-            filterOption={(input, option) =>
-              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-            }
-            suffixIcon={<EnvironmentOutlined />}
-            placeholder="Chọn điểm đến"
-          />
+      <div className="px-6 py-5">
+        <div className="flex items-end gap-3 w-full">
+          {/* Điểm đi & Điểm đến */}
+          <div className="flex-[2] min-w-[500px]">
+            <div className="flex mb-2">
+              <p className="text-[17px] font-semibold text-text-main flex-1 text-left px-1">Chọn điểm đi</p>
+              <p className="text-[17px] font-semibold text-text-main flex-1 text-left px-1 pl-8">Chọn điểm đến</p>
+            </div>
+            <div className="relative flex items-center h-[60px] border border-border-main rounded-[20px] bg-white">
+              <div className="flex items-center flex-1 h-full px-4 overflow-hidden">
+                <PlaneTakeoffIcon className="shrink-0" />
+                <Select
+                  variant="borderless"
+                  className="flex-1 text-left min-w-0"
+                  size="large"
+                  value={from}
+                  onChange={setFrom}
+                  options={CITIES}
+                  showSearch
+                  filterOption={(input, option) =>
+                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                  }
+                  suffixIcon={null}
+                  placeholder="Từ"
+                />
+              </div>
+
+              <div className="relative flex items-center justify-center w-[1px] h-[40px] bg-border-main">
+                <button
+                  onClick={handleSwap}
+                  className="absolute w-[44px] h-[40px] bg-white border border-border-main rounded-[10px] flex items-center justify-center hover:bg-surface-hover transition-colors cursor-pointer z-20"
+                >
+                  <ArrowExchangeIcon width={24} height={24} />
+                </button>
+              </div>
+
+              <div className="flex items-center flex-1 h-full px-4 pl-10 overflow-hidden">
+                <PlaneLandingIcon className="shrink-0" />
+                <Select
+                  variant="borderless"
+                  className="flex-1 text-left min-w-0"
+                  size="large"
+                  value={to}
+                  onChange={setTo}
+                  options={CITIES}
+                  showSearch
+                  filterOption={(input, option) =>
+                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                  }
+                  suffixIcon={null}
+                  placeholder="Đến"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Thời gian */}
+          <div className="flex-[0.8] min-w-[350px]">
+            <div className="flex justify-between items-center mb-2 px-1">
+              <p className="text-[17px] font-semibold text-text-main text-left">Thời gian</p>
+              <Checkbox
+                checked={tripType === 'round-trip'}
+                onChange={(e) => setTripType(e.target.checked ? 'round-trip' : 'one-way')}
+                className="text-text-main font-medium"
+              >
+                Khứ hồi
+              </Checkbox>
+            </div>
+            <div className="relative flex items-center h-[60px] border border-border-main rounded-[20px] bg-white">
+              <div className="flex items-center flex-1 h-full px-4">
+                <CalendarIcon width={24} height={24} className="shrink-0" />
+                <DatePicker
+                  variant="borderless"
+                  className="flex-1"
+                  size="large"
+                  value={dates[0]}
+                  onChange={(val) => {
+                    if (val) setDates([val, dates[1]])
+                  }}
+                  format="DD/MM/YYYY"
+                  placeholder="Ngày đi"
+                  suffixIcon={null}
+                />
+              </div>
+
+              <div className="w-[1px] h-[32px] bg-border-main" />
+
+              <div className={`flex items-center flex-1 h-full px-4 ${tripType === 'one-way' ? 'bg-surface-hover opacity-60' : ''}`}>
+                <CalendarIcon width={24} height={24} color={tripType === 'round-trip' ? brandColors.primary : brandColors.textMuted} className="shrink-0" />
+                <DatePicker
+                  variant="borderless"
+                  className="flex-1"
+                  size="large"
+                  value={dates[1]}
+                  onChange={(val) => {
+                    if (val) setDates([dates[0], val])
+                  }}
+                  format="DD/MM/YYYY"
+                  placeholder="Ngày về"
+                  suffixIcon={null}
+                  disabled={tripType === 'one-way'}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Số lượng */}
+          <div className="flex-[0.8] min-w-[240px]">
+            <p className="text-[17px] font-semibold text-text-main mb-2 px-1 text-left">Số khách, hạng ghế</p>
+            <div className="flex items-center h-[60px] border border-border-main rounded-[20px] bg-white px-4">
+              <UsersIcon width={24} height={24} className="shrink-0" />
+              <Select
+                variant="borderless"
+                style={{ width: '100%' }}
+                size="large"
+                value={passengers}
+                onChange={setPassengers}
+                options={PASSENGER_OPTIONS}
+                suffixIcon={null}
+                className="text-left flex-1"
+                placeholder="Số khách, hạng ghế"
+              />
+            </div>
+          </div>
+
+          {/* Nút tìm kiếm */}
+          <div className="shrink-0">
+            <Button
+              type="primary"
+              icon={<Search2Icon color="#FFFFFF" width={38} height={38} />}
+              onClick={handleSearch}
+              className="!h-[60px] !w-[60px] flex items-center justify-center border-none !rounded-[20px] transition-all"
+            />
+          </div>
         </div>
-
-        <div style={{ flex: '1 1 260px', minWidth: 220 }}>
-          <p className="text-sm text-[#3A3A3A] text-left mb-2">Ngày đi</p>
-          <RangePicker
-            style={{ width: '100%' }}
-            size="large"
-            value={dates}
-            onChange={(vals) => {
-              if (vals?.[0] && vals?.[1]) {
-                setDates([vals[0], vals[1]])
-              }
-            }}
-            format="DD/MM/YYYY"
-            suffixIcon={<CalendarOutlined />}
-          />
-        </div>
-
-        <div style={{ flex: '0 0 130px' }}>
-          <p className="text-sm text-[#3A3A3A] text-left mb-2">Loại vé</p>
-          <Select
-            style={{ width: '100%' }}
-            size="large"
-            value={tripType}
-            onChange={setTripType}
-            options={TRIP_TYPES}
-          />
-        </div>
-
-        <div style={{ flex: '1 1 200px', minWidth: 180 }}>
-          <p className="text-sm text-[#3A3A3A] text-left mb-2">Số lượng</p>
-          <Select
-            style={{ width: '100%' }}
-            size="large"
-            value={passengers}
-            onChange={setPassengers}
-            options={PASSENGER_OPTIONS}
-            suffixIcon={<TeamOutlined />}
-          />
-        </div>
-
-        <Button
-          type="primary"
-          size="large"
-          icon={<SearchOutlined />}
-          onClick={handleSearch}
-          style={{
-            background: '#4558B6',
-            borderColor: '#4558B6',
-            borderRadius: 10,
-            height: 40,
-            paddingInline: 18,
-            fontWeight: 600,
-          }}
-        />
       </div>
     </div>
   )

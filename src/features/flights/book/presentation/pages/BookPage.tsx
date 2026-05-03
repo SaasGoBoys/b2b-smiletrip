@@ -32,16 +32,21 @@ const HomeFooter = lazy(() =>
 
 function SectionLoader() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '40px 0',
-      }}
-    >
+    <div className="flex justify-center py-10">
       <Spin size="large" />
     </div>
   )
+}
+
+const CITY_MAP: Record<string, string> = {
+  HAN: 'Hà Nội',
+  SGN: 'TP. Hồ Chí Minh',
+  DAD: 'Đà Nẵng',
+  CXR: 'Nha Trang',
+  PQC: 'Phú Quốc',
+  VII: 'Vinh',
+  HPH: 'Hải Phòng',
+  HUI: 'Huế',
 }
 
 export default function BookPage() {
@@ -58,23 +63,13 @@ export default function BookPage() {
   return (
     <>
       <HeroBanner>
-        <div className="absolute -bottom-full left-1/2 -translate-x-1/2 w-full max-w-[1200px] px-6">
+        <div className="absolute -bottom-full left-0 right-0 container">
           <Suspense fallback={<SectionLoader />}>
             <FlightSearchForm
               onSearch={(params) => {
-                const cityMap: Record<string, string> = {
-                  HAN: 'Hà Nội',
-                  SGN: 'TP. Hồ Chí Minh',
-                  DAD: 'Đà Nẵng',
-                  CXR: 'Nha Trang',
-                  PQC: 'Phú Quốc',
-                  VII: 'Vinh',
-                  HPH: 'Hải Phòng',
-                  HUI: 'Huế',
-                }
                 setSearchParams({
-                  from: cityMap[params.from] ?? params.from,
-                  to: cityMap[params.to] ?? params.to,
+                  from: CITY_MAP[params.from] ?? params.from,
+                  to: CITY_MAP[params.to] ?? params.to,
                   searched: true,
                 })
               }}
@@ -83,10 +78,10 @@ export default function BookPage() {
         </div>
       </HeroBanner>
 
-      <div className="container mx-auto max-w-300 px-6 mt-30">
+      <div className="container my-[120px]">
         {searchParams.searched && (
           <>
-            <div style={{ marginTop: 24, marginBottom: 16 }}>
+            <div className="mt-6 mb-4">
               <Suspense fallback={<SectionLoader />}>
                 <DatePriceSlider />
               </Suspense>

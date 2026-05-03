@@ -13,8 +13,10 @@ export const lightTheme: ThemeConfig = {
     fontSize: typography.fontSizeBase,
     borderRadius: spacing.borderRadius,
     borderRadiusLG: spacing.borderRadiusLG,
-    colorBgContainer: '#ffffff',
-    colorBgLayout: '#f5f5f5',
+    colorBgContainer: brandColors.bgContainer,
+    colorBgLayout: brandColors.bgLayout,
+    colorText: brandColors.textMain,
+    colorTextSecondary: brandColors.textSecondary,
   },
   components: {
     Button: {
