@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import type { MenuProps } from 'antd'
-import { Layout , Menu } from 'antd'
+import { Layout, Menu } from 'antd'
 
 import AppRoutes from '@/app/router/paths'
 
@@ -31,6 +31,11 @@ const { Sider } = Layout
 const iconClassName = 'w-6 h-6'
 
 const menuItems: MenuItem[] = [
+  {
+    key: AppRoutes.dashboard,
+    label: 'Dashboard',
+    icon: <MenuIcon className={iconClassName} />,
+  },
   {
     key: 'flight',
     label: 'Đặt vé máy bay',
