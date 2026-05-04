@@ -18,14 +18,14 @@ import {
   StudyIcon,
   UsersIcon} from '@/assets/icons/icons'
 
-const TICKET_TYPES = [
+export const TICKET_TYPES = [
   { key: 'lao-dong', label: 'Vé lao động', icon: LaborIcon },
   { key: 'du-hoc', label: 'Vé du học', icon: StudyIcon },
   { key: 'block', label: 'Vé Block', icon: GroupIcon },
   { key: 'charter', label: 'Vé Charter', icon: AirplaneCharterIcon },
 ]
 
-const CITIES = [
+export const CITIES = [
   { value: 'HAN', label: 'Hà Nội (HAN)' },
   { value: 'SGN', label: 'TP. Hồ Chí Minh (SGN)' },
   { value: 'DAD', label: 'Đà Nẵng (DAD)' },
@@ -36,17 +36,12 @@ const CITIES = [
   { value: 'HUI', label: 'Huế (HUI)' },
 ]
 
-
-const PASSENGER_OPTIONS = [
+export const PASSENGER_OPTIONS = [
   { value: '1-1', label: '1 người lớn, Phổ thông' },
   { value: '2-1', label: '2 người lớn, Phổ thông' },
   { value: '1-2', label: '1 người lớn, Thương gia' },
   { value: '3-1', label: '3 người lớn, Phổ thông' },
 ]
-
-interface Props {
-  onSearch?: (params: FlightSearchParams) => void
-}
 
 export interface FlightSearchParams {
   ticketType: string
@@ -57,7 +52,12 @@ export interface FlightSearchParams {
   passengers: string
 }
 
-export function FlightSearchForm({ onSearch }: Props) {
+interface FlightSearchFormProps {
+  onSearch?: (params: FlightSearchParams) => void
+  className?: string
+}
+
+export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormProps) {
   const [activeTab, setActiveTab] = useState('lao-dong')
   const [from, setFrom] = useState<string>('HAN')
   const [to, setTo] = useState<string>('SGN')
@@ -87,7 +87,8 @@ export function FlightSearchForm({ onSearch }: Props) {
   }
 
   return (
-    <div className="w-full overflow-hidden rounded-[20px] bg-white shadow-lg">
+    <div className={`w-full overflow-hidden rounded-[20px] bg-white shadow-lg ${className}`}>
+      {/* Tab Header (Ticket Types) */}
       <div className="px-6 pt-5 pb-0 flex flex-wrap gap-4">
         {TICKET_TYPES.map((type) => {
           const Icon = type.icon
@@ -112,12 +113,13 @@ export function FlightSearchForm({ onSearch }: Props) {
         })}
       </div>
 
+      {/* Form Content */}
       <div className="px-4 py-4 sm:px-6 sm:py-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:flex xl:flex-row items-start xl:items-end gap-4 xl:gap-3 w-full">
 
           {/* Điểm đi & Điểm đến */}
           <div className="col-span-1 sm:col-span-2 xl:flex-[2] flex flex-col">
-
+            
             {/* --- MOBILE LAYOUT (< 640px) --- */}
             <div className="sm:hidden relative flex flex-col gap-4">
               <div className="relative">
@@ -279,7 +281,7 @@ export function FlightSearchForm({ onSearch }: Props) {
             </div>
           </div>
 
-          {/* Số lượng & Nút tìm kiếm */}
+          {/* Số khách, hạng ghế */}
           <div className="col-span-1 xl:flex-[0.8] flex items-end gap-2">
             <div className="flex-1">
               <p className="text-[15px] sm:text-[17px] font-semibold text-text-main mb-2 px-1 text-left">Số khách, hạng ghế</p>
@@ -287,39 +289,39 @@ export function FlightSearchForm({ onSearch }: Props) {
                 <UsersIcon width={24} height={24} className="shrink-0" />
                 <Select
                   variant="borderless"
+                  className="flex-1 text-left"
                   size="large"
                   value={passengers}
                   onChange={setPassengers}
                   options={PASSENGER_OPTIONS}
                   suffixIcon={null}
-                  className="text-left flex-1 min-w-0"
-                  placeholder="Số khách, hạng ghế"
                 />
               </div>
             </div>
 
-            {/* Nút tìm kiếm (Desktop/Tablet MD+) */}
-            <div className="hidden md:block shrink-0">
+            {/* Nút tìm kiếm */}
+            <div className="hidden xl:block">
               <Button
                 type="primary"
-                icon={<Search2Icon color="#FFFFFF" width={28} height={28} />}
                 onClick={handleSearch}
-                className="!h-[55px] !w-[55px] flex items-center justify-center border-none !rounded-[20px] transition-all shadow-md"
-              />
+                className="!h-[55px] !w-[60px] !rounded-[20px] bg-primary flex items-center justify-center shadow-md"
+              >
+                <Search2Icon color="#FFFFFF" width={28} height={28} />
+              </Button>
             </div>
           </div>
+        </div>
 
-          {/* Nút tìm kiếm Mobile/SM (Full width) */}
-          <div className="col-span-1 sm:col-span-2 md:hidden mt-2">
-            <Button
-              type="primary"
-              onClick={handleSearch}
-              className="w-full !h-[45px] sm:!h-[55px] !rounded-[16px] sm:!rounded-[20px] bg-primary flex items-center justify-center gap-2 text-white font-semibold !text-[17px] shadow-md"
-            >
-              <Search2Icon color="#FFFFFF" width={26} height={26} />
-              Tìm kiếm
-            </Button>
-          </div>
+        {/* Nút tìm kiếm (Mobile/Tablet) */}
+        <div className="xl:hidden mt-6">
+          <Button
+            type="primary"
+            onClick={handleSearch}
+            className="w-full !h-[45px] sm:!h-[55px] !rounded-[16px] sm:!rounded-[20px] bg-primary flex items-center justify-center gap-2 text-white font-semibold !text-[17px] shadow-md"
+          >
+            <Search2Icon color="#FFFFFF" width={26} height={26} />
+            Tìm kiếm
+          </Button>
         </div>
       </div>
     </div>

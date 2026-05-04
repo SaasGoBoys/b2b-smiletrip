@@ -2,10 +2,10 @@ import { lazy, Suspense, useState } from 'react'
 
 import { Spin } from 'antd'
 
-import { HeroBanner } from '../components/HeroBanner'
+import { HeroBanner } from '@/shared/components/common/HeroBanner'
 
 const FlightSearchForm = lazy(() =>
-  import('../components/FlightSearchForm').then((m) => ({ default: m.FlightSearchForm }))
+  import('@/shared/components/common/FlightSearchForm').then((m) => ({ default: m.FlightSearchForm }))
 )
 
 const DatePriceSlider = lazy(() =>
