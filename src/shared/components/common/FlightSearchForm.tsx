@@ -7,41 +7,13 @@ import dayjs from 'dayjs'
 import { brandColors } from '@/shared/lib/antd-theme/tokens'
 
 import {
-  AirplaneCharterIcon,
   ArrowExchangeIcon,
   CalendarIcon,
-  GroupIcon,
-  LaborIcon,
   PlaneLandingIcon,
   PlaneTakeoffIcon,
   Search2Icon,
-  StudyIcon,
   UsersIcon} from '@/assets/icons/icons'
-
-export const TICKET_TYPES = [
-  { key: 'lao-dong', label: 'Vé lao động', icon: LaborIcon },
-  { key: 'du-hoc', label: 'Vé du học', icon: StudyIcon },
-  { key: 'block', label: 'Vé Block', icon: GroupIcon },
-  { key: 'charter', label: 'Vé Charter', icon: AirplaneCharterIcon },
-]
-
-export const CITIES = [
-  { value: 'HAN', label: 'Hà Nội (HAN)' },
-  { value: 'SGN', label: 'TP. Hồ Chí Minh (SGN)' },
-  { value: 'DAD', label: 'Đà Nẵng (DAD)' },
-  { value: 'CXR', label: 'Nha Trang (CXR)' },
-  { value: 'PQC', label: 'Phú Quốc (PQC)' },
-  { value: 'VII', label: 'Vinh (VII)' },
-  { value: 'HPH', label: 'Hải Phòng (HPH)' },
-  { value: 'HUI', label: 'Huế (HUI)' },
-]
-
-export const PASSENGER_OPTIONS = [
-  { value: '1-1', label: '1 người lớn, Phổ thông' },
-  { value: '2-1', label: '2 người lớn, Phổ thông' },
-  { value: '1-2', label: '1 người lớn, Thương gia' },
-  { value: '3-1', label: '3 người lớn, Phổ thông' },
-]
+import { CITIES, PASSENGER_OPTIONS, TICKET_TYPES } from '@/mocks/data/flights'
 
 export interface FlightSearchParams {
   ticketType: string
