@@ -1,0 +1,168 @@
+{
+  "hero": {
+    "title": "Voyagez partout avec VFJLink",
+    "badge": {
+      "safe": "Paiement sécurisé",
+      "support": "Support client rapide"
+    }
+  },
+  "booking": {
+    "tabs": {
+      "flight": "Vols",
+      "tour": "Circuits",
+      "train": "Trains",
+      "hotel": "Hôtels",
+      "transfer": "Transfert aéroport"
+    },
+    "trip": {
+      "one": "Aller simple",
+      "round": "Aller-retour",
+      "multi": "Multi-destinations"
+    },
+    "from": "Départ",
+    "to": "Arrivée",
+    "depart": "Date",
+    "return": "Retour",
+    "pax": "Passagers & classe",
+    "paxOptions": {
+      "1econ": "1 adulte, Économique",
+      "2econ": "2 adultes, Économique"
+    }
+  },
+  "promos": {
+    "sectionTitle": "Réservé aux nouveaux utilisateurs",
+    "seeAll": "Tout voir",
+    "items": {
+      "new-user-1": {
+        "title": "Jusqu'à -10% sur la 1ère réservation",
+        "description": "Valable pour un paiement en ligne.",
+        "cta": "Profiter de l'offre",
+        "emoji": "🎁"
+      },
+      "new-user-2": {
+        "title": "Miles doublés",
+        "description": "Plus vous volez, plus vous gagnez.",
+        "cta": "S'inscrire",
+        "emoji": "✈️"
+      },
+      "new-user-3": {
+        "title": "Offres hôtel + vol",
+        "description": "Combinez vol et chambre au meilleur prix.",
+        "cta": "Découvrir",
+        "emoji": "🏨"
+      }
+    }
+  },
+  "banners": {
+    "spring": {
+      "kicker": "04.04 – 07.04",
+      "title": "SOLDES 4.4",
+      "sub": "Flash codes jusqu'à 1,5M₫ · Billets dès 1 699k₫",
+      "cta": "RÉSERVER"
+    },
+    "tripCoin": {
+      "kicker": "Trip Coin",
+      "title": "Miles + Trip Coin",
+      "sub": "Jusqu'à -30% pour les membres.",
+      "cta": "RÉSERVER ›"
+    }
+  },
+  "flights": {
+    "sectionTitle": "Vols les plus populaires",
+    "buyNow": "Acheter",
+    "from": "Dès",
+    "deals": {
+      "hn-sgn": { "route": "Hanoï → Hô Chi Minh-Ville", "leg": "Aller simple" },
+      "sgn-dad": { "route": "Hô Chi Minh-Ville → Da Nang", "leg": "Aller simple" },
+      "hn-cxr": { "route": "Hanoï → Nha Trang", "leg": "Aller simple" },
+      "hn-pqc": { "route": "Hanoï → Phu Quoc", "leg": "Aller simple" },
+      "hn-cdo": { "route": "Hanoï → Con Dao", "leg": "Aller simple" }
+    }
+  },
+  "destinations": {
+    "sectionTitle": "Où voulez-vous aller ?",
+    "seeMore": "Voir plus",
+    "explore": "Explorer",
+    "activityCount": "{{count}} activités",
+    "spots": {
+      "hanoi": { "name": "Hanoï" },
+      "halong": { "name": "Ha Long" },
+      "sapa": { "name": "Sa Pa" },
+      "fansipan": { "name": "Fansipan" },
+      "hoian": { "name": "Hoi An" }
+    }
+  },
+  "activities": {
+    "sectionTitle": "Activités à la une",
+    "priceFrom": "À partir de :",
+    "tags": { "hot": "Hot", "sale": "Promo", "travel": "Voyage" },
+    "items": {
+      "act-halong": { "title": "Croisière baie d'Ha Long" },
+      "act-hoian": { "title": "Hoi An by night" },
+      "act-nhatrang": { "title": "Plongée à Nha Trang" },
+      "act-danang": { "title": "Pont d'or, Ba Na Hills" }
+    }
+  },
+  "why": {
+    "sectionTitle": "Pourquoi choisir VFJLink",
+    "items": {
+      "choice": {
+        "title": "Billets au meilleur prix",
+        "description": "Comparez des centaines d'itinéraires."
+      },
+      "price": {
+        "title": "Qualité et prix clairs",
+        "description": "Pas de frais cachés, conditions visibles."
+      },
+      "support": {
+        "title": "Conseil attentif",
+        "description": "Assistance 24/7 avant et pendant le voyage."
+      },
+      "variety": {
+        "title": "Services variés",
+        "description": "Vols, hôtels, circuits et transferts au même endroit."
+      }
+    }
+  },
+  "attractions": {
+    "sectionTitle": "Sites incontournables du Vietnam",
+    "names": {
+      "halong-bay": "Baie d'Ha Long",
+      "ba-na": "Sun World Ba Na Hills",
+      "cu-chi": "Tunnels de Cu Chi",
+      "train-street": "Rue du train (Hanoï)",
+      "hon-gam-ghi": "Hon Gam Ghi",
+      "trang-an": "Trang An - Ninh Binh",
+      "marble-mountains": "Montagnes de marbre",
+      "hoi-an-old": "Vieille ville de Hoi An",
+      "mekong": "Delta du Mékong",
+      "saigon-river": "Rivière Saigon",
+      "dragon-bridge": "Pont du Dragon (Da Nang)",
+      "lan-ha": "Baie de Lan Ha",
+      "hanoi-old-quarter": "Vieux quartier de Hanoï",
+      "cat-cat": "Village Cat Cat",
+      "bai-sao": "Plage Bai Sao",
+      "fansipan-peak": "Sommet du Fansipan",
+      "grand-phu-quoc": "Grand Phu Quoc",
+      "tam-coc": "Tam Coc - Bich Dong",
+      "my-khe": "Plage My Khe",
+      "golden-bridge": "Pont d'or"
+    }
+  },
+  "footer": {
+    "col1": {
+      "title": "À propos de VFJLink",
+      "links": ["Présentation", "Conditions", "Confidentialité"]
+    },
+    "col2": {
+      "title": "Assistance",
+      "links": ["Centre d'aide", "Guide de réservation", "Contact"]
+    },
+    "col3": {
+      "title": "FAQ",
+      "links": ["Paiements", "Remboursements", "Bagages"]
+    },
+    "payments": { "title": "Moyens de paiement" },
+    "copyright": "© 2018-2026 VFJLink. Tous droits réservés."
+  }
+}

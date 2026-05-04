@@ -1,4 +1,4 @@
-import { Navigate, type RouteObject } from 'react-router-dom'
+import { type RouteObject } from 'react-router-dom'
 
 import { AppLayout } from '@/shared/components/layout/AppLayout'
 import { MenuPlaceholderPage } from '@/shared/components/layout/MenuPlaceholderPage'
@@ -6,9 +6,8 @@ import { sidebarScreenPaths } from '@/shared/constants/sidebarPaths'
 
 import { dashboardChildRoutes } from '@/features/dashboard/presentation/routes/dashboard.routes'
 import { flightRoutes } from '@/features/flights/_shared/presentation/routes/flight.routes'
+import { homepageChildRoutes } from '@/features/homepage/presentation/routes/homepage.routes'
 import { usersChildRoutes } from '@/features/users/presentation/routes/users.routes'
-
-import AppRoutes from './paths'
 
 /**
  * Cấu hình router tập trung: ghép các mảnh route từ từng feature.
@@ -19,10 +18,7 @@ export const routes: RouteObject[] = [
     path: '/',
     element: <AppLayout />,
     children: [
-      {
-        index: true,
-        element: <Navigate to={AppRoutes.flightBooking} />,
-      },
+      ...homepageChildRoutes,
       ...dashboardChildRoutes,
       ...usersChildRoutes,
       ...flightRoutes,
