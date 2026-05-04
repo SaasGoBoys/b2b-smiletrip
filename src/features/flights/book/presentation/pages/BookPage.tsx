@@ -63,22 +63,20 @@ export default function BookPage() {
   return (
     <>
       <HeroBanner>
-        <div className="absolute -bottom-full left-0 right-0 container">
-          <Suspense fallback={<SectionLoader />}>
-            <FlightSearchForm
-              onSearch={(params) => {
-                setSearchParams({
-                  from: CITY_MAP[params.from] ?? params.from,
-                  to: CITY_MAP[params.to] ?? params.to,
-                  searched: true,
-                })
-              }}
-            />
-          </Suspense>
-        </div>
+        <Suspense fallback={<SectionLoader />}>
+          <FlightSearchForm
+            onSearch={(params) => {
+              setSearchParams({
+                from: CITY_MAP[params.from] ?? params.from,
+                to: CITY_MAP[params.to] ?? params.to,
+                searched: true,
+              })
+            }}
+          />
+        </Suspense>
       </HeroBanner>
 
-      <div className="container my-[120px]">
+      <div className="container my-[30px] md:mt-[150px] xl:my-[120px]">
         {searchParams.searched && (
           <>
             <div className="mt-6 mb-4">
