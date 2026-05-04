@@ -19,6 +19,10 @@ export function Sidebar() {
 
   const menuItems = getSidebarMenuItems(collapsed)
 
+  const handleGoHomepage = () => {
+    navigate('/')
+  }
+
   return (
     <Sider
       collapsible
@@ -40,7 +44,10 @@ export function Sidebar() {
         )}
 
         {!collapsed && (
-          <div className="flex justify-center items-center">
+          <div
+            className="flex justify-center items-center cursor-pointer"
+            onClick={handleGoHomepage}
+          >
             <img
               src="/images/logo.webp"
               alt="logo"

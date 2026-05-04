@@ -50,6 +50,11 @@ export function MobileNavDrawer({ open, onClose }: MobileNavDrawerProps) {
     onClose()
   }
 
+  const handleGoHomepage = () => {
+    navigate('/')
+    onClose()
+  }
+
   return (
     <>
       <Drawer
@@ -58,7 +63,13 @@ export function MobileNavDrawer({ open, onClose }: MobileNavDrawerProps) {
         placement="left"
         width={300}
         styles={{
-          body: { padding: 0, display: 'flex', flexDirection: 'column', background: '#4F65CD', height: '100%' },
+          body: {
+            padding: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            background: '#4F65CD',
+            height: '100%',
+          },
           header: { display: 'none' },
           wrapper: { boxShadow: '4px 0 24px rgba(0,0,0,0.25)' },
         }}
@@ -72,12 +83,11 @@ export function MobileNavDrawer({ open, onClose }: MobileNavDrawerProps) {
             />
           </div>
 
-          <div className="flex justify-center items-center">
-            <img
-              src={LOGO_IMG}
-              alt="logo"
-              className="w-full max-w-[230px] object-contain"
-            />
+          <div
+            className="flex justify-center items-center cursor-pointer"
+            onClick={handleGoHomepage}
+          >
+            <img src={LOGO_IMG} alt="logo" className="w-full max-w-[230px] object-contain" />
           </div>
         </div>
 

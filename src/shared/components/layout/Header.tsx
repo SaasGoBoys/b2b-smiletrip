@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
-import { ConfigProvider,Menu } from 'antd'
+import { ConfigProvider, Menu } from 'antd'
 
 import { LanguageSwitcher } from '@/shared/components/common/LanguageSwitcher'
 import { useSidebarStore } from '@/shared/hooks/useSidebarStore'
@@ -22,6 +23,7 @@ import { MenuIcon, SearchIcon } from '@/assets/icons/icons'
 const LOGO_IMG = '/images/header/logo.webp'
 
 export function Header() {
+  const navigate = useNavigate()
   const collapsed = useSidebarStore((state) => state.collapsed)
   const hideLogo = !collapsed
 
@@ -37,11 +39,14 @@ export function Header() {
   const handleOpenSignInModal = () => open(AuthRegistryModalKeys.SignIn)
   const handleOpenSignUpModal = () => open(AuthRegistryModalKeys.SignUp)
 
+  const handleGoHomepage = () => {
+    navigate('/')
+  }
+
   return (
     <>
       <header className="bg-primary shrink-0">
         <div className="flex items-center pl-[14px] pr-[28px] gap-5 h-[84px]">
-
           <button
             className="lg:hidden text-white hover:opacity-80 transition-opacity cursor-pointer p-1 shrink-0"
             onClick={() => setMobileNavOpen(true)}
@@ -51,9 +56,10 @@ export function Header() {
 
           <div className="flex items-center gap-[24px] h-full flex-1 min-w-0">
             <div
-              className={`flex items-center py-2 h-full shrink-0 max-md:flex ${
+              className={`flex items-center py-2 h-full shrink-0 max-md:flex cursor-pointer ${
                 hideLogo ? 'hidden md:hidden' : 'hidden md:flex'
               }`}
+              onClick={handleGoHomepage}
             >
               <img
                 src={LOGO_IMG}
@@ -62,9 +68,7 @@ export function Header() {
               />
             </div>
 
-            <ConfigProvider
-              theme={{ components: { Menu: { itemPaddingInline: 12 } } }}
-            >
+            <ConfigProvider theme={{ components: { Menu: { itemPaddingInline: 12 } } }}>
               <Menu
                 mode="horizontal"
                 items={menuItems}
@@ -76,7 +80,6 @@ export function Header() {
           </div>
 
           <div className="flex items-center justify-end gap-[24px] shrink-0">
-
             {/* Search bar — desktop*/}
             <div className="relative w-full max-w-[420px] min-w-[150px] hidden lg:block">
               <SearchIcon
@@ -147,10 +150,7 @@ export function Header() {
       </header>
 
       {/* Mobile Nav Drawer */}
-      <MobileNavDrawer
-        open={mobileNavOpen}
-        onClose={() => setMobileNavOpen(false)}
-      />
+      <MobileNavDrawer open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
 
       <ModalEngine />
     </>
