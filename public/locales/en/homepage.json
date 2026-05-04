@@ -1,0 +1,168 @@
+{
+  "hero": {
+    "title": "Travel everywhere with VFJLink",
+    "badge": {
+      "safe": "Secure payments",
+      "support": "Fast customer support"
+    }
+  },
+  "booking": {
+    "tabs": {
+      "flight": "Flights",
+      "tour": "Tours",
+      "train": "Trains",
+      "hotel": "Hotels",
+      "transfer": "Airport transfer"
+    },
+    "trip": {
+      "one": "One way",
+      "round": "Round trip",
+      "multi": "Multi-city"
+    },
+    "from": "From",
+    "to": "To",
+    "depart": "Departure",
+    "return": "Return",
+    "pax": "Passengers & class",
+    "paxOptions": {
+      "1econ": "1 adult, Economy",
+      "2econ": "2 adults, Economy"
+    }
+  },
+  "promos": {
+    "sectionTitle": "Exclusive for new users",
+    "seeAll": "See all",
+    "items": {
+      "new-user-1": {
+        "title": "Up to 10% off your first booking",
+        "description": "Applies when you pay online.",
+        "cta": "Get offer",
+        "emoji": "🎁"
+      },
+      "new-user-2": {
+        "title": "Earn double miles",
+        "description": "The more you fly, the more you earn.",
+        "cta": "Sign up",
+        "emoji": "✈️"
+      },
+      "new-user-3": {
+        "title": "Hotel bundle deals",
+        "description": "Flight + hotel combos at great prices.",
+        "cta": "Explore",
+        "emoji": "🏨"
+      }
+    }
+  },
+  "banners": {
+    "spring": {
+      "kicker": "04.04 – 07.04",
+      "title": "4.4 SALE ALL THE WAY",
+      "sub": "Flash sale codes up to ₫1.5M · Fares from ₫1,699k",
+      "cta": "BOOK NOW"
+    },
+    "tripCoin": {
+      "kicker": "Trip Coin",
+      "title": "Earn miles + Trip Coin",
+      "sub": "Members-only deals up to 30% off.",
+      "cta": "BOOK NOW ›"
+    }
+  },
+  "flights": {
+    "sectionTitle": "Most popular flights",
+    "buyNow": "Buy now",
+    "from": "From",
+    "deals": {
+      "hn-sgn": { "route": "Hanoi to Ho Chi Minh City", "leg": "One way" },
+      "sgn-dad": { "route": "Ho Chi Minh City to Da Nang", "leg": "One way" },
+      "hn-cxr": { "route": "Hanoi to Nha Trang", "leg": "One way" },
+      "hn-pqc": { "route": "Hanoi to Phu Quoc", "leg": "One way" },
+      "hn-cdo": { "route": "Hanoi to Con Dao", "leg": "One way" }
+    }
+  },
+  "destinations": {
+    "sectionTitle": "Where do you want to go?",
+    "seeMore": "See more",
+    "explore": "Explore",
+    "activityCount": "{{count}} activities",
+    "spots": {
+      "hanoi": { "name": "Hanoi" },
+      "halong": { "name": "Ha Long" },
+      "sapa": { "name": "Sa Pa" },
+      "fansipan": { "name": "Fansipan" },
+      "hoian": { "name": "Hoi An" }
+    }
+  },
+  "activities": {
+    "sectionTitle": "Featured experiences",
+    "priceFrom": "From:",
+    "tags": { "hot": "Hot", "sale": "Sale", "travel": "Travel" },
+    "items": {
+      "act-halong": { "title": "Ha Long Bay cruise" },
+      "act-hoian": { "title": "Hoi An old town by night" },
+      "act-nhatrang": { "title": "Nha Trang diving" },
+      "act-danang": { "title": "Golden Bridge Ba Na Hills" }
+    }
+  },
+  "why": {
+    "sectionTitle": "Why choose VFJLink",
+    "items": {
+      "choice": {
+        "title": "Great flight prices",
+        "description": "Compare hundreds of routes and pick what fits you."
+      },
+      "price": {
+        "title": "Quality & transparent pricing",
+        "description": "No hidden fees—clear fare rules and baggage info."
+      },
+      "support": {
+        "title": "Dedicated support",
+        "description": "24/7 help before and during your trip."
+      },
+      "variety": {
+        "title": "Many services in one place",
+        "description": "Flights, hotels, tours, and transfers—all in one platform."
+      }
+    }
+  },
+  "attractions": {
+    "sectionTitle": "Top attractions in Vietnam",
+    "names": {
+      "halong-bay": "Ha Long Bay",
+      "ba-na": "Sun World Ba Na Hills",
+      "cu-chi": "Cu Chi Tunnels",
+      "train-street": "Hanoi Train Street",
+      "hon-gam-ghi": "Hon Gam Ghi",
+      "trang-an": "Trang An - Ninh Binh",
+      "marble-mountains": "Marble Mountains",
+      "hoi-an-old": "Hoi An Ancient Town",
+      "mekong": "Mekong Delta",
+      "saigon-river": "Saigon River",
+      "dragon-bridge": "Dragon Bridge Da Nang",
+      "lan-ha": "Lan Ha Bay",
+      "hanoi-old-quarter": "Hanoi Old Quarter",
+      "cat-cat": "Cat Cat Village",
+      "bai-sao": "Bai Sao Beach",
+      "fansipan-peak": "Fansipan Peak",
+      "grand-phu-quoc": "Grand Phu Quoc",
+      "tam-coc": "Tam Coc - Bich Dong",
+      "my-khe": "My Khe Beach",
+      "golden-bridge": "Golden Bridge"
+    }
+  },
+  "footer": {
+    "col1": {
+      "title": "About VFJLink",
+      "links": ["About us", "Terms", "Privacy policy"]
+    },
+    "col2": {
+      "title": "Support",
+      "links": ["Help center", "Booking guide", "Contact"]
+    },
+    "col3": {
+      "title": "FAQ",
+      "links": ["Payments", "Refunds", "Baggage"]
+    },
+    "payments": { "title": "Payment methods" },
+    "copyright": "© 2018-2026 VFJLink. All rights reserved."
+  }
+}

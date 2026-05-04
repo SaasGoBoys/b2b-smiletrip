@@ -1,10 +1,15 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
-import { Button, Tabs, Typography } from 'antd'
+import { Button } from 'antd'
 
-import { type Flight,FlightCard } from './FlightCard'
+import { type Flight, FlightCard } from './FlightCard'
 
-const { Text } = Typography
+import {
+  BoltIcon,
+  EntertainmentAmenityIcon,
+  LuggageIcon,
+  MealAmenityIcon,
+  TravelBagIcon} from '@/assets/icons/icons'
 
 const MOCK_FLIGHTS: Flight[] = [
   {
@@ -159,16 +164,9 @@ interface Props {
   to: string
 }
 
-const SORT_OPTIONS = [
-  { key: 'criteria', label: 'Ưu tiên theo tiêu chí' },
-  { key: 'lowest', label: 'Giá thấp nhất' },
-  { key: 'earliest', label: 'Bay sớm nhất' },
-  { key: 'cheapest', label: 'Rẻ nhất' },
-]
-
 export function FlightResultList({ from, to }: Props) {
-  const [activeTab, setActiveTab] = useState('outbound')
-  const [sortKey, setSortKey] = useState('criteria')
+  const [activeFilter, setActiveFilter] = useState('recommended')
+  const sortKey = 'criteria' as string
   const [page, setPage] = useState(1)
 
   const sortedFlights = [...MOCK_FLIGHTS].sort((a, b) => {
@@ -182,107 +180,108 @@ export function FlightResultList({ from, to }: Props) {
   const hasMore = displayedFlights.length < sortedFlights.length
 
   return (
-    <div
-      style={{
-        background: '#fff',
-        border: '1px solid #e5e7eb',
-        borderRadius: 12,
-        overflow: 'hidden',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '12px 16px',
-          borderBottom: '1px solid #f0f0f0',
-        }}
-      >
-        <Tabs
-          activeKey={activeTab}
-          onChange={setActiveTab}
-          size="small"
-          style={{ margin: 0 }}
-          tabBarStyle={{ margin: 0, border: 'none' }}
-          items={[
-            { key: 'outbound', label: `Bay đến ${to}` },
-            { key: 'inbound', label: `Bay về ${from}` },
-          ]}
-        />
-        <Text type="secondary" style={{ fontSize: 13 }}>
-          Đã tìm thấy <strong>{MOCK_FLIGHTS.length}</strong> chuyến bay
-        </Text>
-      </div>
-
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          padding: '10px 16px',
-          background: '#f9fafb',
-          borderBottom: '1px solid #f0f0f0',
-          flexWrap: 'wrap',
-        }}
-      >
-        {SORT_OPTIONS.map((opt) => (
-          <button
-            key={opt.key}
-            onClick={() => setSortKey(opt.key)}
-            style={{
-              padding: '4px 14px',
-              borderRadius: 20,
-              border: sortKey === opt.key ? '1px solid #4558B6' : '1px solid #e5e7eb',
-              background: sortKey === opt.key ? '#eff6ff' : '#fff',
-              color: sortKey === opt.key ? '#4558B6' : '#374151',
-              fontSize: 13,
-              fontWeight: sortKey === opt.key ? 600 : 400,
-              cursor: 'pointer',
-              transition: 'all 0.15s',
-            }}
-          >
-            {opt.label}
-          </button>
-        ))}
-      </div>
-
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 20,
-          padding: '8px 16px',
-          background: '#fff8f0',
-          borderBottom: '1px solid #fed7aa',
-          fontSize: 13,
-          color: '#92400e',
-        }}
-      >
-        <span>🧳 Có hành lý xách tay</span>
-        <span>🏷️ Có hành lý ký gửi</span>
-        <span>⚡ Có sạc điện thoại</span>
-        <span>🍽️ Có suất ăn</span>
-        <span>🎬 Có giải trí</span>
-      </div>
-
-      <div>
-        {displayedFlights.map((flight) => (
-          <FlightCard
-            key={flight.id}
-            flight={flight}
-            onBook={(f) => console.log('Book:', f.id)}
-          />
-        ))}
-      </div>
-
-      {hasMore && (
-        <div style={{ padding: '16px', textAlign: 'center', borderTop: '1px solid #f0f0f0' }}>
-          <Button onClick={() => setPage((p) => p + 1)} style={{ borderRadius: 8 }}>
-            Xem thêm chuyến bay
-          </Button>
+    <div className="w-full mb-6">
+      {/* Header Blue Bar */}
+      <div className="bg-primary px-3 h-[54px] flex items-center justify-between text-white rounded-t-[10px]">
+        <div className="flex items-center h-full py-1.5">
+          <div className="bg-[#6A7CD9] px-[7px] py-[10px] h-full flex items-center rounded-[10px] cursor-pointer">
+            <span className="text-[17px] font-semibold">Bay đến {to}</span>
+          </div>
+          <div className="px-4 h-full flex items-center cursor-pointer">
+            <span className="text-[17px] font-semibold">Bay về {from}</span>
+          </div>
         </div>
-      )}
+        <span className="text-[17px] font-regular mr-2">Đã tìm thấy 126 chuyến bay</span>
+      </div>
+
+      {/* Gap */}
+      <div className="h-[10px] bg-surface-hover" />
+
+      <div className="flex border-b border-border-light h-[84px] items-center bg-white">
+        {[
+          { key: 'direct', label: 'Ưu tiên bay thẳng', price: '5.346.000đ' },
+          { key: 'recommended', label: 'Đề xuất', price: '5.346.000đ' },
+          { key: 'cheapest', label: 'Rẻ nhất', price: '5.346.000đ' },
+        ].map((tab) => (
+          <React.Fragment key={tab.key}>
+            <button
+              onClick={() => setActiveFilter(tab.key)}
+              className="flex-1 min-w-[120px] px-4 flex flex-col items-center justify-center gap-1 relative hover:bg-surface-hover transition-colors h-full cursor-pointer"
+            >
+              <span className="text-[17px] font-semibold text-text-main">
+                {tab.label}
+              </span>
+              <span className="text-[17px] text-text-secondary font-regular">{tab.price}</span>
+              {activeFilter === tab.key && (
+                <div className="absolute bottom-0 left-0 w-full h-[4px] bg-text-main" />
+              )}
+            </button>
+            <div className="w-[1px] h-[50px] bg-border-light shrink-0" />
+          </React.Fragment>
+        ))}
+
+        {/* Sort Label Box */}
+        <div className="w-[160px] flex items-center justify-center h-full shrink-0 cursor-pointer hover:bg-surface-hover transition-colors">
+          <span className="text-[17px] font-semibold text-text-main">Sắp xếp theo</span>
+        </div>
+
+        <div className="w-[1px] h-[50px] bg-border-light shrink-0" />
+
+        {/* Right side Sort Button */}
+        <div className="w-[200px] flex items-center justify-center h-full shrink-0">
+          <button className="flex items-center gap-2 text-primary font-semibold hover:opacity-80 transition-all h-full cursor-pointer">
+            <div className="w-[32px] h-[32px] flex items-center justify-center mt-1">
+              <img src="/icons/Bell3DIcon.webp" alt="Sort" className="w-full h-full object-contain" />
+            </div>
+            <span className="text-[17px] whitespace-nowrap">Thông báo</span>
+          </button>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-8 px-4 py-2 text-text-main" >
+        <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+          <LuggageIcon width={24} height={24} />
+          <span className="text-[14px] font-regular">Có hành lý xách tay</span>
+        </div>
+        <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+          <TravelBagIcon width={24} height={24} />
+          <span className="text-[14px] font-regular">Có hành lý ký gửi</span>
+        </div>
+        <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+          <BoltIcon width={24} height={24} />
+          <span className="text-[14px] font-regular">Có sạc điện thoại</span>
+        </div>
+        <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+          <MealAmenityIcon width={24} height={24} />
+          <span className="text-[14px] font-regular">Có suất ăn</span>
+        </div>
+        <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+          <EntertainmentAmenityIcon width={24} height={24} />
+          <span className="text-[14px] font-regular">Có giải trí</span>
+        </div>
+      </div>
+
+
+      {/* flights list */}
+      <div className="overflow-hidden ">
+        <div>
+          {displayedFlights.map((flight) => (
+            <FlightCard
+              key={flight.id}
+              flight={flight}
+              onBook={(f) => console.log('Book:', f.id)}
+            />
+          ))}
+        </div>
+
+        {hasMore && (
+          <div className="p-4 text-center border-t border-border-light">
+            <Button onClick={() => setPage((p) => p + 1)} className="rounded-lg">
+              Xem thêm chuyến bay
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

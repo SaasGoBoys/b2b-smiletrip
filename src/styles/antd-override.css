@@ -15,6 +15,47 @@
   background: rgba(255, 255, 255, 0.12) !important;
 }
 
-.ant-menu-dark.ant-menu-submenu-popup > .ant-menu {
+.ant-menu-dark.ant-menu-submenu-popup>.ant-menu {
   background: #4f65cd !important;
+}
+
+/* Fix vertical alignment for the header menu overflow indicator (ellipsis) and enforce white text for top-level items */
+.header-nav-menu.ant-menu-horizontal>.ant-menu-item,
+.header-nav-menu.ant-menu-horizontal>.ant-menu-item-selected,
+.header-nav-menu.ant-menu-horizontal>.ant-menu-submenu>.ant-menu-submenu-title,
+.header-nav-menu.ant-menu-horizontal>.ant-menu-submenu-selected>.ant-menu-submenu-title,
+.header-nav-menu.ant-menu-horizontal>.ant-menu-overflow-item-rest .ant-menu-submenu-title {
+  color: #fff !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+}
+
+
+
+/* Ensure the ellipsis item is vertically centered */
+.header-nav-menu.ant-menu-horizontal .ant-menu-overflow-item-rest {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.header-nav-menu.ant-menu-horizontal .ant-menu-overflow-item-rest .ant-menu-submenu-title {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+}
+
+/* Ticket Select Overrides */
+.ticket-select .ant-select-selection-item {
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+/* Utility: Hide Scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
