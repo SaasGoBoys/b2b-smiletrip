@@ -32,7 +32,7 @@ export function Footer() {
   return (
     <footer className="bg-white border-t border-border-main">
       {/* Main links section */}
-      <div className="container mx-auto px-4 py-8 md:py-10">
+      <div className="container py-8 md:py-10">
         <Row gutter={[40, 32]}>
           {Object.entries(FOOTER_LINKS).map(([section, links]) => (
             <Col xs={24} sm={12} md={6} key={section}>

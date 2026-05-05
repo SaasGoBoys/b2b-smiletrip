@@ -41,7 +41,7 @@ const REASONS: Reason[] = [
 export function WhyChooseUs() {
   return (
     <div className="py-10 md:py-[60px] pb-[10px] bg-white">
-      <div className="mx-auto px-4 container">
+      <div className="container">
         <Title
           level={2}
           className="!mb-8 md:!mb-10 !text-[28px] md:!text-[40px] !font-normal !text-text-main"
