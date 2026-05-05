@@ -157,6 +157,10 @@ export function FlightFilterPanel({ filters, onFilterChange }: Props) {
             colorPrimaryBorderHover: brandColors.textMain,
             railSize: 1,
           },
+          Collapse: {
+            headerPadding: '12px 0',
+            contentPadding: '12px 0',
+          },
         },
       }}
     >
@@ -167,7 +171,7 @@ export function FlightFilterPanel({ filters, onFilterChange }: Props) {
       >
         {/* Được đề xuất */}
         <Panel showArrow={false} className="!border-b !border-border-main" header={<span className="text-[18px] font-semibold text-text-main">Được đề xuất</span>} key="suggested">
-          <Space direction="vertical" size={8} className="w-full pl-1">
+          <Space direction="vertical" size={8} className="w-full">
             {TICKET_TYPES.map(({ label, icon }) => (
               <Checkbox
                 key={label}
@@ -185,7 +189,7 @@ export function FlightFilterPanel({ filters, onFilterChange }: Props) {
 
         {/* Thời gian */}
         <Panel showArrow={false} className="!border-b !border-border-main" header={<span className="text-[18px] font-semibold text-text-main">Thời gian</span>} key="time">
-          <div className="px-1">
+          <div>
             <SliderRow
               label="Giờ cất cánh"
               min={0}
@@ -205,7 +209,7 @@ export function FlightFilterPanel({ filters, onFilterChange }: Props) {
 
         {/* Thời gian bay */}
         <Panel showArrow={false} className="!border-b !border-border-main" header={<span className="text-[18px] font-semibold text-text-main">Thời gian bay</span>} key="flightTime">
-          <div className="px-1">
+          <div>
             <SliderRow
               label="Giờ quá cảnh"
               min={1}
@@ -227,7 +231,7 @@ export function FlightFilterPanel({ filters, onFilterChange }: Props) {
 
         {/* Hãng hàng không */}
         <Panel showArrow={false} className="!border-b !border-border-main" header={<span className="text-[18px] font-semibold text-text-main">Hãng hàng không</span>} key="airlines">
-          <Space direction="vertical" size={12} className="w-full pl-1">
+          <Space direction="vertical" size={12} className="w-full">
             {AIRLINES.map((airline) => (
               <Checkbox
                 key={airline}
@@ -245,7 +249,7 @@ export function FlightFilterPanel({ filters, onFilterChange }: Props) {
 
         {/* Hạng vé */}
         <Panel showArrow={false} className="last:border-b-0" header={<span className="text-[18px] font-semibold text-text-main">Hạng vé</span>} key="seats">
-          <Space direction="vertical" size={12} className="w-full pl-1">
+          <Space direction="vertical" size={12} className="w-full">
             {SEAT_CLASSES.map((cls) => (
               <Checkbox
                 key={cls}

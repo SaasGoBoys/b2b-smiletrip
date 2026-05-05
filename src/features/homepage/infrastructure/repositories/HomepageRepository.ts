@@ -8,12 +8,10 @@ const IMG = {
     'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=640&q=80&auto=format&fit=crop',
   flightHnCxr:
     'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=640&q=80&auto=format&fit=crop',
-  flightHnPqc:
-    'https://images.unsplash.com/photo-1590523277543-a94fc2d4e28c?w=640&q=80&auto=format&fit=crop',
+  flightHnPqc: '/images/homepage/hanoi_phuquoc.png',
   flightHnCdo:
     'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=640&q=80&auto=format&fit=crop',
-  destHanoi:
-    'https://images.unsplash.com/photo-1599708153386-62bf3fd66c74?w=640&q=80&auto=format&fit=crop',
+  destHanoi: '/images/homepage/img1.png',
   destHalong:
     'https://images.unsplash.com/photo-1528127269322-539801943592?w=640&q=80&auto=format&fit=crop',
   destSapa:
@@ -53,10 +51,28 @@ const STATIC_CONTENT: HomepageContent = {
     { id: 'hoian', imageUrl: IMG.destHoian, activityCount: 34 },
   ],
   activities: [
-    { id: 'act-halong', imageUrl: IMG.actHalong, rating: 4.8, priceFromVnd: 1_250_420, tag: 'travel' },
+    {
+      id: 'act-halong',
+      imageUrl: IMG.actHalong,
+      rating: 4.8,
+      priceFromVnd: 1_250_420,
+      tag: 'travel',
+    },
     { id: 'act-hoian', imageUrl: IMG.actHoian, rating: 4.7, priceFromVnd: 890_000, tag: 'hot' },
-    { id: 'act-nhatrang', imageUrl: IMG.actNhatrang, rating: 4.6, priceFromVnd: 750_000, tag: 'sale' },
-    { id: 'act-danang', imageUrl: IMG.actDanang, rating: 4.9, priceFromVnd: 990_000, tag: 'travel' },
+    {
+      id: 'act-nhatrang',
+      imageUrl: IMG.actNhatrang,
+      rating: 4.6,
+      priceFromVnd: 750_000,
+      tag: 'sale',
+    },
+    {
+      id: 'act-danang',
+      imageUrl: IMG.actDanang,
+      rating: 4.9,
+      priceFromVnd: 990_000,
+      tag: 'travel',
+    },
   ],
   why: [
     { id: 'choice', icon: '🎫' },

@@ -40,11 +40,11 @@ const REASONS: Reason[] = [
 
 export function WhyChooseUs() {
   return (
-    <div className="py-[60px] pb-[10px] bg-white">
-      <div className="mx-auto px-4 container">
+    <div className="py-10 md:py-[60px] pb-[10px] bg-white">
+      <div className="container">
         <Title
           level={2}
-          className="!mb-10 !text-[40px] !font-normal !text-text-main"
+          className="!mb-8 md:!mb-10 !text-[28px] md:!text-[40px] !font-normal !text-text-main"
         >
           Vì sao bạn nên chọn VFJLink
         </Title>
@@ -53,16 +53,18 @@ export function WhyChooseUs() {
           {REASONS.map((reason) => (
             <Col xs={24} sm={12} lg={6} key={reason.title}>
               <div className="h-full cursor-default py-3">
-                <div className="flex items-center mb-5">
-                  {reason.icon}
+                <div className="flex items-center mb-4 md:mb-5">
+                  <div className="scale-90 md:scale-100 origin-left">
+                    {reason.icon}
+                  </div>
                 </div>
                 <Title
                   level={4}
-                  className="!mb-3 !text-[20px] !font-bold !text-text-main"
+                  className="!mb-2 md:!mb-3 !text-[18px] md:!text-[20px] !font-bold !text-text-main"
                 >
                   {reason.title}
                 </Title>
-                <Paragraph className="!m-0 !text-[14px] !leading-[1.6] !text-text-main">
+                <Paragraph className="!m-0 !text-[13px] md:!text-[14px] !leading-[1.6] !text-text-main opacity-80">
                   {reason.description}
                 </Paragraph>
               </div>
@@ -73,3 +75,4 @@ export function WhyChooseUs() {
     </div>
   )
 }
+

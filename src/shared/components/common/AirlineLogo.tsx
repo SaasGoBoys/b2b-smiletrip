@@ -1,10 +1,4 @@
-export const AIRLINE_LOGOS: Record<string, string> = {
-  'Vietnam Airlines': '/icons/vnaIcon.webp',
-  'Vietjet Air': '/icons/vjIcon.webp',
-  'Bamboo Airway': '/icons/bbIcon.webp',
-  'Vietravel Airlines': '/icons/vtIcon.webp',
-  'Sun Phu Quoc Airway': '/icons/sunIcon.webp',
-}
+import { AIRLINE_LOGOS } from '@/mocks/data/flights'
 
 interface AirlineLogoProps {
   airline: string

@@ -7,21 +7,21 @@
   --color-primary-active: #3447a0;
   --color-primary-soft-bg: #CDE7FF;
   --color-primary-soft-border: #78ABCD;
-  
+
   /* Text colors */
   --color-text-main: #3A3A3A;
   --color-text-secondary: #909090;
   --color-text-muted: #DBDBDB;
-  
+
   /* Background colors */
   --color-surface-hover: #F4F4F4;
   --color-bg-main: #FFFFFF;
-  
+
   /* Status colors */
   --color-danger: #DA251D;
   --color-warning: #FFBC44;
   --color-success: #52c41a;
-  
+
   /* Borders */
   --color-border-main: #DBDBDB;
   --color-border-light: #F4F4F4;

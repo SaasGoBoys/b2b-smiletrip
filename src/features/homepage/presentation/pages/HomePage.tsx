@@ -1,6 +1,11 @@
+import { Suspense } from 'react'
+
+import { FlightSearchForm } from '@/shared/components/common/FlightSearchForm'
+import { HeroBanner } from '@/shared/components/common/HeroBanner'
+import { SectionLoader } from '@/shared/components/feedback/SectionLoader'
+
 import { DestinationsSection } from '../components/sections/DestinationsSection'
 import { FeaturedActivitiesSection } from '../components/sections/FeaturedActivitiesSection'
-import { HeroBookingSection } from '../components/sections/HeroBookingSection'
 import { HomepageFooterSection } from '../components/sections/HomepageFooterSection'
 import { NewUserPromoSection } from '../components/sections/NewUserPromoSection'
 import { PopularFlightsSection } from '../components/sections/PopularFlightsSection'
@@ -14,7 +19,11 @@ export default function HomePage() {
 
   return (
     <div className="min-h-full bg-[var(--ant-color-bg-layout)]">
-      <HeroBookingSection />
+      <HeroBanner>
+        <Suspense fallback={<SectionLoader />}>
+          <FlightSearchForm />
+        </Suspense>
+      </HeroBanner>
       <NewUserPromoSection items={content.promos} />
       <SaleBannersSection />
       <PopularFlightsSection deals={content.flightDeals} />
