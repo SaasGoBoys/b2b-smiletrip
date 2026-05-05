@@ -1,8 +1,7 @@
 import { lazy, Suspense, useState } from 'react'
 
-import { Spin } from 'antd'
-
 import { HeroBanner } from '@/shared/components/common/HeroBanner'
+import { SectionLoader } from '@/shared/components/feedback/SectionLoader'
 
 const FlightSearchForm = lazy(() =>
   import('@/shared/components/common/FlightSearchForm').then((m) => ({ default: m.FlightSearchForm }))
@@ -19,24 +18,16 @@ const FlightSearchResults = lazy(() =>
 )
 
 const WhyChooseUs = lazy(() =>
-  import('../components/WhyChooseUs').then((m) => ({ default: m.WhyChooseUs }))
+  import('@/shared/components/common/WhyChooseUs').then((m) => ({ default: m.WhyChooseUs }))
 )
 
 const TopDestinations = lazy(() =>
-  import('../components/TopDestinations').then((m) => ({ default: m.TopDestinations }))
+  import('@/shared/components/common/TopDestinations').then((m) => ({ default: m.TopDestinations }))
 )
 
-const HomeFooter = lazy(() =>
-  import('../components/HomeFooter').then((m) => ({ default: m.HomeFooter }))
+const Footer = lazy(() =>
+  import('@/shared/components/layout/Footer').then((m) => ({ default: m.Footer }))
 )
-
-function SectionLoader() {
-  return (
-    <div className="flex justify-center py-10">
-      <Spin size="large" />
-    </div>
-  )
-}
 
 const CITY_MAP: Record<string, string> = {
   HAN: 'Hà Nội',
@@ -100,8 +91,9 @@ export default function BookPage() {
         <TopDestinations />
       </Suspense>
 
+
       <Suspense fallback={null}>
-        <HomeFooter />
+        <Footer />
       </Suspense>
     </>
   )

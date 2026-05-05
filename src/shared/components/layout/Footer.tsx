@@ -28,26 +28,26 @@ const FOOTER_LINKS = {
   ],
 }
 
-export function HomeFooter() {
+export function Footer() {
   return (
     <footer className="bg-white border-t border-border-main">
       {/* Main links section */}
-      <div className="container mx-auto px-4 py-10">
+      <div className="container mx-auto px-4 py-8 md:py-10">
         <Row gutter={[40, 32]}>
           {Object.entries(FOOTER_LINKS).map(([section, links]) => (
             <Col xs={24} sm={12} md={6} key={section}>
               <Title
                 level={5}
-                className="!text-[18px] !font-semibold !text-text-main !mb-4"
+                className="!text-[16px] md:!text-[18px] !font-semibold !text-text-main !mb-3 md:!mb-4"
               >
                 {section}
               </Title>
-              <div className="flex flex-col gap-[10px]">
+              <div className="flex flex-col gap-[8px] md:gap-[10px]">
                 {links.map((link) => (
                   <Link
                     key={link}
                     href="#"
-                    className="!text-[14px] !text-text-main !font-normal hover:!text-primary hover:!underline transition-colors duration-150"
+                    className="!text-[13px] md:!text-[14px] !text-text-main !font-normal hover:!text-primary hover:!underline transition-colors duration-150"
                   >
                     {link}
                   </Link>
@@ -60,13 +60,13 @@ export function HomeFooter() {
           <Col xs={24} sm={12} md={6}>
             <Title
               level={5}
-              className="!text-[18px] !font-semibold !text-text-main !mb-4"
+              className="!text-[16px] md:!text-[18px] !font-semibold !text-text-main !mb-3 md:!mb-4"
             >
               Kênh thanh toán
             </Title>
             <div className="flex gap-2 flex-wrap items-center">
-              <MastercardIcon />
-              <VisaIcon />
+              <MastercardIcon className="scale-90 md:scale-100 origin-left" />
+              <VisaIcon className="scale-90 md:scale-100 origin-left" />
             </div>
           </Col>
         </Row>
@@ -75,11 +75,11 @@ export function HomeFooter() {
       <Divider className="!m-0" />
 
       {/* Bottom bar */}
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between flex-wrap gap-3">
-        <Text className="!text-[16px] !text-text-main">
+      <div className="container mx-auto px-4 py-6 md:py-4 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-3">
+        <Text className="!text-[14px] md:!text-[16px] !text-text-main text-center md:text-left">
           © 2014-2026 VFJLink. All Rights Reserved.
         </Text>
-        <Space size={8}>
+        <Space size={16} className="md:!gap-2">
           <Link
             href="#"
             className="flex items-center opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-150"
@@ -109,3 +109,4 @@ export function HomeFooter() {
     </footer>
   )
 }
+
