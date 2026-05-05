@@ -13,7 +13,8 @@ import {
   EntertainmentAmenityIcon,
   LuggageIcon,
   MealAmenityIcon,
-  TravelBagIcon} from '@/assets/icons/icons'
+  TravelBagIcon
+} from '@/assets/icons/icons'
 
 export interface Flight {
   id: string

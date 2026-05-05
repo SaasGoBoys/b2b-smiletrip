@@ -45,3 +45,8 @@ export const spacing = {
   borderRadiusLG: 12,
   borderRadiusSM: 4,
 } as const
+
+export const breakpoints = {
+  screenXL: 1280,
+  screenXLMin: 1280,
+} as const

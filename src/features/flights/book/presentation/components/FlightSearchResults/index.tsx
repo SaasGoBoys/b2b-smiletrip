@@ -2,7 +2,9 @@ import { useState } from 'react'
 
 import { Col, Row } from 'antd'
 
-import { type FilterState,FlightFilterPanel } from './FlightFilterPanel'
+import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
+
+import { DEFAULT_FILTERS, type FilterState, FlightFilterPanel } from './FlightFilterPanel'
 import { FlightResultList } from './FlightResultList'
 import { FlightSummaryCard } from './FlightSummaryCard'
 
@@ -16,6 +18,8 @@ const DEFAULT_SUMMARY_FLIGHTS = [
     arriveTime: '08:45',
     isDirectFlight: true,
     changeLabel: 'Đổi chuyến bay đi',
+    originCode: 'HAN',
+    destCode: 'SGN',
   },
   {
     leg: 2,
@@ -26,21 +30,10 @@ const DEFAULT_SUMMARY_FLIGHTS = [
     arriveTime: '08:45',
     isDirectFlight: true,
     changeLabel: 'Đổi chuyến bay về',
+    originCode: 'SGN',
+    destCode: 'HAN',
   },
 ]
-
-const DEFAULT_FILTERS: FilterState = {
-  ticketTypes: [],
-  directOnly: false,
-  handLuggage: false,
-  checkInLuggage: false,
-  timeFrom: [0, 24],
-  timeTo: [0, 24],
-  transitTime: [1, 24],
-  flightDuration: [2, 27.5],
-  airlines: ['Vietnam Airlines', 'Bamboo Airways', 'Vietjet Air', 'Sun Phu Quoc Airway', 'Vietravel Airlines'],
-  seatClasses: ['Vé phổ thông'],
-}
 
 interface Props {
   from?: string
@@ -48,26 +41,50 @@ interface Props {
 }
 
 export function FlightSearchResults({ from = 'Hà Nội', to = 'TP. Hồ Chí Minh' }: Props) {
+  const { isTabletToXl, isMobile } = useBreakpoint()
+  
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS)
 
+  const isLargeDesktop = !isTabletToXl && !isMobile
+
+  const handleFilterChange = (partial: Partial<FilterState>) => {
+    setFilters((prev) => ({ ...prev, ...partial }))
+  }
+
   return (
-    <Row gutter={[20, 20]}>
-      <Col xs={24} lg={6}>
-        <div className="flex flex-col gap-4">
-          <FlightSummaryCard
-            flights={DEFAULT_SUMMARY_FLIGHTS}
-            totalPrice={6882660}
-            onContinue={() => console.log('Continue booking')}
-          />
-          <FlightFilterPanel
-            filters={filters}
-            onFilterChange={(partial) => setFilters((prev) => ({ ...prev, ...partial }))}
-          />
-        </div>
-      </Col>
-      <Col xs={24} lg={18}>
-        <FlightResultList from={from} to={to} />
-      </Col>
-    </Row>
+    <div className="flex flex-col gap-6">
+      <Row gutter={[20, 20]}>
+        {/* Sidebar: Chỉ hiện ở Desktop >= 1280px */}
+        {isLargeDesktop && (
+          <Col xs={24} xl={6}>
+            <div className="flex flex-col gap-4">
+              <FlightSummaryCard
+                flights={DEFAULT_SUMMARY_FLIGHTS}
+                totalPrice={6882660}
+                onContinue={() => console.log('Continue booking')}
+              />
+              <FlightFilterPanel
+                filters={filters}
+                onFilterChange={handleFilterChange}
+              />
+            </div>
+          </Col>
+        )}
+
+        {/* Danh sách kết quả & Summary Card trên Mobile/Tablet */}
+        <Col xs={24} xl={isLargeDesktop ? 18 : 24}>
+          {!isLargeDesktop && (
+            <div className="mb-4">
+              <FlightSummaryCard
+                flights={DEFAULT_SUMMARY_FLIGHTS}
+                totalPrice={6882660}
+                onContinue={() => console.log('Continue booking')}
+              />
+            </div>
+          )}
+          <FlightResultList from={from} to={to} />
+        </Col>
+      </Row>
+    </div>
   )
 }
