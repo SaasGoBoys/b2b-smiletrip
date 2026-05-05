@@ -18,21 +18,23 @@ export function NewUserPromoSection({ items }: Props) {
   const { t } = useTranslation('homepage')
 
   return (
-    <section className="bg-gray-50/80 py-12 border-y border-gray-100">
+    <section className="bg-gray-50/80 py-12 border-y border-gray-100 sm:pt-25">
       <div className="max-w-[1200px] mx-auto px-4">
         <SectionHeading title={t('promos.sectionTitle')} action={{ label: t('promos.seeAll') }} />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {items.map((item) => (
             <div
               key={item.id}
-              className={`rounded-2xl border bg-gradient-to-br p-5 flex flex-col gap-3 shadow-sm ${VARIANT_RING[item.variant]}`}
+              className={`rounded-2xl border bg-linear-to-br p-5 flex flex-col gap-3 shadow-sm ${VARIANT_RING[item.variant]}`}
             >
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-lg font-bold text-gray-900 leading-snug">
                     {t(`promos.items.${item.id}.title`)}
                   </p>
-                  <p className="text-sm text-gray-600 mt-1">{t(`promos.items.${item.id}.description`)}</p>
+                  <p className="text-sm text-gray-600 mt-1">
+                    {t(`promos.items.${item.id}.description`)}
+                  </p>
                 </div>
                 <span className="text-3xl" aria-hidden>
                   {t(`promos.items.${item.id}.emoji`)}
