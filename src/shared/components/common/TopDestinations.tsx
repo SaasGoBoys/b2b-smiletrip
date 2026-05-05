@@ -32,25 +32,25 @@ const DESTINATIONS: Destination[] = [
 
 export function TopDestinations() {
   return (
-    <div className="py-[60px] bg-white">
-      <div className="mx-auto px-4 container">
+    <div className="py-10 md:py-[60px] bg-white">
+      <div className="container">
         <Title
           level={2}
-          className="!mb-10 !text-[40px] !font-normal !text-text-main"
+          className="!mb-8 md:!mb-10 !text-[28px] md:!text-[40px] !font-normal !text-text-main"
         >
           Các điểm tham quan hàng đầu Việt Nam
         </Title>
 
-        <div className="flex flex-wrap gap-x-2 gap-y-2">
+        <div className="flex flex-wrap gap-x-2 md:gap-x-3 gap-y-2 md:gap-y-3">
           {DESTINATIONS.map((dest) => (
             <div
               key={dest.rank}
               className="flex overflow-hidden border border-primary-soft-border rounded-[10px] cursor-pointer transition-all duration-150 hover:shadow-sm"
             >
-              <div className="bg-primary-soft-bg w-8 flex items-center justify-center border-r border-primary-soft-border text-primary font-normal text-[14px]">
+              <div className="bg-primary-soft-bg w-7 md:w-8 flex items-center justify-center border-r border-primary-soft-border text-primary font-normal text-[12px] md:text-[14px]">
                 {dest.rank}
               </div>
-              <div className="bg-white flex items-center px-2 py-[5px] text-text-main text-[14px] font-normal whitespace-nowrap">
+              <div className="bg-white flex items-center px-2 py-[4px] md:py-[5px] text-text-main text-[12px] md:text-[14px] font-normal whitespace-nowrap">
                 {dest.name}
               </div>
             </div>
@@ -60,4 +60,6 @@ export function TopDestinations() {
     </div>
   )
 }
+
+
 

@@ -1,11 +1,10 @@
 import { lazy, Suspense, useState } from 'react'
 
-import { Spin } from 'antd'
-
-import { HeroBanner } from '../components/HeroBanner'
+import { HeroBanner } from '@/shared/components/common/HeroBanner'
+import { SectionLoader } from '@/shared/components/feedback/SectionLoader'
 
 const FlightSearchForm = lazy(() =>
-  import('../components/FlightSearchForm').then((m) => ({ default: m.FlightSearchForm }))
+  import('@/shared/components/common/FlightSearchForm').then((m) => ({ default: m.FlightSearchForm }))
 )
 
 const DatePriceSlider = lazy(() =>
@@ -19,24 +18,16 @@ const FlightSearchResults = lazy(() =>
 )
 
 const WhyChooseUs = lazy(() =>
-  import('../components/WhyChooseUs').then((m) => ({ default: m.WhyChooseUs }))
+  import('@/shared/components/common/WhyChooseUs').then((m) => ({ default: m.WhyChooseUs }))
 )
 
 const TopDestinations = lazy(() =>
-  import('../components/TopDestinations').then((m) => ({ default: m.TopDestinations }))
+  import('@/shared/components/common/TopDestinations').then((m) => ({ default: m.TopDestinations }))
 )
 
-const HomeFooter = lazy(() =>
-  import('../components/HomeFooter').then((m) => ({ default: m.HomeFooter }))
+const Footer = lazy(() =>
+  import('@/shared/components/layout/Footer').then((m) => ({ default: m.Footer }))
 )
-
-function SectionLoader() {
-  return (
-    <div className="flex justify-center py-10">
-      <Spin size="large" />
-    </div>
-  )
-}
 
 const CITY_MAP: Record<string, string> = {
   HAN: 'Hà Nội',
@@ -63,22 +54,20 @@ export default function BookPage() {
   return (
     <>
       <HeroBanner>
-        <div className="absolute -bottom-full left-0 right-0 container">
-          <Suspense fallback={<SectionLoader />}>
-            <FlightSearchForm
-              onSearch={(params) => {
-                setSearchParams({
-                  from: CITY_MAP[params.from] ?? params.from,
-                  to: CITY_MAP[params.to] ?? params.to,
-                  searched: true,
-                })
-              }}
-            />
-          </Suspense>
-        </div>
+        <Suspense fallback={<SectionLoader />}>
+          <FlightSearchForm
+            onSearch={(params) => {
+              setSearchParams({
+                from: CITY_MAP[params.from] ?? params.from,
+                to: CITY_MAP[params.to] ?? params.to,
+                searched: true,
+              })
+            }}
+          />
+        </Suspense>
       </HeroBanner>
 
-      <div className="container my-[120px]">
+      <div className="container my-[30px] md:mt-[250px] xl:my-[120px]">
         {searchParams.searched && (
           <>
             <div className="mt-6 mb-4">
@@ -102,8 +91,9 @@ export default function BookPage() {
         <TopDestinations />
       </Suspense>
 
+
       <Suspense fallback={null}>
-        <HomeFooter />
+        <Footer />
       </Suspense>
     </>
   )
