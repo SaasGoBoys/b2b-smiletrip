@@ -81,11 +81,11 @@ export function HeroBanner({
           title
         )}
 
-        {subtitle === undefined ? defaultSubtitle : subtitle}
+        {subtitle === undefined ? defaultSubtitle : subtitle} 
       </div>
 
       {/* Overlapping Content Section */}
-      <div className={`relative pb-4 pt-6 md:py-0 md:absolute left-0 right-0 bottom-0 md:translate-y-15 md:translate-y-30 xl:translate-y-15 z-20 ${overlayClassName}`}>
+      <div className={`relative pb-4 pt-6 md:py-0 md:absolute left-0 right-0 bottom-0 md:translate-y-55 xl:translate-y-15 z-20 ${overlayClassName}`}>
         <div className="container mx-auto px-4">
           {children}
         </div>

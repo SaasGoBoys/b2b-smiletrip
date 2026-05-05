@@ -67,7 +67,7 @@ export default function BookPage() {
         </Suspense>
       </HeroBanner>
 
-      <div className="container my-[30px] md:mt-[150px] xl:my-[120px]">
+      <div className="container my-[30px] md:mt-[250px] xl:my-[120px]">
         {searchParams.searched && (
           <>
             <div className="mt-6 mb-4">
