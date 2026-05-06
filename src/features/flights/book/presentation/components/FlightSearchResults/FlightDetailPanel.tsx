@@ -30,7 +30,7 @@ const PROMOTIONS = [
 ]
 
 
-function SpecialTag({ icon, label, className = 'bg-[#86CED9]/40 text-[#54858C] font-semibold' }: { icon?: React.ReactNode; label?: string; className?: string }) {
+function SpecialTag({ icon, label, className = 'bg-[#86CED9]/40 text-[#54858C] font-semibold' }: { icon?: React.ReactNode; label?: React.ReactNode; className?: string }) {
   return (
     <div className={`h-[28px] flex items-center gap-1.5 px-2 py-1 rounded-[5px] text-[13px] whitespace-nowrap ${className}`}>
       {icon}
@@ -117,7 +117,7 @@ export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?:
                     <TravelBagIcon width={18} height={18} color="#54858C" />
                     <LuggageIcon width={18} height={18} color="#54858C" />
                   </div>}
-                  label="Có hành lý xách tay"
+                  label={<span className="hidden sm:inline">Có hành lý xách tay</span>}
                   className='bg-[#86CED9]/20 text-[12px] text-[#54858C] font-regular'
                 />
                 <SpecialTag
@@ -182,7 +182,7 @@ export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?:
             </div>
 
             {/* Time & Route */}
-            <div className="col-span-2 px-4 min-[992px]:col-auto min-[992px]:flex-1 flex items-center gap-4 w-full min-[992px]:max-w-[550px] min-[992px]:mx-auto order-last min-[992px]:order-none">
+            <div className="col-span-2 sm:px-4 min-[992px]:col-auto min-[992px]:flex-1 flex items-center gap-4 w-full min-[992px]:max-w-[550px] min-[992px]:mx-auto order-last min-[992px]:order-none">
               <div className="text-left min-[992px]:text-center shrink-0 min-[992px]:shrink">
                 <div className="text-[28px] min-[992px]:text-[30px] font-semibold text-text-main leading-tight">{flight.departTime}</div>
                 <div className="text-[14px] min-[992px]:text-[16px] text-text-secondary font-semibold uppercase">HAN T1</div>
@@ -210,7 +210,7 @@ export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?:
           </div>
 
           {/* Row 3: Promotions */}
-          <div className="flex flex-wrap gap-2 px-2">
+          <div className="hidden sm:flex flex-wrap gap-2 px-2">
             {PROMOTIONS.map((promo, idx) => (
               <PromotionTag
                 key={`${promo.code}-${idx}`}

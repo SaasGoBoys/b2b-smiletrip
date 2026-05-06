@@ -6,12 +6,12 @@ import { useModalController } from '@/shared/components/modals/hooks/useModalCon
 import type { ModalEngineProps } from '@/shared/components/modals/store/modal.type'
 import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
 
-import { DEFAULT_FILTERS, type FilterState, FlightFilterPanel } from './FlightFilterPanel'
+import { DEFAULT_FILTERS, type FilterState, FlightFilterPanel } from '../FlightSearchResults/FlightFilterPanel'
 
 export function FlightFilterModal({ type }: ModalEngineProps<unknown>) {
   const { isMobile } = useBreakpoint()
   const { close } = useModalController()
-  
+
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS)
 
   const onCancel = () => {

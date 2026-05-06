@@ -4,6 +4,10 @@ import { useState } from 'react'
 import { Button, Tooltip } from 'antd'
 
 import { AirlineLogo } from '@/shared/components/common/AirlineLogo'
+import { useModalController } from '@/shared/components/modals/hooks/useModalController'
+import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
+
+import { FlightRegistryModalKeys } from '../modals/flight.registry.modal'
 
 import { FlightDetailPanel } from './FlightDetailPanel'
 
@@ -57,8 +61,18 @@ function AmenityIcon({ icon, active, label }: { icon: ReactNode; active: boolean
 
 export function FlightCard({ flight, onBook }: Props) {
   const [showDetail, setShowDetail] = useState(false)
+  const { isSmallSize } = useBreakpoint()
+  const { open } = useModalController()
 
   const formattedPrice = flight.price.toLocaleString('vi-VN') + ' đ'
+
+  const handleDetailClick = () => {
+    if (isSmallSize) {
+      open(FlightRegistryModalKeys.FlightDetail, { flight, onBook })
+    } else {
+      setShowDetail((v) => !v)
+    }
+  }
 
   return (
     <div className="border-b border-border-light">
@@ -114,7 +128,7 @@ export function FlightCard({ flight, onBook }: Props) {
             {/* Chi tiết */}
             <div className="w-auto md:w-[80px] flex justify-center items-center shrink-0">
               <button
-                onClick={() => setShowDetail((v) => !v)}
+                onClick={handleDetailClick}
                 className="flex items-center justify-center h-[26px] md:h-auto px-2.5 md:px-0 border border-[#8EDFEB] md:border-none rounded-[6px] md:rounded-none gap-1 text-[12px] md:text-[13px] font-semibold text-primary md:text-text-secondary hover:text-text-main transition-colors shrink-0 cursor-pointer whitespace-nowrap bg-white md:bg-transparent"
               >
                 Chi tiết
@@ -133,7 +147,8 @@ export function FlightCard({ flight, onBook }: Props) {
         </div>
       </div>
 
-      {showDetail && (
+      {/* Desktop: inline panel */}
+      {!isSmallSize && showDetail && (
         <FlightDetailPanel
           flight={flight}
           onBook={onBook}
@@ -142,3 +157,4 @@ export function FlightCard({ flight, onBook }: Props) {
     </div>
   )
 }
+

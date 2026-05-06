@@ -8,7 +8,8 @@ import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
 
 import flightRegistryModals, {
   FlightRegistryModalKeys,
-} from './flight.registry.modal'
+} from '../modals/flight.registry.modal'
+
 import { type Flight, FlightCard } from './FlightCard'
 
 import {
@@ -176,10 +177,10 @@ interface Props {
 export function FlightResultList({ from, to }: Props) {
   const [activeFilter, setActiveFilter] = useState('recommended')
   const [page, setPage] = useState(1)
-  
+
   const { open } = useModalController()
   const { isTabletToXl, isMobile } = useBreakpoint()
-  
+
   // Đăng ký Modal của Flight feature
   useRegisterModals(flightRegistryModals)
 
@@ -254,12 +255,12 @@ export function FlightResultList({ from, to }: Props) {
               <span className="text-[17px] whitespace-nowrap">Thông báo</span>
             </button>
           ) : (
-            <button 
+            <button
               onClick={() => open(FlightRegistryModalKeys.FlightFilter)}
               className="flex items-center gap-1.5 lg:gap-2 text-primary font-semibold hover:opacity-80 transition-all h-full cursor-pointer bg-transparent border-none outline-none"
             >
               <span className="text-[14px] lg:text-[17px] whitespace-nowrap">Bộ lọc</span>
-               <div className="w-[20px] lg:w-[28px] h-[20px] lg:h-[28px] flex items-center justify-center">
+              <div className="w-[20px] lg:w-[28px] h-[20px] lg:h-[28px] flex items-center justify-center">
                 <FilterSettingsIcon color="#4558b6" width={20} height={20} />
               </div>
             </button>
