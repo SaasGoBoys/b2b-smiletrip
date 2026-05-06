@@ -1,4 +1,4 @@
-import { useEffect,useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { AirlineLogo } from '@/shared/components/common/AirlineLogo'
 
@@ -21,7 +21,7 @@ function SidebarItem({
   return (
     <button
       onClick={onClick}
-      className={`w-full text-center px-[15px] py-[17px] rounded-[10px] text-[18px] font-semibold transition-all flex items-center justify-center cursor-pointer
+      className={`w-max md:w-full text-center px-[15px] py-[10px] md:py-[17px] rounded-[10px] text-[14px] md:text-[18px] font-semibold transition-all flex items-center justify-center cursor-pointer shrink-0
         ${active
           ? 'bg-white border border-primary text-text-main'
           : 'bg-white border border-border-main text-text-main hover:border-primary'
@@ -37,16 +37,16 @@ function AccordionItem({ title, children, hasDivider = true }: { title: string; 
   return (
     <>
       <details className="group overflow-hidden">
-        <summary className="list-none flex items-center justify-between px-5 py-4 text-[18px] text-text-main font-semibold bg-white hover:bg-surface-hover transition-colors cursor-pointer outline-none select-none [&::-webkit-details-marker]:hidden">
+        <summary className="list-none flex items-center justify-between px-4 md:px-5 py-3 md:py-4 text-[16px] md:text-[18px] text-text-main font-semibold bg-white hover:bg-surface-hover transition-colors cursor-pointer outline-none select-none [&::-webkit-details-marker]:hidden">
           <span>{title}</span>
-          <ChevronDownBoxBlueIcon 
-            width={24} 
-            height={24} 
-            color="#4558B6" 
-            className="group-open:rotate-180 transition-transform duration-200" 
+          <ChevronDownBoxBlueIcon
+            width={24}
+            height={24}
+            color="#4558B6"
+            className="group-open:rotate-180 transition-transform duration-200"
           />
         </summary>
-        <div className="px-5 pb-5 pt-5 text-[14px] text-text-main bg-white leading-relaxed border-t border-border-main">
+        <div className="px-4 md:px-5 pb-4 md:pb-5 pt-4 md:pt-5 text-[14px] md:text-[16px] text-text-main bg-white leading-relaxed border-t border-border-main">
           {children}
         </div>
       </details>
@@ -156,7 +156,7 @@ function EstimateSection() {
                 </div>
 
                 <div className="flex justify-center mt-6">
-                  <button 
+                  <button
                     onClick={() => setIsModalOpen(true)}
                     className="flex items-center gap-2 text-[16px] font-semibold text-primary hover:underline cursor-pointer"
                   >
@@ -195,16 +195,16 @@ function RefundEstimateModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
 
   return (
     <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
-      <div 
+      <div
         className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"
         onClick={onClose}
       />
-      
+
       <div className="relative w-full max-w-[640px] bg-white rounded-[20px] overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-border-main">
           <h3 className="text-[20px] font-bold text-text-main">Ước tính hoàn vé</h3>
-          <button 
+          <button
             onClick={onClose}
             className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
           >
@@ -294,7 +294,7 @@ function ProcessSection() {
   return (
     <div>
       <div className="text-[20px] font-semibold text-text-main mb-4 px-1">Quy trình hoàn lại vé</div>
-      
+
       <div className="border border-border-main rounded-[10px] overflow-hidden py-1">
         <AccordionItem title="Cách gửi yêu cầu hoàn vé">
           <div className="space-y-6">
@@ -302,7 +302,7 @@ function ProcessSection() {
               Để quá trình hoàn vé dễ dàng hơn, hãy nhớ đăng nhập vào tài khoản VFJLink của bạn khi đặt vé. Sau đó, hãy làm
               theo các bước sau để gửi yêu cầu hoàn vé:
             </p>
-            
+
             <div className="space-y-5">
               <div>
                 <div className="text-[14px] font-semibold text-text-main">1. Đăng nhập hoặc đăng ký VFJLink</div>
@@ -394,7 +394,7 @@ export function RefundTab({ flight }: { flight: Flight }) {
           <AirlineLogo airline={flight.airline} logoUrl={flight.logoUrl} className="w-[36px] h-[36px] shrink-0" />
           <span className="text-[18px] font-semibold text-text-main">{flight.airline}</span>
         </div>
-        <div className="text-[14px] font-semibold text-text-secondary px-4 pb-2">
+        <div className="text-[13px] md:text-[14px] font-semibold text-text-secondary px-4 pb-2">
           Hà Nội → TP HCM • phổ thông
         </div>
 
@@ -404,10 +404,10 @@ export function RefundTab({ flight }: { flight: Flight }) {
           <span className="text-[20px] font-semibold text-text-main">Không hoàn vé</span>
         </div>
 
-        {/* Two-column layout */}
-        <div className="flex gap-3 p-4">
+        {/* Layout */}
+        <div className="flex flex-col md:flex-row gap-3 p-3 md:p-4">
           {/* Sidebar */}
-          <div className="w-[200px] shrink-0 flex flex-col gap-4">
+          <div className="w-full md:w-[200px] shrink-0 flex flex-row md:flex-col gap-2 md:gap-4 overflow-x-auto no-scrollbar pb-1 md:pb-0">
             {sections.map(s => (
               <SidebarItem
                 key={s.key}
@@ -419,7 +419,7 @@ export function RefundTab({ flight }: { flight: Flight }) {
           </div>
 
           {/* Content */}
-          <div className="flex-1 bg-white p-[10px] min-h-[200px]">
+          <div className="flex-1 bg-white md:p-[10px] min-h-[200px]">
             {activeSection === 'policy' && <PolicySection />}
             {activeSection === 'estimate' && <EstimateSection />}
             {activeSection === 'process' && <ProcessSection />}

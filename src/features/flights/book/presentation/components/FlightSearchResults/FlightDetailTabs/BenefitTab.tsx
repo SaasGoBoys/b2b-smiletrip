@@ -18,11 +18,11 @@ function SpecialOfferItem({ icon, title, subtitle, onLinkClick }: SpecialOfferIt
     <div className="flex items-start gap-3 py-0">
       <div className="mt-[2px]">{icon}</div>
       <div>
-        <div className="text-[16px] font-semibold text-text-main leading-tight mb-[2px]">{title}</div>
-        <div className="text-[16px] font-normal text-text-secondary leading-snug mb-[3px]">{subtitle}</div>
+        <div className="text-[14px] md:text-[16px] font-semibold text-text-main leading-tight mb-[2px]">{title}</div>
+        <div className="text-[14px] md:text-[16px] font-normal text-text-secondary leading-snug mb-[3px]">{subtitle}</div>
         <button
           onClick={onLinkClick}
-          className="text-[16px] font-semibold text-primary hover:underline cursor-pointer bg-transparent border-none p-0"
+          className="text-[14px] md:text-[16px] font-semibold text-primary hover:underline cursor-pointer bg-transparent border-none p-0"
         >
           Tìm hiểu thêm
         </button>
@@ -35,17 +35,17 @@ export function BenefitTab({ flight }: { flight: Flight }) {
   return (
     <div className="bg-surface-hover border-x border-border-main p-3">
       {/* Điều kiện section */}
-      <div className="text-[18px] font-semibold text-text-main pb-3 pl-1">Điều kiện</div>
+      <div className="text-[16px] md:text-[18px] font-semibold text-text-main pb-3 pl-1">Điều kiện</div>
 
       <div className="bg-white rounded-[10px]">
         {/* Card */}
-        <div className="border-b border-border-main"> 
+        <div className="border-b border-border-main">
           {/* Airline */}
           <div className="flex items-center gap-2 pt-3 pb-2 px-4">
             <AirlineLogo airline={flight.airline} logoUrl={flight.logoUrl} className="w-[36px] h-[36px] shrink-0" />
-            <span className="text-[18px] font-semibold text-text-main">{flight.airline}</span>
+            <span className="text-[16px] md:text-[18px] font-semibold text-text-main">{flight.airline}</span>
           </div>
-          <div className="text-[14px] font-semibold text-text-secondary px-4">
+          <div className="text-[13px] md:text-[14px] font-semibold text-text-secondary px-4">
             Hà Nội → TP HCM • phổ thông
           </div>
 
@@ -53,21 +53,18 @@ export function BenefitTab({ flight }: { flight: Flight }) {
           <div className="pb-3">
             <div className="flex items-center gap-2 px-4 py-1">
               <AirplaneCancelIcon width={24} height={24} color="#BDBDBD" />
-              <span className="text-[14px] text-text-secondary">Không hoàn vé</span>
+              <span className="text-[13px] md:text-[14px] text-text-secondary">Không hoàn vé</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-1">
               <ConditionCalendarCancelIcon width={24} height={24} color="#BDBDBD" />
-              <span className="text-[14px] text-text-secondary">Không áp dụng đổi lịch bay</span>
+              <span className="text-[13px] md:text-[14px] text-text-secondary">Không áp dụng đổi lịch bay</span>
             </div>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="h-px bg-border-main mx-6" />
-
         {/* Ưu đãi đặc biệt section */}
         <div className="px-4 py-3">
-          <div className="text-[16px] font-semibold text-text-main pb-3">Ưu đãi đặc biệt</div>
+          <div className="text-[15px] md:text-[16px] font-semibold text-text-main pb-3">Ưu đãi đặc biệt</div>
 
           <div className="space-y-4">
             <SpecialOfferItem
