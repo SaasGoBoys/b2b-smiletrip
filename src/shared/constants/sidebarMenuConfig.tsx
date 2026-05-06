@@ -25,6 +25,11 @@ export const getSidebarMenuItems = (collapsed: boolean): MenuItem[] => {
 
   return [
     {
+      key: AppRoutes.dashboard,
+      label: 'Tổng quan',
+      icon: <AgencyPolicyIcon style={iconStyle} />,
+    },
+    {
       key: 'flight',
       label: 'Đặt vé máy bay',
       icon: <PlaneIcon style={iconStyle} />,

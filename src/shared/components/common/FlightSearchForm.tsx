@@ -12,7 +12,8 @@ import {
   PlaneLandingIcon,
   PlaneTakeoffIcon,
   Search2Icon,
-  UsersIcon} from '@/assets/icons/icons'
+  UsersIcon,
+} from '@/assets/icons/icons'
 import { CITIES, PASSENGER_OPTIONS, TICKET_TYPES } from '@/mocks/data/flights'
 
 export interface FlightSearchParams {
@@ -50,9 +51,10 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
       ticketType: activeTab,
       from,
       to,
-      dates: tripType === 'round-trip'
-        ? [dates[0].format('DD/MM/YYYY'), dates[1].format('DD/MM/YYYY')]
-        : [dates[0].format('DD/MM/YYYY'), ''],
+      dates:
+        tripType === 'round-trip'
+          ? [dates[0].format('DD/MM/YYYY'), dates[1].format('DD/MM/YYYY')]
+          : [dates[0].format('DD/MM/YYYY'), ''],
       tripType,
       passengers,
     })
@@ -69,16 +71,13 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
             <button
               key={type.key}
               onClick={() => setActiveTab(type.key)}
-              className={`flex items-center gap-2 px-2 h-[35px] rounded-[5px] border transition-all cursor-pointer font-semibold text-[15px] sm:text-[17px] ${isActive
-                ? 'border-primary text-primary bg-primary/5 shadow-[0_0_0_1px_rgba(69,88,182,0.1)]'
-                : 'border-[#BCBCBC] text-[#3A3A3A] hover:border-primary/50 hover:text-primary/80'
-                }`}
+              className={`flex items-center gap-2 px-2 h-[35px] rounded-[5px] border transition-all cursor-pointer font-semibold text-[15px] sm:text-[17px] ${
+                isActive
+                  ? 'border-primary text-primary bg-primary/5 shadow-[0_0_0_1px_rgba(69,88,182,0.1)]'
+                  : 'border-[#BCBCBC] text-[#3A3A3A] hover:border-primary/50 hover:text-primary/80'
+              }`}
             >
-              <Icon
-                width={18}
-                height={18}
-                color={isActive ? brandColors.primary : '#3A3A3A'}
-              />
+              <Icon width={18} height={18} color={isActive ? brandColors.primary : '#3A3A3A'} />
               {type.label}
             </button>
           )
@@ -88,14 +87,14 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
       {/* Form Content */}
       <div className="px-4 py-4 sm:px-6 sm:py-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:flex xl:flex-row items-start xl:items-end gap-4 xl:gap-3 w-full">
-
           {/* Điểm đi & Điểm đến */}
           <div className="col-span-1 sm:col-span-2 xl:flex-[2] flex flex-col">
-            
             {/* --- MOBILE LAYOUT (< 640px) --- */}
             <div className="sm:hidden relative flex flex-col gap-4">
               <div className="relative">
-                <p className="text-[15px] sm:text-[17px] font-semibold text-text-main mb-2 text-left px-1">Chọn điểm đi</p>
+                <p className="text-[15px] sm:text-[17px] font-semibold text-text-main mb-2 text-left px-1">
+                  Chọn điểm đi
+                </p>
                 <div className="flex items-center h-[45px] sm:h-[55px] border border-border-main rounded-[20px] bg-white px-4 overflow-hidden">
                   <PlaneTakeoffIcon className="shrink-0" color={brandColors.primary} />
                   <Select
@@ -126,7 +125,9 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
               </div>
 
               <div className="relative">
-                <p className="text-[15px] md:text-[17px] font-semibold text-text-main mb-2 text-left px-1">Chọn điểm đến</p>
+                <p className="text-[15px] md:text-[17px] font-semibold text-text-main mb-2 text-left px-1">
+                  Chọn điểm đến
+                </p>
                 <div className="flex items-center h-[45px] sm:h-[55px] border border-border-main rounded-[20px] bg-white px-4 overflow-hidden">
                   <PlaneLandingIcon className="shrink-0" color={brandColors.primary} />
                   <Select
@@ -150,8 +151,12 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
             {/* --- DESKTOP / TABLET LAYOUT (>= 640px) --- */}
             <div className="hidden sm:block">
               <div className="flex mb-2">
-                <p className="text-[15px] sm:text-[17px] font-semibold text-text-main flex-1 text-left px-1">Chọn điểm đi</p>
-                <p className="text-[15px] sm:text-[17px] font-semibold text-text-main flex-1 text-left px-1 pl-8">Chọn điểm đến</p>
+                <p className="text-[15px] sm:text-[17px] font-semibold text-text-main flex-1 text-left px-1">
+                  Chọn điểm đi
+                </p>
+                <p className="text-[15px] sm:text-[17px] font-semibold text-text-main flex-1 text-left px-1 pl-8">
+                  Chọn điểm đến
+                </p>
               </div>
               <div className="relative flex items-center h-[55px] border border-border-main rounded-[20px] bg-white">
                 <div className="flex items-center flex-1 h-full px-4 overflow-hidden">
@@ -206,7 +211,9 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
           {/* Thời gian */}
           <div className="col-span-1 xl:flex-[1.1]">
             <div className="flex justify-between items-center mb-2 px-1">
-              <p className="text-[15px] sm:text-[17px] font-semibold text-text-main text-left">Thời gian</p>
+              <p className="text-[15px] sm:text-[17px] font-semibold text-text-main text-left">
+                Thời gian
+              </p>
               <Checkbox
                 checked={tripType === 'round-trip'}
                 onChange={(e) => setTripType(e.target.checked ? 'round-trip' : 'one-way')}
@@ -234,8 +241,15 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
 
               <div className="w-[1px] h-full bg-border-main shrink-0" />
 
-              <div className={`flex items-center flex-1 h-full px-3 xl:pl-4 xl:pr-2 overflow-hidden ${tripType === 'one-way' ? 'bg-surface-hover opacity-60 rounded-r-[20px]' : ''}`}>
-                <CalendarIcon width={22} height={22} color={tripType === 'round-trip' ? brandColors.primary : brandColors.textMuted} className="shrink-0 mr-1 sm:mr-2" />
+              <div
+                className={`flex items-center flex-1 h-full px-3 xl:pl-4 xl:pr-2 overflow-hidden ${tripType === 'one-way' ? 'bg-surface-hover opacity-60 rounded-r-[20px]' : ''}`}
+              >
+                <CalendarIcon
+                  width={22}
+                  height={22}
+                  color={tripType === 'round-trip' ? brandColors.primary : brandColors.textMuted}
+                  className="shrink-0 mr-1 sm:mr-2"
+                />
                 <DatePicker
                   variant="borderless"
                   className="flex-1 min-w-0 !px-0"
@@ -256,7 +270,9 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
           {/* Số khách, hạng ghế */}
           <div className="col-span-1 xl:flex-[0.8] flex items-end gap-2">
             <div className="flex-1">
-              <p className="text-[15px] sm:text-[17px] font-semibold text-text-main mb-2 px-1 text-left">Số khách, hạng ghế</p>
+              <p className="text-[15px] sm:text-[17px] font-semibold text-text-main mb-2 px-1 text-left">
+                Số khách, hạng ghế
+              </p>
               <div className="flex items-center h-[45px] sm:h-[55px] border border-border-main rounded-[20px] bg-white px-4 overflow-hidden">
                 <UsersIcon width={24} height={24} className="shrink-0" />
                 <Select

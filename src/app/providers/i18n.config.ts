@@ -11,7 +11,7 @@ void i18n
     fallbackLng: 'vi',
     supportedLngs: ['vi', 'ja', 'fr', 'en'],
     defaultNS: 'common',
-    ns: ['common', 'auth', 'users', 'dashboard'],
+    ns: ['common', 'auth', 'users', 'dashboard', 'homepage'],
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
