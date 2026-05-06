@@ -182,7 +182,7 @@ export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?:
             </div>
 
             {/* Time & Route */}
-            <div className="col-span-2 min-[992px]:col-auto min-[992px]:flex-1 flex items-center gap-4 w-full min-[992px]:max-w-[550px] min-[992px]:mx-auto order-last min-[992px]:order-none">
+            <div className="col-span-2 px-4 min-[992px]:col-auto min-[992px]:flex-1 flex items-center gap-4 w-full min-[992px]:max-w-[550px] min-[992px]:mx-auto order-last min-[992px]:order-none">
               <div className="text-left min-[992px]:text-center shrink-0 min-[992px]:shrink">
                 <div className="text-[28px] min-[992px]:text-[30px] font-semibold text-text-main leading-tight">{flight.departTime}</div>
                 <div className="text-[14px] min-[992px]:text-[16px] text-text-secondary font-semibold uppercase">HAN T1</div>
