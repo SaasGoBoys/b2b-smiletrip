@@ -1,19 +1,19 @@
 import { useState } from 'react'
 
-import { Button, Checkbox, ConfigProvider, DatePicker, Select } from 'antd'
+import { Button, Checkbox, ConfigProvider, DatePicker } from 'antd'
 
 import dayjs from 'dayjs'
 
 import { brandColors } from '@/shared/lib/antd-theme/tokens'
 
 import { CitySearchInput } from './CitySearchInput/index'
+import { PassengerSelectPopover } from './PassengerSelect/index'
 
 import {
   CalendarIcon,
   Search2Icon,
-  UsersIcon,
 } from '@/assets/icons/icons'
-import { PASSENGER_OPTIONS, TICKET_TYPES } from '@/mocks/data/flights'
+import { TICKET_TYPES } from '@/mocks/data/flights'
 
 export interface FlightSearchParams {
   ticketType: string
@@ -21,7 +21,12 @@ export interface FlightSearchParams {
   to: string
   dates: [string, string]
   tripType: string
-  passengers: string
+  passengers: {
+    adults: number
+    children: number
+    infants: number
+    seatClass: string
+  }
 }
 
 interface FlightSearchFormProps {
@@ -34,7 +39,13 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
   const [from, setFrom] = useState<string>('HAN')
   const [to, setTo] = useState<string>('SGN')
   const [tripType, setTripType] = useState('round-trip')
-  const [passengers, setPassengers] = useState('1-1')
+  const [passengerCounts, setPassengerCounts] = useState({
+    adults: 1,
+    children: 0,
+    infants: 0,
+  })
+  const [seatClass, setSeatClass] = useState('economy')
+
   const [dates, setDates] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
     dayjs('2026-04-07'),
     dayjs('2026-04-09'),
@@ -55,7 +66,10 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
           ? [dates[0].format('DD/MM/YYYY'), dates[1].format('DD/MM/YYYY')]
           : [dates[0].format('DD/MM/YYYY'), ''],
       tripType,
-      passengers,
+      passengers: {
+        ...passengerCounts,
+        seatClass,
+      },
     })
   }
 
@@ -83,10 +97,10 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
                 className={`flex items-center gap-2 px-2 h-[35px] rounded-[5px] border transition-all cursor-pointer font-semibold text-[15px] sm:text-[17px] ${
                   isActive
                     ? 'border-primary text-primary bg-primary/5 shadow-[0_0_0_1px_rgba(69,88,182,0.1)]'
-                    : 'border-[#BCBCBC] text-[#3A3A3A] hover:border-primary/50 hover:text-primary/80'
+                    : 'border-text-secondary text-text-main hover:border-primary/50 hover:text-primary/80'
                 }`}
               >
-                <Icon width={18} height={18} color={isActive ? brandColors.primary : '#3A3A3A'} />
+                <Icon width={18} height={18} color={isActive ? brandColors.primary : brandColors.textMain} />
                 {type.label}
               </button>
             )
@@ -169,32 +183,21 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
 
             {/* Số khách, hạng ghế */}
             <div className="col-span-1 xl:flex-[0.8] flex items-end gap-2 w-full">
-              <div className="flex-1">
-                <p className="text-[15px] sm:text-[17px] font-semibold text-text-main mb-2 px-1 text-left">
-                  Số khách, hạng ghế
-                </p>
-                <div className="flex items-center h-[45px] sm:h-[55px] border border-border-main rounded-[20px] bg-white px-4 overflow-hidden">
-                  <UsersIcon width={24} height={24} className="shrink-0" />
-                  <Select
-                    variant="borderless"
-                    className="flex-1 text-left"
-                    size="large"
-                    value={passengers}
-                    onChange={setPassengers}
-                    options={PASSENGER_OPTIONS}
-                    suffixIcon={null}
-                  />
-                </div>
-              </div>
+              <PassengerSelectPopover
+                passengerCounts={passengerCounts}
+                seatClass={seatClass}
+                onPassengerCountsChange={setPassengerCounts}
+                onSeatClassChange={setSeatClass}
+              />
 
               {/* Nút tìm kiếm */}
               <div className="hidden xl:block">
                 <Button
                   type="primary"
                   onClick={handleSearch}
-                  className="!h-[55px] !w-[60px] !rounded-[20px] bg-primary flex items-center justify-center shadow-md cursor-pointer"
+                  className="!h-[55px] !w-[60px] !rounded-[20px] flex items-center justify-center shadow-md cursor-pointer"
                 >
-                  <Search2Icon color="#FFFFFF" width={28} height={28} />
+                  <Search2Icon color="white" width={28} height={28} />
                 </Button>
               </div>
             </div>
@@ -205,9 +208,9 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
             <Button
               type="primary"
               onClick={handleSearch}
-              className="w-full !h-[45px] sm:!h-[55px] !rounded-[16px] sm:!rounded-[20px] bg-primary flex items-center justify-center gap-2 text-white font-semibold !text-[17px] shadow-md cursor-pointer"
+              className="w-full !h-[45px] sm:!h-[55px] !rounded-[16px] sm:!rounded-[20px] flex items-center justify-center gap-2 font-semibold !text-[17px] shadow-md cursor-pointer"
             >
-              <Search2Icon color="#FFFFFF" width={26} height={26} />
+              <Search2Icon color="white" width={26} height={26} />
               Tìm kiếm
             </Button>
           </div>

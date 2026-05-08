@@ -1039,4 +1039,29 @@ export const CloseIcon = ({
         </svg>
     );
 };
+export const MinusIcon = ({
+    color = "currentColor",
+    width = 8,
+    height = 2,
+    className = "",
+}: IconProps) => {
+    return (
+        <svg width={width} height={height} viewBox="0 0 8 2" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+            <path d="M7.27273 0V1.25H0V0H7.27273Z" fill={color} />
+        </svg>
+    );
+};
 
+export const PlusIcon = ({
+    color = "currentColor",
+    width = 8,
+    height = 8,
+    className = "",
+}: IconProps) => {
+    return (
+        <svg width={width} height={height} viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+            <path d="M7.27273 3.01136V4.26136H0V3.01136H7.27273Z" fill={color} />
+            <path d="M3.01139 0H4.26139V7.27273H3.01139V0Z" fill={color} />
+        </svg>
+    );
+};
