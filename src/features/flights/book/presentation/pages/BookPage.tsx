@@ -3,8 +3,10 @@ import { lazy, Suspense, useState } from 'react'
 import { HeroBanner } from '@/shared/components/common/HeroBanner'
 import { SectionLoader } from '@/shared/components/feedback/SectionLoader'
 
+import { CITY_REGIONS, POPULAR_CITIES } from '@/mocks/data/flights'
+
 const FlightSearchForm = lazy(() =>
-  import('@/shared/components/common/FlightSearchForm').then((m) => ({ default: m.FlightSearchForm }))
+  import('@/shared/components/FlightSearchForm/index').then((m) => ({ default: m.FlightSearchForm }))
 )
 
 const DatePriceSlider = lazy(() =>
@@ -29,15 +31,15 @@ const Footer = lazy(() =>
   import('@/shared/components/layout/Footer').then((m) => ({ default: m.Footer }))
 )
 
-const CITY_MAP: Record<string, string> = {
-  HAN: 'Hà Nội',
-  SGN: 'TP. Hồ Chí Minh',
-  DAD: 'Đà Nẵng',
-  CXR: 'Nha Trang',
-  PQC: 'Phú Quốc',
-  VII: 'Vinh',
-  HPH: 'Hải Phòng',
-  HUI: 'Huế',
+
+const getCityName = (value: string) => {
+  for (const region of CITY_REGIONS) {
+    const city = region.cities.find((c) => c.value === value)
+    if (city) return city.label
+  }
+  const popularCity = POPULAR_CITIES.find((c) => c.value === value)
+  if (popularCity) return popularCity.label
+  return value
 }
 
 export default function BookPage() {
@@ -58,8 +60,8 @@ export default function BookPage() {
           <FlightSearchForm
             onSearch={(params) => {
               setSearchParams({
-                from: CITY_MAP[params.from] ?? params.from,
-                to: CITY_MAP[params.to] ?? params.to,
+                from: getCityName(params.from),
+                to: getCityName(params.to),
                 searched: true,
               })
             }}
