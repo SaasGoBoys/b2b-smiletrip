@@ -129,7 +129,7 @@ export function CitySearchInput({
         <input
           autoFocus
           id={`city-${type}-input-${isMobile ? 'mobile' : 'desktop'}`}
-          className="flex-1 bg-transparent border-none outline-none ml-2 text-[15px] text-text-main placeholder:text-text-quaternary w-full h-full"
+          className="flex-1 bg-transparent border-none outline-none ml-2 text-[15px] text-text-main placeholder:text-text-muted w-full h-full"
           placeholder="Tìm kiếm"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}

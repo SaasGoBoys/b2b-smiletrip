@@ -2,6 +2,8 @@ import { useState } from 'react'
 
 import { Button, Input } from 'antd'
 
+import { brandColors } from '@/shared/lib/antd-theme/tokens'
+
 import { SearchIcon } from '@/assets/icons/icons'
 import { CITY_REGIONS, POPULAR_CITIES } from '@/mocks/data/flights'
 
@@ -49,11 +51,11 @@ export function CitySelectContent({
       {!isPopover && (
         <div className="mb-4">
           <Input
-            prefix={<SearchIcon color="#909090" width={18} height={18} />}
+            prefix={<SearchIcon color={brandColors.textSecondary} width={18} height={18} />}
             placeholder="Tìm kiếm thành phố, sân bay..."
             value={searchQuery}
             onChange={(e) => onSearchChange?.(e.target.value)}
-            className="h-11 rounded-lg border-[#EAEAEA] text-[15px]"
+            className="h-11 rounded-lg border-border-light text-[15px]"
             allowClear
           />
         </div>
@@ -61,7 +63,7 @@ export function CitySelectContent({
 
       {filteredPopularCities.length > 0 && (
         <section className="flex flex-col gap-3 mb-6 md:gap-4 md:mb-4">
-          <p className="text-[14px] md:text-[15px] font-medium leading-none text-[#909090]">
+          <p className="text-[14px] md:text-[15px] font-medium leading-none text-text-secondary">
             Thành phố phổ biến
           </p>
           <div className="flex flex-wrap gap-2 md:gap-3">
@@ -74,7 +76,7 @@ export function CitySelectContent({
                   id={`popular-city-${type}-${city.value}`}
                   type={isSelected ? 'primary' : 'text'}
                   onClick={() => onSelect(city.value)}
-                  className={`min-w-0 cursor-pointer truncate !justify-start !text-left text-[13px] md:text-[14px] font-normal leading-none px-3 h-8 md:h-9 ${!isSelected && 'text-[#3A3A3A] hover:text-primary bg-[#F4F4F4] md:bg-transparent'
+                  className={`min-w-0 cursor-pointer truncate !justify-start !text-left text-[13px] md:text-[14px] font-normal leading-none px-3 h-8 md:h-9 ${!isSelected && 'text-text-main hover:text-primary bg-surface-hover md:bg-transparent'
                     }`}
                 >
                   {city.label}
@@ -85,9 +87,9 @@ export function CitySelectContent({
         </section>
       )}
 
-      <section className="overflow-hidden bg-white rounded-lg border border-[#F0F0F0] md:border-none">
+      <section className="overflow-hidden bg-white rounded-lg border border-border-light md:border-none">
         <div className="grid grid-cols-1 md:grid-cols-[160px_1fr]">
-          <aside className="flex overflow-x-auto bg-white border-b border-[#F0F0F0] md:flex-col md:overflow-visible md:border-b-0 md:border-r">
+          <aside className="flex overflow-x-auto bg-white border-b border-border-light md:flex-col md:overflow-visible md:border-b-0 md:border-r">
             {CITY_REGIONS.map((region) => {
               const isActive = activeRegion === region.key
 
@@ -97,8 +99,8 @@ export function CitySelectContent({
                   id={`region-tab-${type}-${region.key}`}
                   onClick={() => setActiveRegion(region.key)}
                   className={`flex h-[40px] md:h-[45px] shrink-0 cursor-pointer items-center whitespace-nowrap px-[15px] text-left text-[13px] md:text-[15px] font-semibold transition-all md:w-full ${isActive
-                      ? 'relative z-10 md:-mr-[1px] bg-[#F4F4F4] text-primary md:text-[#3A3A3A] border-b-2 border-primary md:border-b-0 md:rounded-l-[8px]'
-                      : 'bg-white text-[#909090] md:text-[#3A3A3A] hover:text-primary'
+                      ? 'relative z-10 md:-mr-[1px] bg-surface-hover text-primary md:text-text-main border-b-2 border-primary md:border-b-0 md:rounded-l-[8px]'
+                      : 'bg-white text-text-secondary md:text-text-main hover:text-primary'
                     }`}
                 >
                   {region.label}
@@ -107,7 +109,7 @@ export function CitySelectContent({
             })}
           </aside>
 
-          <div className="min-h-[176px] bg-[#f4f4f4] px-3 pb-4 pt-3 md:px-[12px] md:pb-[16px] md:pt-[12px]">
+          <div className="min-h-[176px] bg-surface-hover px-3 pb-4 pt-3 md:px-[12px] md:pb-[16px] md:pt-[12px]">
             {filteredRegionCities.length > 0 ? (
               <div className="grid grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-y-[12px]">
                 {filteredRegionCities.map((city) => {
@@ -119,12 +121,12 @@ export function CitySelectContent({
                       id={`city-option-${type}-${city.value}`}
                       type={isSelected ? 'primary' : 'text'}
                       onClick={() => onSelect(city.value)}
-                      className={`min-w-0 cursor-pointer truncate !justify-start !text-left !text-[14px] md:!text-[15px] !font-semibold !leading-none !gap-1 h-9 md:h-10 ${!isSelected && 'text-[#3f3f3f] hover:text-primary bg-white md:bg-transparent'
+                      className={`min-w-0 cursor-pointer truncate !justify-start !text-left !text-[14px] md:!text-[15px] !font-semibold !leading-none !gap-1 h-9 md:h-10 ${!isSelected && 'text-text-main hover:text-primary bg-white md:bg-transparent'
                         }`}
                     >
                       <span>{city.label}</span>
                       <span
-                        className={`${isSelected ? 'text-white/80' : 'text-[#909090]'} font-normal text-[12px] md:text-[13px]`}
+                        className={`${isSelected ? 'text-white/80' : 'text-text-secondary'} font-normal text-[12px] md:text-[13px]`}
                       >
                         ({city.code})
                       </span>
@@ -133,7 +135,7 @@ export function CitySelectContent({
                 })}
               </div>
             ) : (
-              <div className="flex h-full items-center justify-center py-10 text-[#909090]">
+              <div className="flex h-full items-center justify-center py-10 text-text-secondary">
                 Không tìm thấy kết quả
               </div>
             )}
