@@ -1,6 +1,6 @@
 import type { ThemeConfig } from 'antd'
 
-import { brandColors, spacing,typography } from './tokens'
+import { brandColors, breakpoints, spacing, typography } from './tokens'
 
 export const lightTheme: ThemeConfig = {
   token: {
@@ -17,6 +17,8 @@ export const lightTheme: ThemeConfig = {
     colorBgLayout: brandColors.bgLayout,
     colorText: brandColors.textMain,
     colorTextSecondary: brandColors.textSecondary,
+    screenXL: breakpoints.screenXL,
+    screenXLMin: breakpoints.screenXLMin,
   },
   components: {
     Button: {

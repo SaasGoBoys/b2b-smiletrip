@@ -1,7 +1,7 @@
 import type { ThemeConfig } from 'antd'
 import { theme } from 'antd'
 
-import { brandColors, spacing,typography } from './tokens'
+import { brandColors, breakpoints, spacing, typography } from './tokens'
 
 export const darkTheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,
@@ -12,5 +12,7 @@ export const darkTheme: ThemeConfig = {
     borderRadius: spacing.borderRadius,
     colorBgContainer: '#1d1d1d',
     colorBgLayout: '#141414',
+    screenXL: breakpoints.screenXL,
+    screenXLMin: breakpoints.screenXLMin,
   },
 }

@@ -1,4 +1,4 @@
-import { ConfigProvider,Select } from 'antd'
+import { ConfigProvider, Select } from 'antd'
 
 import { AirlineLogo } from '@/shared/components/common/AirlineLogo'
 
@@ -30,7 +30,7 @@ const PROMOTIONS = [
 ]
 
 
-function SpecialTag({ icon, label, className = 'bg-[#86CED9]/40 text-[#54858C] font-semibold' }: { icon?: React.ReactNode; label?: string; className?: string }) {
+function SpecialTag({ icon, label, className = 'bg-[#86CED9]/40 text-[#54858C] font-semibold' }: { icon?: React.ReactNode; label?: React.ReactNode; className?: string }) {
   return (
     <div className={`h-[28px] flex items-center gap-1.5 px-2 py-1 rounded-[5px] text-[13px] whitespace-nowrap ${className}`}>
       {icon}
@@ -80,14 +80,17 @@ export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?:
       <div className="bg-[#f0f3ff] mb-3">
         <div className="bg-white pt-2 space-y-3">
           {/* Row 1: Status & Special Tags */}
-          <div className="flex items-center justify-between overflow-x-auto no-scrollbar px-2">
-            <div className="flex items-center gap-2">
-              <SpecialTag label="Rẻ nhất" className="bg-[#54858C] text-white font-semibold" />
-              <SpecialTag icon={<LaborIcon width={18} height={18} color="currentColor" />} label="Vé lao động" />
-              <SpecialTag icon={<StudyIcon width={18} height={18} color="currentColor" />} label="Vé du học" />
-              <SpecialTag icon={<GroupIcon width={18} height={18} color="currentColor" />} label="Vé Block" />
-              <SpecialTag icon={<AirplaneCharterIcon width={18} height={18} color="currentColor" />} label="Vé Charter" />
-              <div className="flex items-center gap-1.5">
+          {/* Mobile: single row | Tablet (md-lg): 2 rows | Desktop (lg+): single row */}
+          <div className="flex min-[992px]:flex-row min-[992px]:items-center min-[992px]:justify-between flex-col gap-2 min-[992px]:gap-0 px-2">
+            {/* Hàng tags loại vé */}
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+              <SpecialTag label="Rẻ nhất" className="bg-[#54858C] text-white font-semibold shrink-0" />
+              <SpecialTag icon={<LaborIcon width={18} height={18} color="currentColor" />} label="Vé lao động" className="shrink-0 bg-[#86CED9]/40 text-[#54858C] font-semibold" />
+              <SpecialTag icon={<StudyIcon width={18} height={18} color="currentColor" />} label="Vé du học" className="shrink-0 bg-[#86CED9]/40 text-[#54858C] font-semibold" />
+              <SpecialTag icon={<GroupIcon width={18} height={18} color="currentColor" />} label="Vé Block" className="shrink-0 bg-[#86CED9]/40 text-[#54858C] font-semibold" />
+              <SpecialTag icon={<AirplaneCharterIcon width={18} height={18} color="currentColor" />} label="Vé Charter" className="shrink-0 bg-[#86CED9]/40 text-[#54858C] font-semibold" />
+              {/* Desktop: icon hành lý nằm cùng hàng tags */}
+              <div className="hidden min-[992px]:flex items-center gap-1.5 shrink-0">
                 <SpecialTag
                   icon={<div className='flex items-center gap-1.5'>
                     <TravelBagIcon width={18} height={18} color="#54858C" />
@@ -96,7 +99,6 @@ export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?:
                   // label='Có hành lý xách tay'
                   className='bg-[#86CED9]/20 text-[12px] text-[#54858C] font-regular'
                 />
-
                 <SpecialTag
                   icon={<div className='flex items-center gap-1.5'>
                     <BoltIcon width={18} height={18} color="#54858C" />
@@ -107,29 +109,72 @@ export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?:
                 />
               </div>
             </div>
-            <Select
-              defaultValue="eco1"
-              style={{ width: 170 }}
-              className="ticket-select"
-              suffixIcon={<ChevronDownCircleIcon width={18} height={18} color="#54858C" />}
-              labelRender={({ label }) => (
-                <span style={{ fontWeight: 600, fontSize: 13, color: '#54858C' }}>{label}</span>
-              )}
-              options={[
-                { value: 'eco1', label: "Vé Phổ thông" },
-                { value: 'eco2', label: "Vé Phổ thông 2" },
-                { value: 'eco3', label: "Vé Phổ thông 3" }
-              ]}
-            />
+            {/* Hàng dưới: icon hành lý + Select (hiện trên Tablet, ẩn trên Desktop lớn) */}
+            <div className="flex items-center justify-between min-[992px]:hidden">
+              <div className="flex items-center gap-2">
+                <SpecialTag
+                  icon={<div className='flex items-center gap-1.5'>
+                    <TravelBagIcon width={18} height={18} color="#54858C" />
+                    <LuggageIcon width={18} height={18} color="#54858C" />
+                  </div>}
+                  label={<span className="hidden sm:inline">Có hành lý xách tay</span>}
+                  className='bg-[#86CED9]/20 text-[12px] text-[#54858C] font-regular'
+                />
+                <SpecialTag
+                  icon={<BoltIcon width={18} height={18} color="#54858C" />}
+                  className='bg-[#86CED9]/20'
+                />
+                <SpecialTag
+                  icon={<MealAmenityIcon width={18} height={18} color="#54858C" />}
+                  className='bg-[#86CED9]/20'
+                />
+                <SpecialTag
+                  icon={<EntertainmentAmenityIcon width={18} height={18} color="#54858C" />}
+                  className='bg-[#86CED9]/20'
+                />
+              </div>
+              <Select
+                defaultValue="eco1"
+                style={{ width: 170 }}
+                className="ticket-select shrink-0"
+                suffixIcon={<ChevronDownCircleIcon width={18} height={18} color="#54858C" />}
+                labelRender={({ label }) => (
+                  <span style={{ fontWeight: 600, fontSize: 13, color: '#54858C' }}>{label}</span>
+                )}
+                options={[
+                  { value: 'eco1', label: "Vé Phổ thông" },
+                  { value: 'eco2', label: "Vé Phổ thông 2" },
+                  { value: 'eco3', label: "Vé Phổ thông 3" }
+                ]}
+              />
+            </div>
+            {/* Select chỉ hiện trên Desktop - bọc trong div để tránh Ant Design override hidden */}
+            <div className="hidden min-[992px]:block shrink-0">
+              <Select
+                defaultValue="eco1"
+                style={{ width: 170 }}
+                className="ticket-select"
+                suffixIcon={<ChevronDownCircleIcon width={18} height={18} color="#54858C" />}
+                labelRender={({ label }) => (
+                  <span style={{ fontWeight: 600, fontSize: 13, color: '#54858C' }}>{label}</span>
+                )}
+                options={[
+                  { value: 'eco1', label: "Vé Phổ thông" },
+                  { value: 'eco2', label: "Vé Phổ thông 2" },
+                  { value: 'eco3', label: "Vé Phổ thông 3" }
+                ]}
+              />
+            </div>
           </div>
 
           {/* Row 2: Main Flight Details */}
-          <div className="flex items-center justify-between px-2">
+          {/* Use CSS Grid for Mobile/Tablet to stack elements, use Flex for Desktop */}
+          <div className="grid grid-cols-2 min-[992px]:flex min-[992px]:flex-row min-[992px]:items-center min-[992px]:justify-between px-2 gap-y-4 min-[992px]:gap-y-0 mt-4 min-[992px]:mt-0">
             {/* Airline Info */}
-            <div className="flex flex-col items-center min-w-[160px]">
-              <AirlineLogo airline={flight.airline} logoUrl={flight.logoUrl} className="w-10 h-10 mb-1" />
-              <div className="text-center">
-                <div className="text-[14px] font-normal text-text-main">{flight.airline}</div>
+            <div className="col-span-1 min-[992px]:col-auto flex flex-row min-[992px]:flex-col items-center gap-3 min-[992px]:gap-0 min-[992px]:min-w-[160px]">
+              <AirlineLogo airline={flight.airline} logoUrl={flight.logoUrl} className="w-10 h-10 shrink-0 min-[992px]:mb-1" />
+              <div className="text-left min-[992px]:text-center">
+                <div className="text-[15px] min-[992px]:text-[14px] font-semibold min-[992px]:font-normal text-text-main">{flight.airline}</div>
                 <div className="text-[13px] text-text-secondary font-normal">
                   {flight.airlineCode}{flight.flightNumber} • Airbus A321-100
                 </div>
@@ -137,37 +182,35 @@ export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?:
             </div>
 
             {/* Time & Route */}
-            <div className="flex items-center gap-4 flex-1 justify-center max-w-[550px]">
-              <div className="text-center">
-                <div className="text-[30px] font-semibold text-text-main leading-tight">{flight.departTime}</div>
-                <div className="text-[16px] text-text-secondary font-semibold uppercase">HAN T1</div>
+            <div className="col-span-2 sm:px-4 min-[992px]:col-auto min-[992px]:flex-1 flex items-center gap-4 w-full min-[992px]:max-w-[550px] min-[992px]:mx-auto order-last min-[992px]:order-none">
+              <div className="text-left min-[992px]:text-center shrink-0 min-[992px]:shrink">
+                <div className="text-[28px] min-[992px]:text-[30px] font-semibold text-text-main leading-tight">{flight.departTime}</div>
+                <div className="text-[14px] min-[992px]:text-[16px] text-text-secondary font-semibold uppercase">HAN T1</div>
               </div>
-
-              <div className="flex flex-col items-center px-2 relative min-w-[220px]">
+              <div className="flex flex-col items-center flex-1 px-0 min-[992px]:px-2 min-[992px]:min-w-[220px]">
                 <div className="w-full h-[3px] bg-[#D9D9D9] relative flex items-center justify-center">
-                  <div className="absolute left-0 w-[9px] h-[9px] bg-[#D9D9D9]" />
-                  <div className="absolute right-0 w-[9px] h-[9px] bg-[#D9D9D9]" />
+                  <div className="absolute left-0 w-[8px] h-[8px] min-[992px]:w-[9px] min-[992px]:h-[9px] bg-[#D9D9D9]" />
+                  <div className="absolute right-0 w-[8px] h-[8px] min-[992px]:w-[9px] min-[992px]:h-[9px] bg-[#D9D9D9]" />
                 </div>
-                <div className="text-[16px] text-text-secondary mt-2 font-normal">Bay thẳng</div>
+                <div className="text-[14px] min-[992px]:text-[16px] text-text-secondary mt-2 font-normal">Bay thẳng</div>
               </div>
-
-              <div className="text-center">
-                <div className="text-[30px] font-semibold text-text-main leading-tight">{flight.arriveTime}</div>
-                <div className="text-[16px] text-text-secondary font-semibold uppercase">SGN T1</div>
+              <div className="text-right min-[992px]:text-center shrink-0 min-[992px]:shrink">
+                <div className="text-[28px] min-[992px]:text-[30px] font-semibold text-text-main leading-tight">{flight.arriveTime}</div>
+                <div className="text-[14px] min-[992px]:text-[16px] text-text-secondary font-semibold uppercase">SGN T1</div>
               </div>
             </div>
 
             {/* Price Section */}
-            <div className="text-right min-w-[220px]">
-              <div className="text-[20px] text-text-secondary line-through font-normal mb-1">5.6324.000 đ</div>
-              <div className="text-[40px] font-semibold text-text-main leading-none tracking-tight">
+            <div className="col-span-1 min-[992px]:col-auto text-right shrink-0 min-[992px]:min-w-[220px]">
+              <div className="text-[14px] min-[992px]:text-[20px] text-text-secondary line-through font-normal min-[992px]:mb-1">5.6324.000 đ</div>
+              <div className="text-[28px] min-[992px]:text-[40px] font-semibold text-text-main leading-none tracking-tight">
                 {formattedPrice}
               </div>
             </div>
           </div>
 
           {/* Row 3: Promotions */}
-          <div className="flex flex-wrap gap-2 px-2">
+          <div className="hidden sm:flex flex-wrap gap-2 px-2">
             {PROMOTIONS.map((promo, idx) => (
               <PromotionTag
                 key={`${promo.code}-${idx}`}

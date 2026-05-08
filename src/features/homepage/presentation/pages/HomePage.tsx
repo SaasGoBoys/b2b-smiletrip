@@ -1,8 +1,8 @@
 import { Suspense } from 'react'
 
-import { FlightSearchForm } from '@/shared/components/common/FlightSearchForm'
 import { HeroBanner } from '@/shared/components/common/HeroBanner'
 import { SectionLoader } from '@/shared/components/feedback/SectionLoader'
+import { FlightSearchForm } from '@/shared/components/FlightSearchForm/index'
 
 import { DestinationsSection } from '../components/sections/DestinationsSection'
 import { FeaturedActivitiesSection } from '../components/sections/FeaturedActivitiesSection'

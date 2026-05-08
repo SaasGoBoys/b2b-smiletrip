@@ -2,14 +2,24 @@ import React, { useState } from 'react'
 
 import { Button } from 'antd'
 
+import { useModalController } from '@/shared/components/modals/hooks/useModalController'
+import { useRegisterModals } from '@/shared/components/modals/hooks/useRegisterModals'
+import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
+
+import flightRegistryModals, {
+  FlightRegistryModalKeys,
+} from '../modals/flight.registry.modal'
+
 import { type Flight, FlightCard } from './FlightCard'
 
 import {
   BoltIcon,
   EntertainmentAmenityIcon,
+  FilterSettingsIcon,
   LuggageIcon,
   MealAmenityIcon,
-  TravelBagIcon} from '@/assets/icons/icons'
+  TravelBagIcon
+} from '@/assets/icons/icons'
 
 const MOCK_FLIGHTS: Flight[] = [
   {
@@ -166,8 +176,16 @@ interface Props {
 
 export function FlightResultList({ from, to }: Props) {
   const [activeFilter, setActiveFilter] = useState('recommended')
-  const sortKey = 'criteria' as string
   const [page, setPage] = useState(1)
+
+  const { open } = useModalController()
+  const { isTabletToXl, isMobile } = useBreakpoint()
+
+  // Đăng ký Modal của Flight feature
+  useRegisterModals(flightRegistryModals)
+
+  const isLargeDesktop = !isTabletToXl && !isMobile
+  const sortKey = 'criteria' as string
 
   const sortedFlights = [...MOCK_FLIGHTS].sort((a, b) => {
     if (sortKey === 'lowest' || sortKey === 'cheapest') return a.price - b.price
@@ -182,22 +200,22 @@ export function FlightResultList({ from, to }: Props) {
   return (
     <div className="w-full mb-6">
       {/* Header Blue Bar */}
-      <div className="bg-primary px-3 h-[54px] flex items-center justify-between text-white rounded-t-[10px]">
+      <div className="bg-primary px-2 md:px-3 h-[44px] md:h-[54px] flex items-center justify-between text-white rounded-t-[10px]">
         <div className="flex items-center h-full py-1.5">
-          <div className="bg-[#6A7CD9] px-[7px] py-[10px] h-full flex items-center rounded-[10px] cursor-pointer">
-            <span className="text-[17px] font-semibold">Bay đến {to}</span>
+          <div className="bg-[#6A7CD9] px-[8px] md:px-[7px] py-[6px] md:py-[10px] h-full flex items-center rounded-[10px] cursor-pointer">
+            <span className="text-[15px] md:text-[17px] font-semibold">Bay đến {to}</span>
           </div>
-          <div className="px-4 h-full flex items-center cursor-pointer">
-            <span className="text-[17px] font-semibold">Bay về {from}</span>
+          <div className="px-2 md:px-4 h-full flex items-center cursor-pointer">
+            <span className="text-[15px] md:text-[17px] font-semibold">Bay về {from}</span>
           </div>
         </div>
-        <span className="text-[17px] font-regular mr-2">Đã tìm thấy 126 chuyến bay</span>
+        <span className="hidden md:block text-[17px] font-regular mr-2">Đã tìm thấy 126 chuyến bay</span>
       </div>
 
       {/* Gap */}
       <div className="h-[10px] bg-surface-hover" />
 
-      <div className="flex border-b border-border-light h-[84px] items-center bg-white">
+      <div className="flex border-b border-border-light h-[64px] lg:h-[84px] items-center bg-white">
         {[
           { key: 'direct', label: 'Ưu tiên bay thẳng', price: '5.346.000đ' },
           { key: 'recommended', label: 'Đề xuất', price: '5.346.000đ' },
@@ -206,61 +224,72 @@ export function FlightResultList({ from, to }: Props) {
           <React.Fragment key={tab.key}>
             <button
               onClick={() => setActiveFilter(tab.key)}
-              className="flex-1 min-w-[120px] px-4 flex flex-col items-center justify-center gap-1 relative hover:bg-surface-hover transition-colors h-full cursor-pointer"
+              className={`flex-1 lg:min-w-[120px] px-1 lg:px-4 flex-col items-center justify-center gap-0.5 lg:gap-1 relative hover:bg-surface-hover transition-colors h-full cursor-pointer ${tab.key === 'direct' ? 'hidden md:flex' : tab.key === 'recommended' ? 'hidden sm:flex' : 'flex'}`}
             >
-              <span className="text-[17px] font-semibold text-text-main">
+              <span className="text-[13px] lg:text-[17px] font-semibold text-text-main text-center leading-tight lg:whitespace-nowrap">
                 {tab.label}
               </span>
-              <span className="text-[17px] text-text-secondary font-regular">{tab.price}</span>
+              <span className="text-[13px] lg:text-[17px] text-text-secondary font-regular whitespace-nowrap">{tab.price}</span>
               {activeFilter === tab.key && (
                 <div className="absolute bottom-0 left-0 w-full h-[4px] bg-text-main" />
               )}
             </button>
-            <div className="w-[1px] h-[50px] bg-border-light shrink-0" />
+            <div className={`w-[1px] h-[30px] lg:h-[50px] bg-border-light shrink-0 ${tab.key === 'direct' ? 'hidden md:block' : tab.key === 'recommended' ? 'hidden sm:block' : ''}`} />
           </React.Fragment>
         ))}
 
         {/* Sort Label Box */}
-        <div className="w-[160px] flex items-center justify-center h-full shrink-0 cursor-pointer hover:bg-surface-hover transition-colors">
-          <span className="text-[17px] font-semibold text-text-main">Sắp xếp theo</span>
+        <div className="flex-1 lg:flex-none lg:w-[160px] flex items-center justify-center h-full shrink-0 cursor-pointer hover:bg-surface-hover transition-colors px-1 lg:px-0">
+          <span className="text-[13px] lg:text-[17px] font-semibold text-text-main text-center leading-tight lg:whitespace-nowrap">Sắp xếp theo</span>
         </div>
 
-        <div className="w-[1px] h-[50px] bg-border-light shrink-0" />
+        <div className="w-[1px] h-[30px] lg:h-[50px] bg-border-light shrink-0" />
 
-        {/* Right side Sort Button */}
-        <div className="w-[200px] flex items-center justify-center h-full shrink-0">
-          <button className="flex items-center gap-2 text-primary font-semibold hover:opacity-80 transition-all h-full cursor-pointer">
-            <div className="w-[32px] h-[32px] flex items-center justify-center mt-1">
-              <img src="/icons/Bell3DIcon.webp" alt="Sort" className="w-full h-full object-contain" />
-            </div>
-            <span className="text-[17px] whitespace-nowrap">Thông báo</span>
-          </button>
+        {/* Right side Button: Thông báo on Desktop, Lọc on Mobile/Tablet */}
+        <div className="shrink-0 lg:w-[200px] flex items-center justify-center h-full px-3 lg:px-0">
+          {isLargeDesktop ? (
+            <button className="flex items-center gap-2 text-primary font-semibold hover:opacity-80 transition-all h-full cursor-pointer">
+              <div className="w-[32px] h-[32px] flex items-center justify-center mt-1">
+                <img src="/icons/Bell3DIcon.webp" alt="Sort" className="w-full h-full object-contain" />
+              </div>
+              <span className="text-[17px] whitespace-nowrap">Thông báo</span>
+            </button>
+          ) : (
+            <button
+              onClick={() => open(FlightRegistryModalKeys.FlightFilter)}
+              className="flex items-center gap-1.5 lg:gap-2 text-primary font-semibold hover:opacity-80 transition-all h-full cursor-pointer bg-transparent border-none outline-none"
+            >
+              <span className="text-[14px] lg:text-[17px] whitespace-nowrap">Bộ lọc</span>
+              <div className="w-[20px] lg:w-[28px] h-[20px] lg:h-[28px] flex items-center justify-center">
+                <FilterSettingsIcon color="#4558b6" width={20} height={20} />
+              </div>
+            </button>
+          )}
         </div>
       </div>
 
-      <div className="flex items-center gap-8 px-4 py-2 text-text-main" >
-        <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+      <div className="flex items-center gap-4 lg:gap-8 px-2 lg:px-4 py-2 text-text-main overflow-x-auto scrollbar-hide" >
+        <div className="flex items-center gap-1.5 lg:gap-2 cursor-pointer hover:opacity-80 transition-opacity shrink-0">
           <LuggageIcon width={24} height={24} />
-          <span className="text-[14px] font-regular">Có hành lý xách tay</span>
+          <span className="text-[13px] lg:text-[14px] font-regular whitespace-nowrap">Có hành lý xách tay</span>
         </div>
-        <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+        <div className="flex items-center gap-1.5 lg:gap-2 cursor-pointer hover:opacity-80 transition-opacity shrink-0">
           <TravelBagIcon width={24} height={24} />
-          <span className="text-[14px] font-regular">Có hành lý ký gửi</span>
+          <span className="text-[13px] lg:text-[14px] font-regular whitespace-nowrap">Có hành lý ký gửi</span>
         </div>
-        <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+        <div className="flex items-center gap-1.5 lg:gap-2 cursor-pointer hover:opacity-80 transition-opacity shrink-0">
           <BoltIcon width={24} height={24} />
-          <span className="text-[14px] font-regular">Có sạc điện thoại</span>
+          <span className="text-[13px] lg:text-[14px] font-regular whitespace-nowrap">Có sạc điện thoại</span>
         </div>
-        <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+        <div className="flex items-center gap-1.5 lg:gap-2 cursor-pointer hover:opacity-80 transition-opacity shrink-0">
           <MealAmenityIcon width={24} height={24} />
-          <span className="text-[14px] font-regular">Có suất ăn</span>
+          <span className="text-[13px] lg:text-[14px] font-regular whitespace-nowrap">Có suất ăn</span>
         </div>
-        <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+        <div className="flex items-center gap-1.5 lg:gap-2 cursor-pointer hover:opacity-80 transition-opacity shrink-0">
           <EntertainmentAmenityIcon width={24} height={24} />
-          <span className="text-[14px] font-regular">Có giải trí</span>
+          <span className="text-[13px] lg:text-[14px] font-regular whitespace-nowrap">Có giải trí</span>
         </div>
       </div>
-
 
       {/* flights list */}
       <div className="overflow-hidden ">
@@ -276,7 +305,7 @@ export function FlightResultList({ from, to }: Props) {
 
         {hasMore && (
           <div className="p-4 text-center border-t border-border-light">
-            <Button onClick={() => setPage((p) => p + 1)} className="rounded-lg">
+            <Button onClick={() => setPage((p) => p + 1)} className="rounded-lg h-10 px-6 font-semibold">
               Xem thêm chuyến bay
             </Button>
           </div>

@@ -4,6 +4,10 @@ import { useState } from 'react'
 import { Button, Tooltip } from 'antd'
 
 import { AirlineLogo } from '@/shared/components/common/AirlineLogo'
+import { useModalController } from '@/shared/components/modals/hooks/useModalController'
+import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
+
+import { FlightRegistryModalKeys } from '../modals/flight.registry.modal'
 
 import { FlightDetailPanel } from './FlightDetailPanel'
 
@@ -13,7 +17,8 @@ import {
   EntertainmentAmenityIcon,
   LuggageIcon,
   MealAmenityIcon,
-  TravelBagIcon} from '@/assets/icons/icons'
+  TravelBagIcon
+} from '@/assets/icons/icons'
 
 export interface Flight {
   id: string
@@ -56,70 +61,94 @@ function AmenityIcon({ icon, active, label }: { icon: ReactNode; active: boolean
 
 export function FlightCard({ flight, onBook }: Props) {
   const [showDetail, setShowDetail] = useState(false)
+  const { isSmallSize } = useBreakpoint()
+  const { open } = useModalController()
 
   const formattedPrice = flight.price.toLocaleString('vi-VN') + ' đ'
 
+  const handleDetailClick = () => {
+    if (isSmallSize) {
+      open(FlightRegistryModalKeys.FlightDetail, { flight, onBook })
+    } else {
+      setShowDetail((v) => !v)
+    }
+  }
+
   return (
     <div className="border-b border-border-light">
-      <div className={`flex items-center gap-2 px-2 h-[56px] transition-colors duration-150 bg-white hover:bg-white/60`}>
+      <div className={`flex items-stretch md:items-center gap-2 md:gap-2 px-2 py-3 md:py-0 md:h-[56px] transition-colors duration-150 bg-white hover:bg-white/60`}>
 
         {/* Logo */}
-        <div className="shrink-0">
+        <div className="shrink-0 flex items-center">
           <AirlineLogo airline={flight.airline} logoUrl={flight.logoUrl} />
         </div>
 
-        {/* Hãng bay */}
-        <div className="min-w-[150px] shrink-0 overflow-hidden flex-1">
-          <span className="text-[16px] font-semibold text-text-main block truncate">{flight.airline}</span>
+        {/* Column 2: Airline & Number */}
+        <div className="flex flex-col justify-center gap-0.5 md:contents flex-1 md:flex-none overflow-hidden">
+          {/* Hãng bay */}
+          <div className="min-w-0 md:min-w-[150px] shrink-0 overflow-hidden md:flex-1">
+            <span className="text-[15px] md:text-[16px] font-semibold text-text-main block truncate leading-tight md:leading-normal">{flight.airline}</span>
+          </div>
+
+          {/* Số hiệu chuyến */}
+          <div className="hidden max-md:block min-[950px]:block w-auto md:w-[80px] shrink-0 md:text-center">
+            <span className="text-[13px] md:text-[16px] font-regular text-text-secondary md:text-text-main whitespace-nowrap">{flight.flightNumber}</span>
+          </div>
         </div>
 
-        {/* Số hiệu chuyến */}
-        <div className="w-[80px] shrink-0 text-center">
-          <span className="text-[16px] font-regular text-text-main whitespace-nowrap">{flight.flightNumber}</span>
+        {/* Column 3: Time & Amenities */}
+        <div className="flex flex-col justify-center gap-1 items-center md:contents shrink-0 min-[550px]:min-w-[150px]">
+          {/* Giờ bay */}
+          <div className="w-auto md:w-[120px] shrink-0 text-center">
+            <span className="text-[14px] md:text-[16px] font-semibold text-text-main whitespace-nowrap">
+              {flight.departTime} - {flight.arriveTime}
+            </span>
+          </div>
+
+          {/* Icon tiện ích */}
+          <div className="hidden max-md:flex min-[860px]:flex md:w-[140px] items-center gap-1 md:gap-2 justify-center scale-90 md:scale-100 origin-center">
+            <AmenityIcon icon={<LuggageIcon width={20} height={20} />} active={flight.amenities.handLuggage} label="Hành lý xách tay" />
+            <AmenityIcon icon={<TravelBagIcon width={20} height={20} />} active={flight.amenities.checkInLuggage} label="Hành lý ký gửi" />
+            <AmenityIcon icon={<BoltIcon width={20} height={20} />} active={flight.amenities.charging} label="Sạc điện thoại" />
+            <span className="hidden sm:flex md:contents gap-1 md:gap-2 items-center">
+              <AmenityIcon icon={<MealAmenityIcon width={20} height={20} />} active={flight.amenities.meal} label="Suất ăn" />
+              <AmenityIcon icon={<EntertainmentAmenityIcon width={20} height={20} />} active={flight.amenities.entertainment} label="Giải trí" />
+            </span>
+          </div>
         </div>
 
-        {/* Giờ bay */}
-        <div className="w-[120px] shrink-0 text-center">
-          <span className="text-[16px] font-semibold text-text-main whitespace-nowrap">
-            {flight.departTime} - {flight.arriveTime}
-          </span>
-        </div>
+        {/* Column 4: Price & Buttons */}
+        <div className="flex flex-col justify-between gap-2 items-end md:contents shrink-0 ml-auto md:ml-0">
+          {/* Giá */}
+          <div className="w-auto md:w-[110px] text-right shrink-0">
+            <span className="text-[14px] md:text-[16px] font-bold text-text-main whitespace-nowrap">{formattedPrice}</span>
+          </div>
 
-        {/* Icon tiện ích */}
-        <div className="w-[140px] flex items-center gap-2 justify-center">
-          <AmenityIcon icon={<LuggageIcon width={20} height={20} />} active={flight.amenities.handLuggage} label="Hành lý xách tay" />
-          <AmenityIcon icon={<TravelBagIcon width={20} height={20} />} active={flight.amenities.checkInLuggage} label="Hành lý ký gửi" />
-          <AmenityIcon icon={<BoltIcon width={20} height={20} />} active={flight.amenities.charging} label="Sạc điện thoại" />
-          <AmenityIcon icon={<MealAmenityIcon width={20} height={20} />} active={flight.amenities.meal} label="Suất ăn" />
-          <AmenityIcon icon={<EntertainmentAmenityIcon width={20} height={20} />} active={flight.amenities.entertainment} label="Giải trí" />
-        </div>
+          <div className="flex items-center gap-1.5 md:contents">
+            {/* Chi tiết */}
+            <div className="w-auto md:w-[80px] flex justify-center items-center shrink-0">
+              <button
+                onClick={handleDetailClick}
+                className="flex items-center justify-center h-[26px] md:h-auto px-2.5 md:px-0 border border-[#8EDFEB] md:border-none rounded-[6px] md:rounded-none gap-1 text-[12px] md:text-[13px] font-semibold text-primary md:text-text-secondary hover:text-text-main transition-colors shrink-0 cursor-pointer whitespace-nowrap bg-white md:bg-transparent"
+              >
+                Chi tiết
+                <span className="hidden md:block"><ChevronDownBoxIcon width={16} height={16} open={showDetail} /></span>
+              </button>
+            </div>
 
-        {/* Giá */}
-        <div className="w-[110px] text-right shrink-0">
-          <span className="text-[16px] font-bold text-text-main whitespace-nowrap">{formattedPrice}</span>
+            {/* Đặt vé */}
+            <Button
+              onClick={() => onBook?.(flight)}
+              className="!w-[65px] md:!w-[90px] !h-[26px] md:!h-[35px] shrink-0 !rounded-[6px] md:!rounded-[10px] !text-[12px] md:!text-[16px] !font-bold !border-none transition-all hover:opacity-90 !bg-[#8EDFEB] !text-primary !px-0"
+            >
+              Đặt vé
+            </Button>
+          </div>
         </div>
-
-        {/* Chi tiết */}
-        <div className="w-[80px] flex justify-center items-center shrink-0">
-          <button
-            onClick={() => setShowDetail((v) => !v)}
-            className="flex items-center gap-1 text-[13px] font-semibold text-text-secondary hover:text-text-main transition-colors shrink-0 cursor-pointer whitespace-nowrap"
-          >
-            Chi tiết
-            <ChevronDownBoxIcon width={16} height={16} open={showDetail} />
-          </button>
-        </div>
-
-        {/* Đặt vé */}
-        <Button
-          onClick={() => onBook?.(flight)}
-          className="!w-[90px] !h-[35px] shrink-0 !rounded-[10px] !text-[16px] !font-bold !border-none transition-all hover:opacity-90 !bg-[#8EDFEB] !text-primary"
-        >
-          Đặt vé
-        </Button>
       </div>
 
-      {showDetail && (
+      {/* Desktop: inline panel */}
+      {!isSmallSize && showDetail && (
         <FlightDetailPanel
           flight={flight}
           onBook={onBook}
@@ -128,3 +157,4 @@ export function FlightCard({ flight, onBook }: Props) {
     </div>
   )
 }
+

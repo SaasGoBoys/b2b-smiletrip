@@ -1,8 +1,12 @@
-import { Checkbox, Collapse, ConfigProvider,Slider, Space } from 'antd'
+import type { CollapseProps } from 'antd'
+import { Checkbox, Collapse, ConfigProvider, Slider } from 'antd'
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 
 import { AirlineLogo } from '@/shared/components/common/AirlineLogo'
+import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
 import { brandColors } from '@/shared/lib/antd-theme/tokens'
+
+import { type FilterState } from '../../constants/FlightFilterTypes'
 
 import {
   AirplaneCharterIcon,
@@ -12,21 +16,6 @@ import {
   StudyIcon,
   TravelBagIcon,
 } from '@/assets/icons/icons'
-
-const { Panel } = Collapse
-
-interface FilterState {
-  ticketTypes: string[]
-  directOnly: boolean
-  handLuggage: boolean
-  checkInLuggage: boolean
-  timeFrom: [number, number]
-  timeTo: [number, number]
-  transitTime: [number, number]
-  flightDuration: [number, number]
-  airlines: string[]
-  seatClasses: string[]
-}
 
 interface Props {
   filters: FilterState
@@ -112,6 +101,10 @@ function SliderRow({
 }
 
 export function FlightFilterPanel({ filters, onFilterChange }: Props) {
+  const { isTabletToXl, isMobile } = useBreakpoint()
+
+  const isLargeDesktop = !isTabletToXl && !isMobile
+
   const handleAirlineChange = (airline: string, checked: boolean) => {
     const updated = checked
       ? [...filters.airlines, airline]
@@ -132,6 +125,132 @@ export function FlightFilterPanel({ filters, onFilterChange }: Props) {
       : filters.ticketTypes.filter((t) => t !== label)
     onFilterChange({ ticketTypes: updated })
   }
+
+  const renderTicketTypes = () => (
+    <div className="flex flex-col gap-2 w-full">
+      {TICKET_TYPES.map(({ label, icon }) => (
+        <Checkbox
+          key={label}
+          checked={filters.ticketTypes.includes(label)}
+          onChange={(e: CheckboxChangeEvent) => handleTicketTypeChange(label, e.target.checked)}
+        >
+          <span className="flex items-center gap-2">
+            {icon}
+            <span className="text-[18px] text-text-main">{label}</span>
+          </span>
+        </Checkbox>
+      ))}
+    </div>
+  )
+
+  const renderTimeFilters = () => (
+    <div className="flex flex-col">
+      <SliderRow
+        label="Giờ cất cánh"
+        min={0}
+        max={24}
+        value={filters.timeFrom}
+        onChange={(val) => onFilterChange({ timeFrom: val })}
+      />
+      <SliderRow
+        label="Giờ hạ cánh"
+        min={0}
+        max={24}
+        value={filters.timeTo}
+        onChange={(val) => onFilterChange({ timeTo: val })}
+      />
+    </div>
+  )
+
+  const renderFlightTimeFilters = () => (
+    <div className="flex flex-col">
+      <SliderRow
+        label="Giờ quá cảnh"
+        min={1}
+        max={24}
+        value={filters.transitTime}
+        onChange={(val) => onFilterChange({ transitTime: val })}
+        formatter={formatDuration}
+      />
+      <SliderRow
+        label="Chặng bay"
+        min={2}
+        max={27.5}
+        value={filters.flightDuration}
+        onChange={(val) => onFilterChange({ flightDuration: val })}
+        formatter={formatDuration}
+      />
+    </div>
+  )
+
+  const renderAirlines = () => (
+    <div className="flex flex-col gap-3 w-full">
+      {AIRLINES.map((airline) => (
+        <Checkbox
+          key={airline}
+          checked={filters.airlines.includes(airline)}
+          onChange={(e: CheckboxChangeEvent) => handleAirlineChange(airline, e.target.checked)}
+        >
+          <span className="flex items-center gap-2">
+            <AirlineLogo airline={airline} className="w-[22px] h-[22px]" />
+            <span className="text-[18px] text-text-main">{airline}</span>
+          </span>
+        </Checkbox>
+      ))}
+    </div>
+  )
+
+  const renderSeatClasses = () => (
+    <div className="flex flex-col gap-3 w-full">
+      {SEAT_CLASSES.map((cls) => (
+        <Checkbox
+          key={cls}
+          checked={filters.seatClasses.includes(cls)}
+          onChange={(e: CheckboxChangeEvent) => handleSeatClassChange(cls, e.target.checked)}
+        >
+          <span className="text-[18px] text-text-main">{cls}</span>
+        </Checkbox>
+      ))}
+    </div>
+  )
+
+  const collapseItems: CollapseProps['items'] = [
+    {
+      key: 'suggested',
+      label: <span className="text-[18px] font-semibold text-text-main">Được đề xuất</span>,
+      children: renderTicketTypes(),
+      className: '!border-b !border-border-main',
+      showArrow: false,
+    },
+    {
+      key: 'time',
+      label: <span className="text-[18px] font-semibold text-text-main">Thời gian</span>,
+      children: renderTimeFilters(),
+      className: '!border-b !border-border-main',
+      showArrow: false,
+    },
+    {
+      key: 'flightTime',
+      label: <span className="text-[18px] font-semibold text-text-main">Thời gian bay</span>,
+      children: renderFlightTimeFilters(),
+      className: '!border-b !border-border-main',
+      showArrow: false,
+    },
+    {
+      key: 'airlines',
+      label: <span className="text-[18px] font-semibold text-text-main">Hãng hàng không</span>,
+      children: renderAirlines(),
+      className: '!border-b !border-border-main',
+      showArrow: false,
+    },
+    {
+      key: 'seats',
+      label: <span className="text-[18px] font-semibold text-text-main">Hạng vé</span>,
+      children: renderSeatClasses(),
+      className: 'last:border-b-0',
+      showArrow: false,
+    },
+  ]
 
   return (
     <ConfigProvider
@@ -165,106 +284,51 @@ export function FlightFilterPanel({ filters, onFilterChange }: Props) {
       }}
     >
       <div className="overflow-hidden">
-      <Collapse
-        ghost
-        defaultActiveKey={['suggested', 'time', 'flightTime', 'airlines', 'seats']}
-      >
-        {/* Được đề xuất */}
-        <Panel showArrow={false} className="!border-b !border-border-main" header={<span className="text-[18px] font-semibold text-text-main">Được đề xuất</span>} key="suggested">
-          <Space direction="vertical" size={8} className="w-full">
-            {TICKET_TYPES.map(({ label, icon }) => (
-              <Checkbox
-                key={label}
-                checked={filters.ticketTypes.includes(label)}
-                onChange={(e: CheckboxChangeEvent) => handleTicketTypeChange(label, e.target.checked)}
-              >
-                <span className="flex items-center gap-2">
-                  {icon}
-                  <span className="text-[18px] text-text-main">{label}</span>
-                </span>
-              </Checkbox>
-            ))}
-          </Space>
-        </Panel>
+        {isLargeDesktop ? (
+          <Collapse
+            ghost
+            defaultActiveKey={['suggested', 'time', 'flightTime', 'airlines', 'seats']}
+            items={collapseItems}
+          />
+        ) : (
+          <div className={`${isTabletToXl ? 'grid grid-cols-2 gap-6 relative' : 'flex flex-col gap-4'}`}>
+            {isTabletToXl && (
+              <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-border-main z-10" />
+            )}
 
-        {/* Thời gian */}
-        <Panel showArrow={false} className="!border-b !border-border-main" header={<span className="text-[18px] font-semibold text-text-main">Thời gian</span>} key="time">
-          <div>
-            <SliderRow
-              label="Giờ cất cánh"
-              min={0}
-              max={24}
-              value={filters.timeFrom}
-              onChange={(val) => onFilterChange({ timeFrom: val })}
-            />
-            <SliderRow
-              label="Giờ hạ cánh"
-              min={0}
-              max={24}
-              value={filters.timeTo}
-              onChange={(val) => onFilterChange({ timeTo: val })}
-            />
+            <div className="flex flex-col gap-4">
+              <div className="bg-white border border-border-main rounded-[16px] p-5 shadow-sm">
+                <div className="text-[18px] font-semibold text-text-main mb-4">Được đề xuất</div>
+                {renderTicketTypes()}
+              </div>
+
+              <div className="bg-white border border-border-main rounded-[16px] p-5 shadow-sm">
+                <div className="text-[18px] font-semibold text-text-main mb-4">Hãng hàng không</div>
+                {renderAirlines()}
+              </div>
+
+              <div className="bg-white border border-border-main rounded-[16px] p-5 shadow-sm">
+                <div className="text-[18px] font-semibold text-text-main mb-4">Hạng vé</div>
+                {renderSeatClasses()}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <div className="bg-white border border-border-main rounded-[16px] p-5 shadow-sm">
+                <div className="text-[18px] font-semibold text-text-main mb-4">Thời gian</div>
+                {renderTimeFilters()}
+              </div>
+
+              <div className="bg-white border border-border-main rounded-[16px] p-5 shadow-sm">
+                <div className="text-[18px] font-semibold text-text-main mb-4">Thời gian bay</div>
+                {renderFlightTimeFilters()}
+              </div>
+            </div>
           </div>
-        </Panel>
-
-        {/* Thời gian bay */}
-        <Panel showArrow={false} className="!border-b !border-border-main" header={<span className="text-[18px] font-semibold text-text-main">Thời gian bay</span>} key="flightTime">
-          <div>
-            <SliderRow
-              label="Giờ quá cảnh"
-              min={1}
-              max={24}
-              value={filters.transitTime}
-              onChange={(val) => onFilterChange({ transitTime: val })}
-              formatter={formatDuration}
-            />
-            <SliderRow
-              label="Chặng bay"
-              min={2}
-              max={27.5}
-              value={filters.flightDuration}
-              onChange={(val) => onFilterChange({ flightDuration: val })}
-              formatter={formatDuration}
-            />
-          </div>
-        </Panel>
-
-        {/* Hãng hàng không */}
-        <Panel showArrow={false} className="!border-b !border-border-main" header={<span className="text-[18px] font-semibold text-text-main">Hãng hàng không</span>} key="airlines">
-          <Space direction="vertical" size={12} className="w-full">
-            {AIRLINES.map((airline) => (
-              <Checkbox
-                key={airline}
-                checked={filters.airlines.includes(airline)}
-                onChange={(e: CheckboxChangeEvent) => handleAirlineChange(airline, e.target.checked)}
-              >
-                <span className="flex items-center gap-2">
-                  <AirlineLogo airline={airline} className="w-[22px] h-[22px]" />
-                  <span className="text-[18px] text-text-main">{airline}</span>
-                </span>
-              </Checkbox>
-            ))}
-          </Space>
-        </Panel>
-
-        {/* Hạng vé */}
-        <Panel showArrow={false} className="last:border-b-0" header={<span className="text-[18px] font-semibold text-text-main">Hạng vé</span>} key="seats">
-          <Space direction="vertical" size={12} className="w-full">
-            {SEAT_CLASSES.map((cls) => (
-              <Checkbox
-                key={cls}
-                checked={filters.seatClasses.includes(cls)}
-                onChange={(e: CheckboxChangeEvent) => handleSeatClassChange(cls, e.target.checked)}
-              >
-                <span className="text-[18px] text-text-main">{cls}</span>
-              </Checkbox>
-            ))}
-          </Space>
-        </Panel>
-      </Collapse>
-    </div>
+        )}
+      </div>
     </ConfigProvider>
   )
 }
 
-export type { FilterState }
+

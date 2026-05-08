@@ -1,6 +1,9 @@
-import { useEffect,useState } from 'react'
+import { useState } from 'react'
+
+import { Modal } from 'antd'
 
 import { AirlineLogo } from '@/shared/components/common/AirlineLogo'
+import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
 
 import type { Flight } from '../FlightCard'
 
@@ -21,7 +24,7 @@ function SidebarItem({
   return (
     <button
       onClick={onClick}
-      className={`w-full text-center px-[15px] py-[17px] rounded-[10px] text-[18px] font-semibold transition-all flex items-center justify-center cursor-pointer
+      className={`w-max md:w-full text-center px-[15px] py-[10px] md:py-[17px] rounded-[10px] text-[14px] md:text-[18px] font-semibold transition-all flex items-center justify-center cursor-pointer shrink-0
         ${active
           ? 'bg-white border border-primary text-text-main'
           : 'bg-white border border-border-main text-text-main hover:border-primary'
@@ -37,16 +40,16 @@ function AccordionItem({ title, children, hasDivider = true }: { title: string; 
   return (
     <>
       <details className="group overflow-hidden">
-        <summary className="list-none flex items-center justify-between px-5 py-4 text-[18px] text-text-main font-semibold bg-white hover:bg-surface-hover transition-colors cursor-pointer outline-none select-none [&::-webkit-details-marker]:hidden">
+        <summary className="list-none flex items-center justify-between px-4 md:px-5 py-3 md:py-4 text-[16px] md:text-[18px] text-text-main font-semibold bg-white hover:bg-surface-hover transition-colors cursor-pointer outline-none select-none [&::-webkit-details-marker]:hidden">
           <span>{title}</span>
-          <ChevronDownBoxBlueIcon 
-            width={24} 
-            height={24} 
-            color="#4558B6" 
-            className="group-open:rotate-180 transition-transform duration-200" 
+          <ChevronDownBoxBlueIcon
+            width={24}
+            height={24}
+            color="#4558B6"
+            className="group-open:rotate-180 transition-transform duration-200"
           />
         </summary>
-        <div className="px-5 pb-5 pt-5 text-[14px] text-text-main bg-white leading-relaxed border-t border-border-main">
+        <div className="px-4 md:px-5 pb-4 md:pb-5 pt-4 md:pt-5 text-[14px] md:text-[16px] text-text-main bg-white leading-relaxed border-t border-border-main">
           {children}
         </div>
       </details>
@@ -156,7 +159,7 @@ function EstimateSection() {
                 </div>
 
                 <div className="flex justify-center mt-6">
-                  <button 
+                  <button
                     onClick={() => setIsModalOpen(true)}
                     className="flex items-center gap-2 text-[16px] font-semibold text-primary hover:underline cursor-pointer"
                   >
@@ -182,77 +185,70 @@ function EstimateSection() {
 
 // --- Refund Estimate Modal ---
 function RefundEstimateModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-    return () => { document.body.style.overflow = 'unset' }
-  }, [isOpen])
-
-  if (!isOpen) return null
+  const { isMobile } = useBreakpoint()
 
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
-      <div 
-        className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"
-        onClick={onClose}
-      />
-      
-      <div className="relative w-full max-w-[640px] bg-white rounded-[20px] overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
+    <Modal
+      open={isOpen}
+      onCancel={onClose}
+      footer={null}
+      closable={false}
+      width={isMobile ? '92%' : 640}
+      centered
+    >
+      <div className="relative w-full bg-white overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-border-main">
-          <h3 className="text-[20px] font-bold text-text-main">Ước tính hoàn vé</h3>
-          <button 
+        <div className="flex items-center justify-between pb-3 border-b border-border-main">
+          <h3 className="text-[18px] md:text-[20px] font-bold text-text-main">Ước tính hoàn vé</h3>
+          <button
             onClick={onClose}
             className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
           >
-            <CloseCircleIcon width={40} height={40} color="#3A3A3A" />
+            <CloseCircleIcon width={32} height={32} color="#3A3A3A" />
           </button>
         </div>
 
         {/* Scrollable Body */}
-        <div className="p-6 max-h-[80vh] overflow-y-auto custom-scrollbar">
-          <div className="flex items-center gap-2 text-[15px] font-semibold text-text-main mb-6">
-            <ConditionPersonIcon width={18} height={18} color="#3A3A3A" />
+        <div className="py-4 pl-1 md:p-6 max-h-[70vh] md:max-h-[80vh] overflow-y-auto custom-scrollbar">
+          <div className="flex items-center gap-2 text-[13px] md:text-[14px] font-semibold text-text-main mb-6">
+            <ConditionPersonIcon width={16} height={16} color="#3A3A3A" />
             <span>Giá trị hoàn ước tính cho 1 hành khách là người lớn</span>
           </div>
 
-          <div className="ml-10">
+          <div className="ml-8 md:ml-10">
             {/* Step 1 */}
-            <div className="relative flex items-start gap-4 mb-8">
+            <div className="relative flex items-start gap-4 mb-6 md:mb-8">
               {/* Blue line from Step 1 to Step 2 */}
-              <div className="absolute left-[-26px] top-[14px] h-[calc(100%+36px)] w-[1px] bg-primary" />
-              <div className="absolute left-[-40px] w-[28px] h-[28px] rounded-full bg-primary flex items-center justify-center z-10">
+              <div className="absolute left-[-21px] md:left-[-26px] top-[28px] h-[calc(100%-8px)] w-[1px] bg-primary" />
+              <div className="absolute left-[-35px] md:left-[-40px] w-[28px] h-[28px] rounded-full bg-primary flex items-center justify-center z-10">
                 <ConditionCalendarWhiteIcon width={16} height={16} />
               </div>
-              <div className="text-[15px] font-semibold text-text-main">Vé điện tử của bạn đã được phát hành</div>
+              <div className="text-[14px] md:text-[15px] font-semibold text-text-main">Vé điện tử của bạn đã được phát hành</div>
             </div>
 
             {/* Step 2 */}
-            <div className="relative flex items-start gap-4 mb-10">
+            <div className="relative flex items-start gap-4 mb-8 md:mb-10">
               {/* Orange line from Step 2 to Step 3 */}
-              <div className="absolute left-[-26px] top-[14px] h-[calc(100%+44px)] w-[1px] bg-[#FF7F50]" />
-              <div className="absolute left-[-40px] w-[28px] h-[28px] rounded-full bg-primary flex items-center justify-center z-10">
-                <ConditionAirplaneWhiteIcon width={16} height={16} />
+              <div className="absolute left-[-21px] md:left-[-26px] top-[28px] h-[calc(100%+16px)] w-[1px] bg-[#FF7F50]" />
+              <div className="absolute left-[-35px] md:left-[-40px] w-[28px] h-[28px] rounded-full bg-primary flex items-center justify-center z-10">
+                <CloseCircleIcon width={18} height={18} color="white" />
               </div>
               <div>
-                <div className="text-[15px] font-semibold text-text-main">Điểm khởi hành của chuyến bay của bạn</div>
-                <div className="text-[14px] text-text-secondary mt-1 font-semibold">26 April 2026 (13:15 Da Nang)</div>
+                <div className="text-[14px] md:text-[15px] font-semibold text-text-main">Điểm khởi hành của chuyến bay của bạn</div>
+                <div className="text-[13px] md:text-[14px] text-text-secondary mt-1 font-semibold">26 April 2026 (13:15 Da Nang)</div>
               </div>
             </div>
 
             {/* Step 3 */}
-            <div className="relative flex items-start gap-4 mb-8">
-              <div className="absolute left-[-40px] top-0 w-[28px] h-[28px] flex items-center justify-center z-10">
-                <div className="w-[10px] h-[10px] rounded-full border border-[#FF7F50] bg-white"></div>
+            <div className="relative flex items-start gap-4 mb-6 md:mb-8">
+              <div className="absolute left-[-35px] md:left-[-40px] top-0 w-[28px] h-[28px] flex items-center justify-center z-10">
+                <div className="w-[12px] h-[12px] rounded-full border-2 border-[#FF7F50] bg-white"></div>
               </div>
               <div className="flex-1">
-                <div className="bg-[#C9F7FE] rounded-[10px] p-4">
-                  <div className="text-[15px] font-bold text-primary mb-1">Giá trị hoàn lại ước tính</div>
-                  <div className="text-[14px] font-bold text-text-main">Phí hoàn vé: 0 VND</div>
-                  <div className="text-[14px] font-bold text-text-main">Hoàn vé trước 27 April 2026 (07:15 Da Nang)</div>
+                <div className="bg-[#D1F8FE] rounded-[10px] p-3 md:p-4">
+                  <div className="text-[14px] md:text-[15px] font-bold text-primary mb-1">Giá trị hoàn lại ước tính</div>
+                  <div className="text-[13px] md:text-[14px] font-bold text-text-main">Phí hoàn vé: 0 VND</div>
+                  <div className="text-[13px] md:text-[14px] font-bold text-text-main">Hoàn vé trước 27 April 2026 (07:15 Da Nang)</div>
                 </div>
               </div>
             </div>
@@ -260,17 +256,17 @@ function RefundEstimateModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
 
           {/* Additional Sections in Modal */}
           <div className="space-y-4">
-            <div className="border border-border-main rounded-[15px] p-5">
-              <div className="text-[15px] font-bold text-text-main mb-2">Phí dịch vụ hoàn tiền</div>
-              <div className="text-[14px] font-semibold text-text-main">Nếu có, sẽ được áp dụng khi quý khách yêu cầu hoàn tiền.</div>
+            <div className="border border-gray-100 rounded-[15px] md:rounded-[20px] p-4 md:p-5 shadow-sm">
+              <div className="text-[14px] md:text-[15px] font-bold text-text-main mb-1 md:mb-2">Phí dịch vụ hoàn tiền</div>
+              <div className="text-[13px] md:text-[14px] font-semibold text-text-main">Nếu có, sẽ được áp dụng khi quý khách yêu cầu hoàn tiền.</div>
             </div>
 
-            <div className="border border-border-main rounded-[15px] p-5">
-              <div className="text-[15px] font-bold text-text-main mb-2">Quy trình hoàn lại vé</div>
-              <div className="text-[14px] font-semibold text-text-main">
+            <div className="border border-gray-100 rounded-[15px] md:rounded-[20px] p-4 md:p-5 shadow-sm">
+              <div className="text-[14px] md:text-[15px] font-bold text-text-main mb-1 md:mb-2">Quy trình hoàn lại vé</div>
+              <div className="text-[13px] md:text-[14px] font-semibold text-text-main">
                 Nếu được chấp thuận, bạn sẽ nhận được số vé hoàn lại trong vòng 90 ngày sau khi yêu cầu hoàn vé của bạn được gửi.
               </div>
-              <div className="text-[14px] font-semibold text-primary mt-3 cursor-pointer hover:underline">
+              <div className="text-[13px] md:text-[14px] font-semibold text-primary mt-2 md:mt-3 cursor-pointer hover:underline">
                 Xem chi tiết thời gian hoàn vé
               </div>
             </div>
@@ -278,14 +274,14 @@ function RefundEstimateModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
         </div>
 
         {/* Footer */}
-        <div className="bg-surface-hover p-6">
-          <div className="text-[15px] font-bold text-text-main mb-2">Ước tính hoàn vé</div>
-          <p className="text-[13px] font-semibold text-text-secondary leading-relaxed">
+        <div className="bg-[#EBEBEB] p-4 md:p-6">
+          <div className="text-[14px] md:text-[15px] font-bold text-text-main mb-1 md:mb-2">Ước tính hoàn vé</div>
+          <p className="text-[12px] md:text-[13px] font-semibold text-text-secondary leading-relaxed">
             Số vé trên chỉ là ước tính. Số tiền hoàn lại của bạn sẽ được xác nhận sau khi yêu cầu hoàn vé của bạn được chấp thuận.
           </p>
         </div>
       </div>
-    </div>
+    </Modal>
   )
 }
 
@@ -294,7 +290,7 @@ function ProcessSection() {
   return (
     <div>
       <div className="text-[20px] font-semibold text-text-main mb-4 px-1">Quy trình hoàn lại vé</div>
-      
+
       <div className="border border-border-main rounded-[10px] overflow-hidden py-1">
         <AccordionItem title="Cách gửi yêu cầu hoàn vé">
           <div className="space-y-6">
@@ -302,7 +298,7 @@ function ProcessSection() {
               Để quá trình hoàn vé dễ dàng hơn, hãy nhớ đăng nhập vào tài khoản VFJLink của bạn khi đặt vé. Sau đó, hãy làm
               theo các bước sau để gửi yêu cầu hoàn vé:
             </p>
-            
+
             <div className="space-y-5">
               <div>
                 <div className="text-[14px] font-semibold text-text-main">1. Đăng nhập hoặc đăng ký VFJLink</div>
@@ -394,7 +390,7 @@ export function RefundTab({ flight }: { flight: Flight }) {
           <AirlineLogo airline={flight.airline} logoUrl={flight.logoUrl} className="w-[36px] h-[36px] shrink-0" />
           <span className="text-[18px] font-semibold text-text-main">{flight.airline}</span>
         </div>
-        <div className="text-[14px] font-semibold text-text-secondary px-4 pb-2">
+        <div className="text-[13px] md:text-[14px] font-semibold text-text-secondary px-4 pb-2">
           Hà Nội → TP HCM • phổ thông
         </div>
 
@@ -404,10 +400,10 @@ export function RefundTab({ flight }: { flight: Flight }) {
           <span className="text-[20px] font-semibold text-text-main">Không hoàn vé</span>
         </div>
 
-        {/* Two-column layout */}
-        <div className="flex gap-3 p-4">
+        {/* Layout */}
+        <div className="flex flex-col md:flex-row gap-3 p-3 md:p-4">
           {/* Sidebar */}
-          <div className="w-[200px] shrink-0 flex flex-col gap-4">
+          <div className="w-full md:w-[200px] shrink-0 flex flex-row md:flex-col gap-2 md:gap-4 overflow-x-auto no-scrollbar pb-1 md:pb-0">
             {sections.map(s => (
               <SidebarItem
                 key={s.key}
@@ -419,7 +415,7 @@ export function RefundTab({ flight }: { flight: Flight }) {
           </div>
 
           {/* Content */}
-          <div className="flex-1 bg-white p-[10px] min-h-[200px]">
+          <div className="flex-1 bg-white md:p-[10px] min-h-[200px]">
             {activeSection === 'policy' && <PolicySection />}
             {activeSection === 'estimate' && <EstimateSection />}
             {activeSection === 'process' && <ProcessSection />}
