@@ -6,6 +6,8 @@ import dayjs from 'dayjs'
 
 import { brandColors } from '@/shared/lib/antd-theme/tokens'
 
+import { CitySelectModal } from './CitySelectModal'
+
 import {
   ArrowExchangeIcon,
   CalendarIcon,
@@ -30,6 +32,12 @@ interface FlightSearchFormProps {
   className?: string
 }
 
+// Helper to get city display label from value
+const getCityLabel = (value: string) => {
+  const found = CITIES.find((c) => c.value === value)
+  return found ? found.label : value
+}
+
 export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormProps) {
   const [activeTab, setActiveTab] = useState('lao-dong')
   const [from, setFrom] = useState<string>('HAN')
@@ -40,6 +48,18 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
     dayjs('2026-04-07'),
     dayjs('2026-04-09'),
   ])
+  // Modal state
+  const [cityModal, setCityModal] = useState<{ open: boolean; type: 'from' | 'to' }>({
+    open: false,
+    type: 'from',
+  })
+
+  const openCityModal = (type: 'from' | 'to') => setCityModal({ open: true, type })
+  const closeCityModal = () => setCityModal((prev) => ({ ...prev, open: false }))
+  const handleCitySelect = (value: string) => {
+    if (cityModal.type === 'from') setFrom(value)
+    else setTo(value)
+  }
 
   const handleSwap = () => {
     setFrom(to)
@@ -61,6 +81,14 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
   }
 
   return (
+    <>
+    <CitySelectModal
+      open={cityModal.open}
+      type={cityModal.type}
+      value={cityModal.type === 'from' ? from : to}
+      onSelect={handleCitySelect}
+      onClose={closeCityModal}
+    />
     <div className={`w-full overflow-hidden rounded-[20px] bg-white shadow-lg ${className}`}>
       {/* Tab Header (Ticket Types) */}
       <div className="px-6 pt-5 pb-0 flex flex-wrap gap-4">
@@ -95,23 +123,16 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
                 <p className="text-[15px] sm:text-[17px] font-semibold text-text-main mb-2 text-left px-1">
                   Chọn điểm đi
                 </p>
-                <div className="flex items-center h-[45px] sm:h-[55px] border border-border-main rounded-[20px] bg-white px-4 overflow-hidden">
+                <button
+                  id="city-from-btn-mobile"
+                  onClick={() => openCityModal('from')}
+                  className="w-full flex items-center h-[45px] sm:h-[55px] border border-border-main rounded-[20px] bg-white px-4 overflow-hidden hover:border-primary/60 transition-colors cursor-pointer"
+                >
                   <PlaneTakeoffIcon className="shrink-0" color={brandColors.primary} />
-                  <Select
-                    variant="borderless"
-                    className="flex-1 text-left min-w-0"
-                    size="large"
-                    value={from}
-                    onChange={setFrom}
-                    options={CITIES}
-                    showSearch
-                    filterOption={(input, option) =>
-                      (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                    }
-                    suffixIcon={null}
-                    placeholder="Từ"
-                  />
-                </div>
+                  <span className="flex-1 text-left ml-2 text-[15px] text-text-main truncate">
+                    {getCityLabel(from)}
+                  </span>
+                </button>
               </div>
 
               {/* Mobile Swap Button */}
@@ -128,23 +149,16 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
                 <p className="text-[15px] md:text-[17px] font-semibold text-text-main mb-2 text-left px-1">
                   Chọn điểm đến
                 </p>
-                <div className="flex items-center h-[45px] sm:h-[55px] border border-border-main rounded-[20px] bg-white px-4 overflow-hidden">
+                <button
+                  id="city-to-btn-mobile"
+                  onClick={() => openCityModal('to')}
+                  className="w-full flex items-center h-[45px] sm:h-[55px] border border-border-main rounded-[20px] bg-white px-4 overflow-hidden hover:border-primary/60 transition-colors cursor-pointer"
+                >
                   <PlaneLandingIcon className="shrink-0" color={brandColors.primary} />
-                  <Select
-                    variant="borderless"
-                    className="flex-1 text-left min-w-0"
-                    size="large"
-                    value={to}
-                    onChange={setTo}
-                    options={CITIES}
-                    showSearch
-                    filterOption={(input, option) =>
-                      (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                    }
-                    suffixIcon={null}
-                    placeholder="Đến"
-                  />
-                </div>
+                  <span className="flex-1 text-left ml-2 text-[15px] text-text-main truncate">
+                    {getCityLabel(to)}
+                  </span>
+                </button>
               </div>
             </div>
 
@@ -158,24 +172,18 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
                   Chọn điểm đến
                 </p>
               </div>
-              <div className="relative flex items-center h-[55px] border border-border-main rounded-[20px] bg-white">
-                <div className="flex items-center flex-1 h-full px-4 overflow-hidden">
+              <div className="relative flex items-center h-[55px] border border-border-main rounded-[20px] bg-white hover:border-primary/40 transition-colors">
+                {/* Điểm đi */}
+                <button
+                  id="city-from-btn-desktop"
+                  onClick={() => openCityModal('from')}
+                  className="flex items-center flex-1 h-full px-4 overflow-hidden cursor-pointer group"
+                >
                   <PlaneTakeoffIcon className="shrink-0" color={brandColors.primary} />
-                  <Select
-                    variant="borderless"
-                    className="flex-1 text-left min-w-0"
-                    size="large"
-                    value={from}
-                    onChange={setFrom}
-                    options={CITIES}
-                    showSearch
-                    filterOption={(input, option) =>
-                      (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                    }
-                    suffixIcon={null}
-                    placeholder="Từ"
-                  />
-                </div>
+                  <span className="flex-1 text-left ml-2 text-[15px] text-text-main group-hover:text-primary transition-colors truncate">
+                    {getCityLabel(from)}
+                  </span>
+                </button>
 
                 {/* Vertical Separator and Swap Button */}
                 <div className="relative flex items-center justify-center w-[1px] h-full bg-border-main">
@@ -187,23 +195,17 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
                   </button>
                 </div>
 
-                <div className="flex items-center flex-1 h-full px-4 pl-10 overflow-hidden">
+                {/* Điểm đến */}
+                <button
+                  id="city-to-btn-desktop"
+                  onClick={() => openCityModal('to')}
+                  className="flex items-center flex-1 h-full px-4 pl-10 overflow-hidden cursor-pointer group"
+                >
                   <PlaneLandingIcon className="shrink-0" color={brandColors.primary} />
-                  <Select
-                    variant="borderless"
-                    className="flex-1 text-left min-w-0"
-                    size="large"
-                    value={to}
-                    onChange={setTo}
-                    options={CITIES}
-                    showSearch
-                    filterOption={(input, option) =>
-                      (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                    }
-                    suffixIcon={null}
-                    placeholder="Đến"
-                  />
-                </div>
+                  <span className="flex-1 text-left ml-2 text-[15px] text-text-main group-hover:text-primary transition-colors truncate">
+                    {getCityLabel(to)}
+                  </span>
+                </button>
               </div>
             </div>
           </div>
@@ -313,5 +315,6 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
         </div>
       </div>
     </div>
+    </>
   )
 }

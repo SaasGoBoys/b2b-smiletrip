@@ -6,6 +6,8 @@ import { AirlineLogo } from '@/shared/components/common/AirlineLogo'
 import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
 import { brandColors } from '@/shared/lib/antd-theme/tokens'
 
+import { type FilterState } from '../../constants/FlightFilterTypes'
+
 import {
   AirplaneCharterIcon,
   BoltIcon,
@@ -14,32 +16,6 @@ import {
   StudyIcon,
   TravelBagIcon,
 } from '@/assets/icons/icons'
-
-export interface FilterState {
-  ticketTypes: string[]
-  directOnly: boolean
-  handLuggage: boolean
-  checkInLuggage: boolean
-  timeFrom: [number, number]
-  timeTo: [number, number]
-  transitTime: [number, number]
-  flightDuration: [number, number]
-  airlines: string[]
-  seatClasses: string[]
-}
-
-export const DEFAULT_FILTERS: FilterState = {
-  ticketTypes: [],
-  directOnly: false,
-  handLuggage: false,
-  checkInLuggage: false,
-  timeFrom: [0, 24],
-  timeTo: [0, 24],
-  transitTime: [1, 24],
-  flightDuration: [2, 27.5],
-  airlines: [],
-  seatClasses: [],
-}
 
 interface Props {
   filters: FilterState
@@ -126,7 +102,7 @@ function SliderRow({
 
 export function FlightFilterPanel({ filters, onFilterChange }: Props) {
   const { isTabletToXl, isMobile } = useBreakpoint()
-  
+
   const isLargeDesktop = !isTabletToXl && !isMobile
 
   const handleAirlineChange = (airline: string, checked: boolean) => {
@@ -319,13 +295,13 @@ export function FlightFilterPanel({ filters, onFilterChange }: Props) {
             {isTabletToXl && (
               <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-border-main z-10" />
             )}
-            
+
             <div className="flex flex-col gap-4">
               <div className="bg-white border border-border-main rounded-[16px] p-5 shadow-sm">
                 <div className="text-[18px] font-semibold text-text-main mb-4">Được đề xuất</div>
                 {renderTicketTypes()}
               </div>
-              
+
               <div className="bg-white border border-border-main rounded-[16px] p-5 shadow-sm">
                 <div className="text-[18px] font-semibold text-text-main mb-4">Hãng hàng không</div>
                 {renderAirlines()}

@@ -4,7 +4,9 @@ import { Col, Row } from 'antd'
 
 import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
 
-import { DEFAULT_FILTERS, type FilterState, FlightFilterPanel } from './FlightFilterPanel'
+import { DEFAULT_FILTERS, type FilterState } from '../../constants/FlightFilterTypes'
+
+import { FlightFilterPanel } from './FlightFilterPanel'
 import { FlightResultList } from './FlightResultList'
 import { FlightSummaryCard } from './FlightSummaryCard'
 
@@ -42,7 +44,7 @@ interface Props {
 
 export function FlightSearchResults({ from = 'Hà Nội', to = 'TP. Hồ Chí Minh' }: Props) {
   const { isTabletToXl, isMobile } = useBreakpoint()
-  
+
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS)
 
   const isLargeDesktop = !isTabletToXl && !isMobile
