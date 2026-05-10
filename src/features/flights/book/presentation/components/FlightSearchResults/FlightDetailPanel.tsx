@@ -1,6 +1,7 @@
 import { ConfigProvider, Select } from 'antd'
 
 import { AirlineLogo } from '@/shared/components/common/AirlineLogo'
+import { Tag } from '@/shared/components/common/Tag'
 
 import type { Flight } from './FlightCard'
 import { FlightDetailTabs } from './FlightDetailTabs/FlightDetailTabs'
@@ -30,14 +31,7 @@ const PROMOTIONS = [
 ]
 
 
-function SpecialTag({ icon, label, className = 'bg-[#86CED9]/40 text-[#54858C] font-semibold' }: { icon?: React.ReactNode; label?: React.ReactNode; className?: string }) {
-  return (
-    <div className={`h-[28px] flex items-center gap-1.5 px-2 py-1 rounded-[5px] text-[13px] whitespace-nowrap ${className}`}>
-      {icon}
-      {label}
-    </div>
-  )
-}
+
 
 function PromotionTag({ label, variant = 'fill', icon }: { label: string; variant?: 'fill' | 'outline'; icon?: React.ReactNode }) {
   const isOutline = variant === 'outline'
@@ -84,14 +78,14 @@ export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?:
           <div className="flex min-[992px]:flex-row min-[992px]:items-center min-[992px]:justify-between flex-col gap-2 min-[992px]:gap-0 px-2">
             {/* Hàng tags loại vé */}
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
-              <SpecialTag label="Rẻ nhất" className="bg-[#54858C] text-white font-semibold shrink-0" />
-              <SpecialTag icon={<LaborIcon width={18} height={18} color="currentColor" />} label="Vé lao động" className="shrink-0 bg-[#86CED9]/40 text-[#54858C] font-semibold" />
-              <SpecialTag icon={<StudyIcon width={18} height={18} color="currentColor" />} label="Vé du học" className="shrink-0 bg-[#86CED9]/40 text-[#54858C] font-semibold" />
-              <SpecialTag icon={<GroupIcon width={18} height={18} color="currentColor" />} label="Vé Block" className="shrink-0 bg-[#86CED9]/40 text-[#54858C] font-semibold" />
-              <SpecialTag icon={<AirplaneCharterIcon width={18} height={18} color="currentColor" />} label="Vé Charter" className="shrink-0 bg-[#86CED9]/40 text-[#54858C] font-semibold" />
+              <Tag label="Rẻ nhất" className="bg-[#54858C] text-white font-semibold shrink-0" />
+              <Tag icon={<LaborIcon width={18} height={18} color="currentColor" />} label="Vé lao động" className="shrink-0 bg-[#86CED9]/40 text-[#54858C] font-semibold" />
+              <Tag icon={<StudyIcon width={18} height={18} color="currentColor" />} label="Vé du học" className="shrink-0 bg-[#86CED9]/40 text-[#54858C] font-semibold" />
+              <Tag icon={<GroupIcon width={18} height={18} color="currentColor" />} label="Vé Block" className="shrink-0 bg-[#86CED9]/40 text-[#54858C] font-semibold" />
+              <Tag icon={<AirplaneCharterIcon width={18} height={18} color="currentColor" />} label="Vé Charter" className="shrink-0 bg-[#86CED9]/40 text-[#54858C] font-semibold" />
               {/* Desktop: icon hành lý nằm cùng hàng tags */}
               <div className="hidden min-[992px]:flex items-center gap-1.5 shrink-0">
-                <SpecialTag
+                <Tag
                   icon={<div className='flex items-center gap-1.5'>
                     <TravelBagIcon width={18} height={18} color="#54858C" />
                     <LuggageIcon width={18} height={18} color="#54858C" />
@@ -99,7 +93,7 @@ export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?:
                   // label='Có hành lý xách tay'
                   className='bg-[#86CED9]/20 text-[12px] text-[#54858C] font-regular'
                 />
-                <SpecialTag
+                <Tag
                   icon={<div className='flex items-center gap-1.5'>
                     <BoltIcon width={18} height={18} color="#54858C" />
                     <MealAmenityIcon width={18} height={18} color="#54858C" />
@@ -112,7 +106,7 @@ export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?:
             {/* Hàng dưới: icon hành lý + Select (hiện trên Tablet, ẩn trên Desktop lớn) */}
             <div className="flex items-center justify-between min-[992px]:hidden">
               <div className="flex items-center gap-2">
-                <SpecialTag
+                <Tag
                   icon={<div className='flex items-center gap-1.5'>
                     <TravelBagIcon width={18} height={18} color="#54858C" />
                     <LuggageIcon width={18} height={18} color="#54858C" />
@@ -120,15 +114,15 @@ export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?:
                   label={<span className="hidden sm:inline">Có hành lý xách tay</span>}
                   className='bg-[#86CED9]/20 text-[12px] text-[#54858C] font-regular'
                 />
-                <SpecialTag
+                <Tag
                   icon={<BoltIcon width={18} height={18} color="#54858C" />}
                   className='bg-[#86CED9]/20'
                 />
-                <SpecialTag
+                <Tag
                   icon={<MealAmenityIcon width={18} height={18} color="#54858C" />}
                   className='bg-[#86CED9]/20'
                 />
-                <SpecialTag
+                <Tag
                   icon={<EntertainmentAmenityIcon width={18} height={18} color="#54858C" />}
                   className='bg-[#86CED9]/20'
                 />

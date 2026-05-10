@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 
 import { HeroBanner } from '@/shared/components/common/HeroBanner'
 import { SectionLoader } from '@/shared/components/feedback/SectionLoader'
-import { FlightSearchForm } from '@/shared/components/FlightSearchForm/index'
+import { SearchForm } from '@/shared/components/SearchForm/index'
 
 import { DestinationsSection } from '../components/sections/DestinationsSection'
 import { FeaturedActivitiesSection } from '../components/sections/FeaturedActivitiesSection'
@@ -21,7 +21,7 @@ export default function HomePage() {
     <div className="min-h-full bg-[var(--ant-color-bg-layout)]">
       <HeroBanner>
         <Suspense fallback={<SectionLoader />}>
-          <FlightSearchForm />
+          <SearchForm />
         </Suspense>
       </HeroBanner>
       <NewUserPromoSection items={content.promos} />
