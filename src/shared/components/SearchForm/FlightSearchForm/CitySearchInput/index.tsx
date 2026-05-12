@@ -3,10 +3,10 @@ import { useState } from 'react'
 import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
 import { brandColors } from '@/shared/lib/antd-theme/tokens'
 
-import { useModalController } from '../../modals/hooks/useModalController'
-import { useRegisterModals } from '../../modals/hooks/useRegisterModals'
+import { useModalController } from '../../../modals/hooks/useModalController'
+import { useRegisterModals } from '../../../modals/hooks/useRegisterModals'
 
-import { CITY_SELECT_MODAL,CitySelectModal } from './CitySelectModal'
+import { CITY_SELECT_MODAL, CitySelectModal } from './CitySelectModal'
 import { CitySelectPopover } from './CitySelectPopover'
 
 import {
@@ -14,7 +14,7 @@ import {
   PlaneLandingIcon,
   PlaneTakeoffIcon,
 } from '@/assets/icons/icons'
-import { CITIES,CITY_REGIONS, POPULAR_CITIES } from '@/mocks/data/flights'
+import { CITIES, CITY_REGIONS, POPULAR_CITIES } from '@/mocks/data/flights'
 
 interface CitySearchInputProps {
   from: string

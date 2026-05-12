@@ -4,8 +4,7 @@ import { ConfigProvider, Tabs } from 'antd'
 
 import { brandColors } from '@/shared/lib/antd-theme/tokens'
 
-import { FlightSearchForm } from '../FlightSearchForm'
-
+import { FlightSearchForm } from './FlightSearchForm'
 import { TourSearchForm } from './TourSearchForm'
 
 import {
@@ -34,7 +33,7 @@ export function SearchForm({ className = '' }: SearchFormProps) {
   const tabItems = MAIN_SERVICES.map((service) => {
     const Icon = service.icon
     const iconWidth = service.key === 'car' ? 32 : 26
-    
+
     return {
       key: service.key,
       label: (

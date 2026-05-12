@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Button, ConfigProvider, DatePicker, Input, Select } from 'antd'
+import { Button, ConfigProvider, DatePicker, Input } from 'antd'
 
 import dayjs from 'dayjs'
 
@@ -8,9 +8,10 @@ import { brandColors } from '@/shared/lib/antd-theme/tokens'
 
 import { Tag } from '../../common/Tag'
 
+import { TourAreaSelect } from './TourAreaSelect'
+import { TourDestinationInput } from './TourDestinationInput'
+
 import {
-  BuildingIcon,
-  MapPinIcon,
   Search2Icon,
   TourCalendarIcon,
   TourCustomIcon,
@@ -25,12 +26,6 @@ const TOUR_TYPES = [
   { key: 'custom', label: 'Tour tự thiết kế', icon: TourCustomIcon },
 ]
 
-const AREA_OPTIONS = [
-  { value: 'urban', label: 'Đô thị' },
-  { value: 'beach', label: 'Biển' },
-  { value: 'mountain', label: 'Núi' },
-  { value: 'countryside', label: 'Nông thôn' },
-]
 
 const SORT_OPTIONS_GROUP = [
   { key: 'cheapest', label: 'Rẻ nhất' },
@@ -62,6 +57,12 @@ export function TourSearchForm({ onSearch, className = '' }: TourSearchFormProps
   const [date, setDate] = useState(dayjs('2026-04-07'))
   const [sortBy, setSortBy] = useState<string | null>('cheapest')
   const [participants, setParticipants] = useState<string>('')
+
+  const handleParticipantsChange = (val: string) => {
+    // Only allow digits and remove leading zeros
+    const numericVal = val.replace(/\D/g, '').replace(/^0+/, '')
+    setParticipants(numericVal)
+  }
 
   const isGroup = tourType === 'group'
 
@@ -113,47 +114,22 @@ export function TourSearchForm({ onSearch, className = '' }: TourSearchFormProps
 
         {/* Form Content */}
         <div className="px-4 py-4 sm:px-6 sm:py-5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:flex xl:flex-row items-start xl:items-end gap-4 xl:gap-3 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:flex xl:flex-row items-start sm:items-end gap-4 xl:gap-3 w-full">
 
-            {/* Chọn địa điểm */}
-            <div className="col-span-1 sm:col-span-2 xl:flex-[2] w-full">
-              <p className="text-[15px] sm:text-[17px] font-semibold text-text-main mb-2 px-1">
-                Chọn địa điểm
-              </p>
-              <div className="flex items-center h-[45px] sm:h-[55px] border border-border-main rounded-[20px] bg-white px-4 gap-2">
-                <MapPinIcon width={20} height={20} color="#4558B6" className="shrink-0" />
-                <Input
-                  variant="borderless"
-                  placeholder="Nhập địa điểm"
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
-                  className="flex-1 !px-0 !text-[15px] sm:!text-[17px] font-semibold"
-                  size="large"
-                />
-              </div>
-            </div>
+            <TourDestinationInput
+              value={destination}
+              onSelect={setDestination}
+              className="col-span-1 sm:col-span-1 xl:flex-[2] w-full"
+            />
 
-            {/* Khu vực */}
-            <div className="col-span-1 xl:flex-[1] w-full">
-              <p className="text-[15px] sm:text-[17px] font-semibold text-text-main mb-2 px-1">
-                Khu vực
-              </p>
-              <div className="flex items-center h-[45px] sm:h-[55px] border border-border-main rounded-[20px] bg-white px-4 gap-2">
-                <BuildingIcon width={20} height={20} color="#4558B6" className="shrink-0" />
-                <Select
-                  variant="borderless"
-                  value={area}
-                  onChange={(val) => setArea(val)}
-                  options={AREA_OPTIONS}
-                  className="flex-1 !h-full font-semibold"
-                  size="large"
-                  suffixIcon={null}
-                />
-              </div>
-            </div>
+            <TourAreaSelect
+              value={area}
+              onSelect={setArea}
+              className="col-span-1 sm:col-span-1 xl:flex-[1] w-full"
+            />
 
             {/* Thời gian */}
-            <div className="col-span-1 xl:flex-[1] w-full">
+            <div className="col-span-1 sm:col-span-1 xl:flex-[1] w-full">
               <p className="text-[15px] sm:text-[17px] font-semibold text-text-main mb-2 px-1">
                 Thời gian
               </p>
@@ -173,10 +149,10 @@ export function TourSearchForm({ onSearch, className = '' }: TourSearchFormProps
             </div>
 
             {/* Nút sắp xếp (Tour ghép) | Số người tham gia (Tour tự thiết kế) + Search */}
-            <div className="col-span-1 sm:col-span-2 xl:flex-[1.5] flex items-end gap-2 w-full">
+            <div className="col-span-1 sm:col-span-1 xl:flex-[1.5] flex items-end gap-2 w-full">
               {isGroup ? (
                 /* Sort buttons */
-                <div className="flex-1 flex items-center gap-2 h-[45px] sm:h-[55px]">
+                <div className="flex-1 flex items-center sm:justify-center gap-2 h-[45px] sm:h-[55px]">
                   {SORT_OPTIONS_GROUP.map((opt) => {
                     const isSelected = sortBy === opt.key
                     return (
@@ -204,10 +180,8 @@ export function TourSearchForm({ onSearch, className = '' }: TourSearchFormProps
                     <Input
                       variant="borderless"
                       placeholder="Nhập số người"
-                      type="number"
-                      min={1}
                       value={participants}
-                      onChange={(e) => setParticipants(e.target.value)}
+                      onChange={(e) => handleParticipantsChange(e.target.value)}
                       className="flex-1 !px-0 !text-[15px] sm:!text-[17px] font-semibold"
                       size="large"
                     />
@@ -229,13 +203,13 @@ export function TourSearchForm({ onSearch, className = '' }: TourSearchFormProps
           </div>
 
           {/* Nút tìm kiếm (Mobile/Tablet) */}
-          <div className="xl:hidden mt-4">
+          <div className="xl:hidden mt-6">
             <Button
               type="primary"
               onClick={handleSearch}
               className="w-full !h-[45px] sm:!h-[55px] !rounded-[16px] sm:!rounded-[20px] flex items-center justify-center gap-2 font-semibold !text-[17px] shadow-md cursor-pointer"
             >
-              <Search2Icon color="white" width={24} height={24} />
+              <Search2Icon color="white" width={26} height={26} />
               Tìm kiếm
             </Button>
           </div>

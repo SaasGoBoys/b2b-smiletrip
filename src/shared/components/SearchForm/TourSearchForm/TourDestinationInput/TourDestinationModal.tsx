@@ -2,28 +2,27 @@ import { ConfigProvider, Modal } from 'antd'
 
 import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
 
-import { useModalController } from '../../modals/hooks/useModalController'
-import type { ModalEngineProps } from '../../modals/store/modal.type'
+import { useModalController } from '../../../modals/hooks/useModalController'
+import type { ModalEngineProps } from '../../../modals/store/modal.type'
 
-import { CitySelectContent } from './CitySelectContent'
+import { TourDestinationContent } from './TourDestinationContent'
 
-export const CITY_SELECT_MODAL = 'CITY_SELECT_MODAL'
+export const TOUR_DESTINATION_MODAL = 'TOUR_DESTINATION_MODAL'
 
-interface CitySelectModalPayload {
-  type: 'from' | 'to'
+interface TourDestinationModalPayload {
   value: string
   onSelect: (value: string) => void
   searchQuery?: string
   onSearchChange?: (value: string) => void
 }
 
-export function CitySelectModal({ payload }: ModalEngineProps<CitySelectModalPayload>) {
+export function TourDestinationModal({ payload }: ModalEngineProps<TourDestinationModalPayload>) {
   const { isMobile } = useBreakpoint()
   const { close } = useModalController()
-  const { type, value, onSelect, searchQuery, onSearchChange } = payload
+  const { value, onSelect, searchQuery, onSearchChange } = payload
 
   const handleClose = () => {
-    close(CITY_SELECT_MODAL)
+    close(TOUR_DESTINATION_MODAL)
   }
 
   const handleSelect = (val: string) => {
@@ -47,10 +46,9 @@ export function CitySelectModal({ payload }: ModalEngineProps<CitySelectModalPay
         onCancel={handleClose}
         footer={null}
         centered={!isMobile}
-        width={isMobile ? '100%' : 923}
-        // closeIcon={<CloseIcon width={isMobile ? 20 : 24} height={isMobile ? 20 : 24} />}
+        width={isMobile ? '100%' : 680}
         closable={false}
-        className={`city-select-modal ${isMobile ? '!m-0 !p-0 !max-w-none' : ''}`}
+        className={`tour-destination-modal ${isMobile ? '!m-0 !p-0 !max-w-none' : ''}`}
         styles={{
           body: {
             height: isMobile ? 'calc(100dvh - 56px)' : 'auto',
@@ -59,9 +57,8 @@ export function CitySelectModal({ payload }: ModalEngineProps<CitySelectModalPay
           },
         }}
       >
-        <CitySelectContent
+        <TourDestinationContent
           value={value}
-          type={type}
           onSelect={handleSelect}
           searchQuery={searchQuery}
           onSearchChange={onSearchChange}
