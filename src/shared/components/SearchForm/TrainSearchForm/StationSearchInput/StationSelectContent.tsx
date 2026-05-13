@@ -2,8 +2,8 @@
 
 import { brandColors } from '@/shared/lib/antd-theme/tokens'
 
-import { ArrowDownSquareIcon,TrainIcon } from '@/assets/icons/icons'
-import { INTERNATIONAL_REGIONS,POPULAR_STATIONS } from '@/mocks/data/trains'
+import { ArrowDownSquareIcon, TrainIcon } from '@/assets/icons/icons'
+import { INTERNATIONAL_REGIONS, POPULAR_STATIONS } from '@/mocks/data/trains'
 
 interface StationSelectContentProps {
   value: string
@@ -44,14 +44,13 @@ export function StationSelectContent({
 
   return (
     <div
-      className={`flex flex-col bg-white ${
-        isPopover ? 'w-[350px] sm:w-[480px] md:w-[620px] lg:w-[780px] xl:w-[900px]' : 'w-full'
-      }`}
+      className={`flex flex-col bg-white ${isPopover ? 'w-[350px] sm:w-[480px] md:w-[620px] lg:w-[780px] xl:w-[900px]' : 'w-full h-full'
+        }`}
     >
       {/* Search input - chỉ hiển thị ở Modal (Mobile) */}
       {!isPopover && (
         <>
-          <div className="px-2 pt-0 pb-2">
+          <div className="px-2 pt-0 pb-2 shrink-0">
             <div className="flex items-center gap-3 h-[46px] border border-border-main rounded-[10px] px-3 focus-within:border-primary transition-colors">
               <TrainIcon width={22} height={22} color={brandColors.textSecondary} className="shrink-0" />
               <input
@@ -65,11 +64,11 @@ export function StationSelectContent({
               />
             </div>
           </div>
-          <div className="border-t border-border-light" />
+          <div className="border-t border-border-light shrink-0" />
         </>
       )}
 
-      <div className="overflow-y-auto max-h-[440px] px-2 pb-4">
+      <div className="flex-1 overflow-y-auto px-2 pb-4">
         {/* Ga quốc nội phổ biến */}
         {filteredPopular.length > 0 && (
           <section className="mt-4 mb-2">
@@ -82,9 +81,8 @@ export function StationSelectContent({
                     key={station.value}
                     id={`popular-station-${type}-${station.value}`}
                     onClick={() => onSelect(station.value)}
-                    className={`text-left text-[14px] cursor-pointer transition-colors truncate ${
-                      isSelected ? 'text-primary font-semibold' : 'text-text-main hover:text-primary'
-                    }`}
+                    className={`text-left text-[14px] cursor-pointer transition-colors truncate ${isSelected ? 'text-primary font-semibold' : 'text-text-main hover:text-primary'
+                      }`}
                   >
                     {station.label}
                   </button>
@@ -101,8 +99,8 @@ export function StationSelectContent({
           const remainingStations = region.stations.slice(visibleCount)
 
           return (
-            <details 
-              key={region.key} 
+            <details
+              key={region.key}
               className="group mt-1"
               open={normalizedSearch ? true : undefined}
             >
@@ -147,11 +145,10 @@ export function StationSelectContent({
                           e.preventDefault()
                           onSelect(station.value)
                         }}
-                        className={`text-left text-[14px] cursor-pointer transition-colors truncate ${
-                          isSelected
+                        className={`text-left text-[14px] cursor-pointer transition-colors truncate ${isSelected
                             ? 'text-primary font-semibold'
                             : 'text-text-main hover:text-primary'
-                        }`}
+                          }`}
                       >
                         {station.label}
                       </button>
@@ -173,11 +170,10 @@ export function StationSelectContent({
                           e.preventDefault()
                           onSelect(station.value)
                         }}
-                        className={`text-left text-[14px] cursor-pointer transition-colors truncate ${
-                          isSelected
+                        className={`text-left text-[14px] cursor-pointer transition-colors truncate ${isSelected
                             ? 'text-primary font-semibold'
                             : 'text-text-main hover:text-primary'
-                        }`}
+                          }`}
                       >
                         {station.label}
                       </button>

@@ -36,8 +36,8 @@ export function CitySelectModal({ payload }: ModalEngineProps<CitySelectModalPay
       theme={{
         components: {
           Modal: {
-            paddingMD: isMobile ? 16 : 20,
-            paddingContentHorizontalLG: isMobile ? 12 : 10,
+            paddingMD: isMobile ? 8 : 20,
+            paddingContentHorizontalLG: isMobile ? 4 : 10,
           },
         },
       }}
