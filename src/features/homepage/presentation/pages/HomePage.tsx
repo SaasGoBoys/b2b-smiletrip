@@ -24,6 +24,7 @@ export default function HomePage() {
           <SearchForm />
         </Suspense>
       </HeroBanner>
+      <div className="my-[30px] md:mt-[150px] xl:my-0" />
       <NewUserPromoSection items={content.promos} />
       <SaleBannersSection />
       <PopularFlightsSection deals={content.flightDeals} />

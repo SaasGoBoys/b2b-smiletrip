@@ -4,7 +4,7 @@ import { Button } from 'antd'
 
 import { brandColors } from '@/shared/lib/antd-theme/tokens'
 
-import { ArrowDownSquareIcon,SearchIcon } from '@/assets/icons/icons'
+import { ArrowDownSquareIcon, SearchIcon } from '@/assets/icons/icons'
 import { CITY_REGIONS, POPULAR_CITIES } from '@/mocks/data/flights'
 
 interface AirportSelectContentProps {
@@ -34,7 +34,8 @@ export function AirportSelectContent({
       city.value.toLowerCase().includes(normalizedSearch)
   )
 
-  const currentRegion = CITY_REGIONS.find((region) => region.key === activeRegion) ?? CITY_REGIONS[0]
+  const currentRegion =
+    CITY_REGIONS.find((region) => region.key === activeRegion) ?? CITY_REGIONS[0]
 
   const filteredRegionCities = currentRegion.cities.filter(
     (city) =>
@@ -55,14 +56,20 @@ export function AirportSelectContent({
 
   return (
     <div
-      className={`flex flex-col bg-white ${isPopover ? 'sm:w-[543px] md:w-[680px] lg:w-[866px] xl:w-[956px] p-1' : 'w-full h-full'
-        }`}
+      className={`flex flex-col bg-white ${
+        isPopover ? 'sm:w-[543px] md:w-[680px] lg:w-[866px] xl:w-[956px] p-1' : 'w-full h-full'
+      }`}
     >
       {!isPopover ? (
         <>
           <div className="px-2 pt-0 pb-2 shrink-0">
             <div className="flex items-center gap-3 h-[46px] border border-border-main rounded-[10px] px-3 focus-within:border-primary transition-colors">
-              <SearchIcon width={22} height={22} color={brandColors.textSecondary} className="shrink-0" />
+              <SearchIcon
+                width={22}
+                height={22}
+                color={brandColors.textSecondary}
+                className="shrink-0"
+              />
               <input
                 autoFocus
                 id={`city-search-${type}`}
@@ -88,8 +95,11 @@ export function AirportSelectContent({
                         key={city.value}
                         id={`popular-city-${type}-${city.value}`}
                         onClick={() => onSelect(city.value)}
-                        className={`text-left text-[14px] cursor-pointer transition-colors truncate ${isSelected ? 'text-primary font-semibold' : 'text-text-main hover:text-primary'
-                          }`}
+                        className={`text-left text-[14px] cursor-pointer transition-colors truncate ${
+                          isSelected
+                            ? 'text-primary font-semibold'
+                            : 'text-text-main hover:text-primary'
+                        }`}
                       >
                         {city.label}
                       </button>
@@ -147,10 +157,11 @@ export function AirportSelectContent({
                               e.preventDefault()
                               onSelect(city.value)
                             }}
-                            className={`text-left text-[14px] cursor-pointer transition-colors truncate ${isSelected
+                            className={`text-left text-[14px] cursor-pointer transition-colors truncate ${
+                              isSelected
                                 ? 'text-primary font-semibold'
                                 : 'text-text-main hover:text-primary'
-                              }`}
+                            }`}
                           >
                             {city.label}
                           </button>
@@ -171,10 +182,11 @@ export function AirportSelectContent({
                               e.preventDefault()
                               onSelect(city.value)
                             }}
-                            className={`text-left text-[14px] cursor-pointer transition-colors truncate ${isSelected
+                            className={`text-left text-[14px] cursor-pointer transition-colors truncate ${
+                              isSelected
                                 ? 'text-primary font-semibold'
                                 : 'text-text-main hover:text-primary'
-                              }`}
+                            }`}
                           >
                             {city.label}
                           </button>
@@ -186,11 +198,13 @@ export function AirportSelectContent({
               )
             })}
 
-            {normalizedSearch && filteredPopularCities.length === 0 && filteredRegionsAll.length === 0 && (
-              <div className="flex items-center justify-center py-12 text-text-secondary text-[15px]">
-                Không tìm thấy thành phố phù hợp
-              </div>
-            )}
+            {normalizedSearch &&
+              filteredPopularCities.length === 0 &&
+              filteredRegionsAll.length === 0 && (
+                <div className="flex items-center justify-center py-12 text-text-secondary text-[15px]">
+                  Không tìm thấy thành phố phù hợp
+                </div>
+              )}
           </div>
         </>
       ) : (
@@ -210,8 +224,10 @@ export function AirportSelectContent({
                       id={`popular-city-${type}-${city.value}`}
                       type={isSelected ? 'primary' : 'text'}
                       onClick={() => onSelect(city.value)}
-                      className={`min-w-0 cursor-pointer truncate !justify-start !text-left text-[13px] md:text-[14px] font-normal leading-none px-3 h-8 md:h-9 ${!isSelected && 'text-text-main hover:text-primary bg-surface-hover md:bg-transparent'
-                        }`}
+                      className={`min-w-0 cursor-pointer truncate !justify-start !text-left text-[13px] md:text-[14px] font-normal leading-none px-3 h-8 md:h-9 ${
+                        !isSelected &&
+                        'text-text-main hover:text-primary bg-surface-hover md:bg-transparent'
+                      }`}
                     >
                       {city.label}
                     </Button>
@@ -232,10 +248,11 @@ export function AirportSelectContent({
                       key={region.key}
                       id={`region-tab-${type}-${region.key}`}
                       onClick={() => setActiveRegion(region.key)}
-                      className={`flex h-[40px] md:h-[45px] shrink-0 cursor-pointer items-center whitespace-nowrap px-[15px] text-left text-[13px] md:text-[15px] font-semibold transition-all md:w-full ${isActive
-                        ? 'relative z-10 md:-mr-[1px] bg-surface-hover text-primary md:text-text-main border-b-2 border-primary md:border-b-0 md:rounded-l-[8px]'
-                        : 'bg-white text-text-secondary md:text-text-main hover:text-primary'
-                        }`}
+                      className={`flex h-[40px] md:h-[45px] shrink-0 cursor-pointer items-center whitespace-nowrap px-[15px] text-left text-[13px] md:text-[15px] font-semibold transition-all md:w-full ${
+                        isActive
+                          ? 'relative z-10 md:-mr-[1px] bg-surface-hover text-primary md:text-text-main border-b-2 border-primary md:border-b-0 md:rounded-l-[8px]'
+                          : 'bg-white text-text-secondary md:text-text-main hover:text-primary'
+                      }`}
                     >
                       {region.label}
                     </button>
@@ -255,8 +272,10 @@ export function AirportSelectContent({
                           id={`city-option-${type}-${city.value}`}
                           type={isSelected ? 'primary' : 'text'}
                           onClick={() => onSelect(city.value)}
-                          className={`min-w-0 cursor-pointer truncate !justify-start !text-left !text-[14px] md:!text-[15px] !font-semibold !leading-none !gap-1 h-9 md:h-10 ${!isSelected && 'text-text-main hover:text-primary bg-white md:bg-transparent'
-                            }`}
+                          className={`min-w-0 cursor-pointer truncate !justify-start !text-left !text-[14px] md:!text-[15px] !font-semibold !leading-none !gap-1 h-9 md:h-10 ${
+                            !isSelected &&
+                            'text-text-main hover:text-primary bg-white md:bg-transparent'
+                          }`}
                         >
                           <span>{city.label}</span>
                           <span

@@ -20,6 +20,7 @@ interface PassengerSelectProps {
   className?: string
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const SEAT_CLASSES = [
   { label: 'Phổ thông', value: 'economy' },
   { label: 'Phổ thông đặc biệt', value: 'premium_economy' },

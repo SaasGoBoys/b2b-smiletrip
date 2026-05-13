@@ -1,9 +1,6 @@
 import { Popover } from 'antd'
 
-import {
-  AirportSelectContent,
-  type AirportSelectSearchBinding,
-} from '@/shared/kernels/airport/presentation/components/CitySearchInput/AirportSelectContent'
+import { AirportSelectContent, type AirportSelectSearchBinding } from './AirportSelectContent'
 
 interface AirportSelectPopoverProps {
   children: React.ReactNode

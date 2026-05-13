@@ -3,10 +3,12 @@ import { lazy, Suspense, useState } from 'react'
 import { HeroBanner } from '@/shared/components/common/HeroBanner'
 import { SectionLoader } from '@/shared/components/feedback/SectionLoader'
 
-import { CITY_REGIONS, POPULAR_CITIES } from '@/mocks/data/flights'
+import { CITY_REGIONS } from '@/mocks/data/flights'
 
 const FlightSearchForm = lazy(() =>
-  import('@/shared/components/SearchForm/FlightSearchForm/index').then((m) => ({ default: m.FlightSearchForm }))
+  import('@/shared/components/SearchForm/FlightSearchForm/index').then((m) => ({
+    default: m.FlightSearchForm,
+  }))
 )
 
 const DatePriceSlider = lazy(() =>
@@ -31,14 +33,11 @@ const Footer = lazy(() =>
   import('@/shared/components/layout/Footer').then((m) => ({ default: m.Footer }))
 )
 
-
 const getCityName = (value: string) => {
   for (const region of CITY_REGIONS) {
-    const city = region.cities.find((c) => c.value === value)
-    if (city) return city.label
+    const city = region.key === value ? region.label : null
+    if (city) return city
   }
-  const popularCity = POPULAR_CITIES.find((c) => c.value === value)
-  if (popularCity) return popularCity.label
   return value
 }
 
@@ -92,7 +91,6 @@ export default function BookPage() {
       <Suspense fallback={<SectionLoader />}>
         <TopDestinations />
       </Suspense>
-
 
       <Suspense fallback={null}>
         <Footer />

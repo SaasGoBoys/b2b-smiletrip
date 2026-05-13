@@ -1,12 +1,14 @@
+type AirportEntityType = 'country' | 'airport' | 'city' | 'sub-airport' | 'sub-city'
+
 interface AirportEntityProps {
-  type: string
+  type: AirportEntityType
   text: string
   city: string
   cityCode: string
 }
 
 class AirportEntity {
-  readonly type: string
+  readonly type: AirportEntityType
   readonly text: string
   readonly city: string
   readonly cityCode: string
@@ -17,6 +19,13 @@ class AirportEntity {
     this.city = props.city
     this.cityCode = props.cityCode
   }
+
+  get displayName(): string {
+    const code = this.cityCode
+    if (!code) return this.text
+    if (this.text.includes(`(${code})`)) return this.text
+    return `${this.text} (${code})`
+  }
 }
 
-export { AirportEntity, type AirportEntityProps }
+export { AirportEntity, type AirportEntityProps, type AirportEntityType }

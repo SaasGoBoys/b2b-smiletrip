@@ -9,10 +9,7 @@ import { brandColors } from '@/shared/lib/antd-theme/tokens'
 import { CitySearchInput } from './CitySearchInput/index'
 import { PassengerSelectPopover } from './PassengerSelect/index'
 
-import {
-  CalendarIcon,
-  Search2Icon,
-} from '@/assets/icons/icons'
+import { CalendarIcon, Search2Icon } from '@/assets/icons/icons'
 import { TICKET_TYPES } from '@/mocks/data/flights'
 
 export interface FlightSearchParams {
@@ -37,7 +34,7 @@ interface FlightSearchFormProps {
 export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormProps) {
   const [activeTab, setActiveTab] = useState('lao-dong')
   const [from, setFrom] = useState<string>('HAN')
-  const [to, setTo] = useState<string>('SGN')
+  const [to, setTo] = useState<string>('TYO')
   const [tripType, setTripType] = useState('round-trip')
   const [passengerCounts, setPassengerCounts] = useState({
     adults: 1,
@@ -100,7 +97,11 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
                     : 'border-text-secondary text-text-main hover:border-primary/50 hover:text-primary/80'
                 }`}
               >
-                <Icon width={18} height={18} color={isActive ? brandColors.primary : brandColors.textMain} />
+                <Icon
+                  width={18}
+                  height={18}
+                  color={isActive ? brandColors.primary : brandColors.textMain}
+                />
                 {type.label}
               </button>
             )
