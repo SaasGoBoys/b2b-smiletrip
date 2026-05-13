@@ -8,10 +8,10 @@ const IMG = {
     'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=640&q=80&auto=format&fit=crop',
   flightHnCxr:
     'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=640&q=80&auto=format&fit=crop',
-  flightHnPqc: '/images/homepage/hanoi_phuquoc.png',
+  flightHnPqc: '/images/homepage/hanoi_phuquoc.webp',
   flightHnCdo:
     'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=640&q=80&auto=format&fit=crop',
-  destHanoi: '/images/homepage/img1.png',
+  destHanoi: '/images/homepage/img1.webp',
   destHalong:
     'https://images.unsplash.com/photo-1528127269322-539801943592?w=640&q=80&auto=format&fit=crop',
   destSapa:

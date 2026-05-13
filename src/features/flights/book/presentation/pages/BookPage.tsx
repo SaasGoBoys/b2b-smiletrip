@@ -6,7 +6,7 @@ import { SectionLoader } from '@/shared/components/feedback/SectionLoader'
 import { CITY_REGIONS, POPULAR_CITIES } from '@/mocks/data/flights'
 
 const FlightSearchForm = lazy(() =>
-  import('@/shared/components/FlightSearchForm/index').then((m) => ({ default: m.FlightSearchForm }))
+  import('@/shared/components/SearchForm/FlightSearchForm/index').then((m) => ({ default: m.FlightSearchForm }))
 )
 
 const DatePriceSlider = lazy(() =>

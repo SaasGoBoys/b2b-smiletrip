@@ -59,3 +59,23 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* SearchForm Tabs Overrides */
+.search-form-tabs .ant-tabs-nav-list {
+  width: 100% !important;
+}
+.search-form-tabs .ant-tabs-tab {
+  flex: 1 1 0% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  justify-content: center !important;
+}
+.search-form-tabs .ant-tabs-tab-btn {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  padding: 14px 4px 8px !important;
+  text-align: center !important;
+}
