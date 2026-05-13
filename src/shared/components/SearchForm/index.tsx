@@ -2,6 +2,7 @@ import { ConfigProvider, Tabs } from 'antd'
 
 import { brandColors } from '@/shared/lib/antd-theme/tokens'
 
+import { CarSearchForm } from './CarSearchForm'
 import { FlightSearchForm } from './FlightSearchForm'
 import { HotelSearchForm } from './HotelSearchForm'
 import { TourSearchForm } from './TourSearchForm'
@@ -51,6 +52,8 @@ export function SearchForm({ className = '' }: SearchFormProps) {
           <TrainSearchForm className="!shadow-none !rounded-none" />
         ) : service.key === 'hotel' ? (
           <HotelSearchForm className="!shadow-none !rounded-none" />
+        ) : service.key === 'car' ? (
+          <CarSearchForm className="!shadow-none !rounded-none" />
         ) : (
           <div className="flex flex-col items-center justify-center py-20 text-text-muted bg-white">
             <p className="text-[17px] font-medium">Tính năng đang được phát triển</p>
