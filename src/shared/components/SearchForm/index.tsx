@@ -24,6 +24,8 @@ const MAIN_SERVICES = [
   { key: 'car', label: 'Đưa đón sân bay', icon: CarIcon },
 ]
 
+
+
 interface SearchFormProps {
   className?: string
 }
@@ -31,14 +33,21 @@ interface SearchFormProps {
 export function SearchForm({ className = '' }: SearchFormProps) {
   const tabItems = MAIN_SERVICES.map((service) => {
     const Icon = service.icon
-    const iconWidth = service.key === 'car' ? 32 : 26
+
+    const lgWidth = service.key === 'car' ? 'lg:w-[32px]' : 'lg:w-[26px]'
+    const mdWidth = service.key === 'car' ? 'md:w-[30px]' : 'md:w-[24px]'
+    const smWidth = service.key === 'car' ? 'sm:w-[26px]' : 'sm:w-[22px]'
+    const baseWidth = service.key === 'car' ? 'w-[22px]' : 'w-[20px]'
 
     return {
       key: service.key,
       label: (
-        <div className="flex flex-col items-center justify-center min-w-[80px] sm:min-w-[100px]">
-          <Icon width={iconWidth} height={26} color="currentColor" />
-          <span className="text-[20px] font-semibold whitespace-nowrap">
+        <div className="flex flex-col items-center justify-center w-full">
+          <Icon
+            className={`${baseWidth} ${smWidth} ${mdWidth} ${lgWidth} h-[20px] sm:h-[22px] md:h-[24px] lg:h-[26px] transition-all duration-300`}
+            color="currentColor"
+          />
+          <span className="text-[13px] min-[660px]:text-[15px] md:text-[17px] lg:text-[20px] font-semibold whitespace-nowrap mt-1 transition-all duration-300">
             {service.label}
           </span>
         </div>
@@ -74,7 +83,7 @@ export function SearchForm({ className = '' }: SearchFormProps) {
             itemSelectedColor: brandColors.primary,
             itemColor: brandColors.textMain,
             horizontalMargin: '0',
-            horizontalItemPadding: '16px 0 8px 0',
+            horizontalItemPadding: '0',
           },
         },
       }}
@@ -82,7 +91,8 @@ export function SearchForm({ className = '' }: SearchFormProps) {
       <div className={`w-full overflow-hidden rounded-[20px] bg-white shadow-lg ${className}`}>
         <Tabs
           items={tabItems}
-          className="[&_.ant-tabs-nav]:mb-0 [&_.ant-tabs-nav::before]:border-border-main [&_.ant-tabs-nav-wrap]:px-0 sm:[&_.ant-tabs-nav-wrap]:px-4 [&_.ant-tabs-nav-list]:w-full [&_.ant-tabs-tab]:flex-1 [&_.ant-tabs-tab]:justify-center [&_.ant-tabs-tab-btn]:w-full [&_.ant-tabs-ink-bar]:!h-[3px]"
+          rootClassName="search-form-tabs"
+          className="[&_.ant-tabs-nav]:mb-0 [&_.ant-tabs-nav::before]:border-border-main [&_.ant-tabs-nav-wrap]:px-0 sm:[&_.ant-tabs-nav-wrap]:px-4 [&_.ant-tabs-ink-bar]:!h-[3px] transition-all duration-300"
         />
       </div>
     </ConfigProvider>
