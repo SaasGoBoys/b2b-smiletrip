@@ -1,11 +1,10 @@
-import { useState } from 'react'
-
 import { ConfigProvider, Tabs } from 'antd'
 
 import { brandColors } from '@/shared/lib/antd-theme/tokens'
 
 import { FlightSearchForm } from './FlightSearchForm'
 import { TourSearchForm } from './TourSearchForm'
+import { TrainSearchForm } from './TrainSearchForm'
 
 import {
   CarIcon,
@@ -28,8 +27,6 @@ interface SearchFormProps {
 }
 
 export function SearchForm({ className = '' }: SearchFormProps) {
-  const [activeService, setActiveService] = useState('flight')
-
   const tabItems = MAIN_SERVICES.map((service) => {
     const Icon = service.icon
     const iconWidth = service.key === 'car' ? 32 : 26
@@ -49,6 +46,8 @@ export function SearchForm({ className = '' }: SearchFormProps) {
           <FlightSearchForm className="!shadow-none !rounded-none" />
         ) : service.key === 'tour' ? (
           <TourSearchForm className="!shadow-none !rounded-none" />
+        ) : service.key === 'train' ? (
+          <TrainSearchForm className="!shadow-none !rounded-none" />
         ) : (
           <div className="flex flex-col items-center justify-center py-20 text-text-muted bg-white">
             <p className="text-[17px] font-medium">Tính năng đang được phát triển</p>
@@ -76,8 +75,6 @@ export function SearchForm({ className = '' }: SearchFormProps) {
     >
       <div className={`w-full overflow-hidden rounded-[20px] bg-white shadow-lg ${className}`}>
         <Tabs
-          activeKey={activeService}
-          onChange={setActiveService}
           items={tabItems}
           className="[&_.ant-tabs-nav]:mb-0 [&_.ant-tabs-nav::before]:border-border-main [&_.ant-tabs-nav-wrap]:px-0 sm:[&_.ant-tabs-nav-wrap]:px-4 [&_.ant-tabs-nav-list]:w-full [&_.ant-tabs-tab]:flex-1 [&_.ant-tabs-tab]:justify-center [&_.ant-tabs-tab-btn]:w-full [&_.ant-tabs-ink-bar]:!h-[3px]"
         />
