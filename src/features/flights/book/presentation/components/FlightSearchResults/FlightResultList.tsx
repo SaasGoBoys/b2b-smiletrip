@@ -298,7 +298,7 @@ export function FlightResultList({ from, to }: Props) {
             <FlightCard
               key={flight.id}
               flight={flight}
-              onBook={(f) => console.log('Book:', f.id)}
+              onBook={(f) => open(FlightRegistryModalKeys.FlightBooking, { departureFlight: f })}
             />
           ))}
         </div>
