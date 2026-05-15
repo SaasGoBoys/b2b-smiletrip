@@ -1,37 +1,20 @@
-import { Button, Drawer } from 'antd'
-
 import { AirlineLogo } from '@/shared/components/common/AirlineLogo'
 import { PromotionTag } from '@/shared/components/common/PromotionTag'
-import { useModalController } from '@/shared/components/modals/hooks/useModalController'
-import type { ModalEngineProps } from '@/shared/components/modals/store/modal.type'
-import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
-
-import type { Flight } from '../FlightSearchResults/FlightCard'
+import type { Flight } from '@/shared/types/flight.types'
 
 import {
   FlightSolidIcon,
   PromotionStarIcon,
   TicketIcon,
   TicketVoucherIcon,
-  XCircleIcon} from '@/assets/icons/icons'
+} from '@/assets/icons/icons'
 
-interface FlightBookingDrawerProps {
-  departureFlight: Flight | null
+interface Step1FlightReviewProps {
+  departureFlight: Flight
   returnFlight?: Flight
 }
 
-export function FlightBookingDrawer({ type, payload }: ModalEngineProps<FlightBookingDrawerProps>) {
-  const { isMobile } = useBreakpoint()
-  const { close } = useModalController()
-  const { departureFlight, returnFlight } = payload || {}
-
-  if (!departureFlight) return null
-
-  const onClose = () => close(type)
-
-  const totalPrice = (departureFlight.price + (returnFlight?.price || 0))
-  const formattedTotalPrice = totalPrice.toLocaleString('vi-VN') + ' đ'
-
+export function Step1FlightReview({ departureFlight, returnFlight }: Step1FlightReviewProps) {
   const renderFlightItem = (flight: Flight, isReturn = false) => {
     const formattedPrice = flight.price.toLocaleString('vi-VN') + ' đ'
 
@@ -40,7 +23,7 @@ export function FlightBookingDrawer({ type, payload }: ModalEngineProps<FlightBo
         {/* Top Header Section */}
         <div className="flex items-center justify-between px-[18px] py-[14px]">
           <div className="flex items-center gap-10">
-            <div className={`flex items-center gap-[10px] px-[10px] py-[7px] rounded-[10px] bg-[#86CED9]/20 text-[#54858C]  `}>
+            <div className={`flex items-center gap-[10px] px-[10px] py-[7px] rounded-[10px] bg-[#86CED9]/20 text-[#54858C]`}>
               <FlightSolidIcon width={18} height={18} />
               <span className="text-[18px] font-semibold">{isReturn ? 'Bay về' : 'Khởi hành'}</span>
             </div>
@@ -53,7 +36,7 @@ export function FlightBookingDrawer({ type, payload }: ModalEngineProps<FlightBo
               Thứ 5, 9 thg 4 2026
             </div>
           </div>
-          <div className={`flex items-center gap-[10px] px-[10px] py-[7px] rounded-[10px] bg-[#86CED9]/20 text-[#54858C]  `}>
+          <div className={`flex items-center gap-[10px] px-[10px] py-[7px] rounded-[10px] bg-[#86CED9]/20 text-[#54858C]`}>
             <TicketVoucherIcon width={25} height={18} />
             <span className="text-[18px] font-semibold">Phổ thông</span>
           </div>
@@ -135,61 +118,13 @@ export function FlightBookingDrawer({ type, payload }: ModalEngineProps<FlightBo
   }
 
   return (
-    <Drawer
-      placement="right"
-      onClose={onClose}
-      open={true}
-      width={isMobile ? '100%' : '900px'}
-      styles={{
-        content: {
-          borderRadius: isMobile ? '0' : '20px 0 0 20px',
-          overflow: 'hidden',
-          background: '#F8FAFB',
-        },
-        header: {
-          borderBottom: '1px solid #F0F0F0',
-          padding: '16px 24px',
-          background: 'white',
-        },
-        body: {
-          padding: isMobile ? '15px' : '15px',
-          paddingBottom: '100px',
-          background: '#F1F1F1',
-        },
-      }}
-      title={
-        <div className="flex items-center gap-4">
-          <button onClick={onClose} className="cursor-pointer hover:opacity-70 transition-opacity border-none bg-transparent outline-none">
-            <XCircleIcon width={32} height={32} />
-          </button>
-          <span className="text-[20px] font-semibold text-text-main">Xem lại chuyến bay của bạn</span>
-        </div>
-      }
-      closable={false}
-      footer={
-        <div className="flex items-center justify-between px-6 py-2 bg-white">
-          <div className="flex items-baseline gap-1">
-            <span className="text-[32px] font-semibold text-text-main">{formattedTotalPrice}</span>
-            <span className="text-[32px] font-semibold text-text-main">/ khách</span>
-          </div>
-          <Button
-            type="primary"
-            onClick={() => { }}
-            className="!h-[48px] !px-10 !rounded-[12px] !text-[22px] !font-semibold !bg-primary border-none"
-          >
-            Tiếp tục
-          </Button>
-        </div>
-      }
-      destroyOnClose
-    >
-      <div className="max-w-[1200px] mx-auto">
+    <>
+      <div className="max-w-[1200px] mx-auto p-4">
         {renderFlightItem(departureFlight, false)}
         {returnFlight && renderFlightItem(returnFlight, true)}
         {!returnFlight && renderFlightItem(departureFlight, true)}
       </div>
-    </Drawer>
+
+    </>
   )
 }
-
-export default FlightBookingDrawer

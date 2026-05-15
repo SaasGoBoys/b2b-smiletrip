@@ -6,6 +6,7 @@ import AppRoutes from '@/app/router/paths'
 import { SuspenseWrapper } from '@/shared/router/SuspenseWrapper'
 
 const BookPage = lazy(() => import('@/features/flights/book/presentation/pages/BookPage'))
+const FlightPaymentPage = lazy(() => import('@/features/flights/payment/presentation/pages/FlightPaymentPage'))
 
 export const flightRoutes: RouteObject[] = [
   {
@@ -16,6 +17,14 @@ export const flightRoutes: RouteObject[] = [
         element: (
           <SuspenseWrapper>
             <BookPage />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: AppRoutes.flightPayment,
+        element: (
+          <SuspenseWrapper>
+            <FlightPaymentPage />
           </SuspenseWrapper>
         ),
       },
