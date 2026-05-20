@@ -6,7 +6,7 @@ import { brandColors } from '@/shared/lib/antd-theme/tokens'
 import { useModalController } from '../../../modals/hooks/useModalController'
 import { useRegisterModals } from '../../../modals/hooks/useRegisterModals'
 
-import { getDestinationLabel } from './TourDestinationContent'
+import { getDestinationLabel } from './tourDestinationData'
 import { TOUR_DESTINATION_MODAL, TourDestinationModal } from './TourDestinationModal'
 import { TourDestinationPopover } from './TourDestinationPopover'
 

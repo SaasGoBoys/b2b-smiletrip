@@ -1,29 +1,15 @@
 import { brandColors } from '@/shared/lib/antd-theme/tokens'
 
-import { BuildingIcon, TourBeachIcon, TourMountainIcon } from '@/assets/icons/icons'
-
-// ── Mock Data ────────────────────────────────────────────────────────────────
-
-export const AREA_OPTIONS = [
-  { value: 'urban', label: 'Đô thị', icon: BuildingIcon },
-  { value: 'mountain', label: 'Vùng núi', icon: TourMountainIcon },
-  { value: 'beach', label: 'Vùng biển', icon: TourBeachIcon },
-]
-
-// ── Props ─────────────────────────────────────────────────────────────────────
+import { AREA_OPTIONS } from './tourAreaOptions'
 
 interface TourAreaContentProps {
   value: string
   onSelect: (value: string) => void
 }
 
-// ── Component ─────────────────────────────────────────────────────────────────
-
 export function TourAreaContent({ value, onSelect }: TourAreaContentProps) {
   return (
-    <div
-      className={`flex flex-col overflow-hidden bg-white rounded-[16px] w-[220px] `}
-    >
+    <div className={`flex flex-col overflow-hidden bg-white rounded-[16px] w-[220px] `}>
       {AREA_OPTIONS.map((opt, index) => {
         const isSelected = opt.value === value
         const isLast = index === AREA_OPTIONS.length - 1
@@ -36,9 +22,10 @@ export function TourAreaContent({ value, onSelect }: TourAreaContentProps) {
             onClick={() => onSelect(opt.value)}
             className={`flex items-center gap-3 px-3 h-[55px] sm:h-[65px] cursor-pointer transition-all duration-200
               ${!isLast ? 'border-b border-gray-100' : ''}
-              ${isSelected
-                ? 'bg-primary/10 text-primary'
-                : 'text-text-main hover:bg-primary/5 hover:text-primary'
+              ${
+                isSelected
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-text-main hover:bg-primary/5 hover:text-primary'
               }
             `}
           >
@@ -50,7 +37,9 @@ export function TourAreaContent({ value, onSelect }: TourAreaContentProps) {
                 className="transition-all duration-200"
               />
             </div>
-            <span className={`text-[16px] sm:text-[17px] transition-colors ${isSelected ? 'font-bold' : 'font-semibold'}`}>
+            <span
+              className={`text-[16px] sm:text-[17px] transition-colors ${isSelected ? 'font-bold' : 'font-semibold'}`}
+            >
               {opt.label}
             </span>
           </button>

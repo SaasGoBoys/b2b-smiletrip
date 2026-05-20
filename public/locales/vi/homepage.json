@@ -32,6 +32,13 @@
   "promos": {
     "sectionTitle": "Dành riêng cho người dùng mới",
     "seeAll": "Xem tất cả",
+    "expiry": "Hạn sử dụng: {{date}}",
+    "termsLink": "Điều kiện & thể lệ chương trình",
+    "enterCode": "Nhập mã",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "termsModalClose": "Đóng",
+    "loadError": "Không tải được danh sách ưu đãi. Vui lòng thử lại sau.",
     "items": {
       "new-user-1": {
         "title": "Giảm đến 10% cho lần đặt đầu",
@@ -68,7 +75,7 @@
     }
   },
   "flights": {
-    "sectionTitle": "Các chuyến bay được ưa thích nhất",
+    "sectionTitle": "Các chuyến bay giá rẻ",
     "buyNow": "Mua ngay",
     "from": "Từ",
     "deals": {

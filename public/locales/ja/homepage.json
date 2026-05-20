@@ -68,7 +68,7 @@
     }
   },
   "flights": {
-    "sectionTitle": "人気のフライト",
+    "sectionTitle": "最安値のフライト",
     "buyNow": "購入",
     "from": "〜",
     "deals": {

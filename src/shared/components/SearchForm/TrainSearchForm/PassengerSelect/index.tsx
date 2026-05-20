@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Popover } from 'antd'
 
 import { PassengerSelectContent } from './PassengerSelectContent'
+import { SEAT_CLASSES } from './trainSeatClasses'
 
 import { UsersIcon } from '@/assets/icons/icons'
 
@@ -19,13 +20,6 @@ interface PassengerSelectProps {
   onSeatClassChange: (value: string) => void
   className?: string
 }
-
-export const SEAT_CLASSES = [
-  { label: 'Phổ thông', value: 'economy' },
-  { label: 'Phổ thông đặc biệt', value: 'premium_economy' },
-  { label: 'Thương gia', value: 'business' },
-  { label: 'Hạng nhất', value: 'first_class' },
-]
 
 export function PassengerSelectPopover({
   passengerCounts,

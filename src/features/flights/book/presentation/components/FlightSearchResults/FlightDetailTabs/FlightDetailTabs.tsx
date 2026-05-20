@@ -10,17 +10,21 @@ import { PromotionTab } from './PromotionTab'
 import { RefundTab } from './RefundTab'
 import { RescheduleTab } from './RescheduleTab'
 
-
-
-export function FlightDetailTabs({ flight, onBook }: { flight: Flight; onBook?: (flight: Flight) => void }) {
-  const [activeTab, setActiveTab] = useState<string | undefined>(undefined)
+export function FlightDetailTabs({
+  flight,
+  onBook,
+}: {
+  flight: Flight
+  onBook?: (flight: Flight) => void
+}) {
+  const [activeTab, setActiveTab] = useState<string | undefined>('chi-tiet')
 
   const tabs = [
     { key: 'chi-tiet', label: 'Chi tiết' },
     { key: 'loi-ich', label: 'Lợi ích' },
     { key: 'hoan-ve', label: 'Hoàn vé' },
     { key: 'doi-lich', label: 'Đổi lịch' },
-    { key: 'khuyen-mai', label: 'Khuyến mãi' }
+    { key: 'khuyen-mai', label: 'Khuyến mãi' },
   ]
 
   return (
@@ -33,7 +37,9 @@ export function FlightDetailTabs({ flight, onBook }: { flight: Flight; onBook?: 
               onClick={() => setActiveTab(activeTab === tab.key ? undefined : tab.key)}
               className="h-full flex items-center justify-center cursor-pointer group"
             >
-              <span className={`text-[15px] md:text-[18px] font-semibold text-center leading-tight whitespace-normal md:whitespace-nowrap transition-colors px-1 ${activeTab === tab.key ? 'text-primary' : 'text-text-main group-hover:text-primary'}`}>
+              <span
+                className={`text-[15px] md:text-[18px] font-semibold text-center leading-tight whitespace-normal md:whitespace-nowrap transition-colors px-1 ${activeTab === tab.key ? 'text-primary' : 'text-text-main group-hover:text-primary'}`}
+              >
                 {tab.label}
               </span>
             </div>
@@ -52,9 +58,9 @@ export function FlightDetailTabs({ flight, onBook }: { flight: Flight; onBook?: 
           <div
             className="absolute bottom-0 left-0 h-[3px] bg-primary transition-all duration-300 ease-in-out w-1/5 md:w-1/6"
             style={{
-              transform: `translateX(${activeTab ? tabs.findIndex(t => t.key === activeTab) * 100 : 0}%)`,
+              transform: `translateX(${activeTab ? tabs.findIndex((t) => t.key === activeTab) * 100 : 0}%)`,
               opacity: activeTab ? 1 : 0,
-              visibility: activeTab ? 'visible' : 'hidden'
+              visibility: activeTab ? 'visible' : 'hidden',
             }}
           />
         </div>

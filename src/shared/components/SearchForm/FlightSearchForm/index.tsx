@@ -1,13 +1,23 @@
-import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { Button, Checkbox, ConfigProvider, DatePicker } from 'antd'
+import { Button, Checkbox, ConfigProvider, DatePicker, message } from 'antd'
 
 import dayjs from 'dayjs'
 
+import AppRoutes from '@/app/router/paths'
+
+import useSearchFlightsMutation from '@/shared/kernels/airport/presentation/hooks/useSearchFlightsMutation'
+import { buildFlightSearchInput } from '@/shared/kernels/airport/presentation/utils/buildFlightSearchInput'
 import { brandColors } from '@/shared/lib/antd-theme/tokens'
 
 import { CitySearchInput } from './CitySearchInput/index'
+import {
+  FLIGHT_SEARCH_DEFAULT_CURRENCY,
+  flightSearchStateToSearchParams,
+  formValuesToUrlState,
+} from './flightSearchUrlParams'
 import { PassengerSelectPopover } from './PassengerSelect/index'
+import { useFlightSearchFormState } from './useFlightSearchFormState'
 
 import { CalendarIcon, Search2Icon } from '@/assets/icons/icons'
 import { TICKET_TYPES } from '@/mocks/data/flights'
@@ -32,29 +42,54 @@ interface FlightSearchFormProps {
 }
 
 export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormProps) {
-  const [activeTab, setActiveTab] = useState('lao-dong')
-  const [from, setFrom] = useState<string>('HAN')
-  const [to, setTo] = useState<string>('TYO')
-  const [tripType, setTripType] = useState('round-trip')
-  const [passengerCounts, setPassengerCounts] = useState({
-    adults: 1,
-    children: 0,
-    infants: 0,
-  })
-  const [seatClass, setSeatClass] = useState('economy')
+  const navigate = useNavigate()
+  const { mutateAsync: searchFlights, isPending } = useSearchFlightsMutation()
 
-  const [dates, setDates] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
-    dayjs('2026-04-07'),
-    dayjs('2026-04-09'),
-  ])
+  const {
+    activeTab,
+    setActiveTab,
+    from,
+    setFrom,
+    to,
+    setTo,
+    fromName,
+    setFromName,
+    toName,
+    setToName,
+    tripType,
+    setTripType,
+    passengerCounts,
+    setPassengerCounts,
+    seatClass,
+    setSeatClass,
+    dates,
+    setDates,
+  } = useFlightSearchFormState()
 
   const handleSwap = () => {
     setFrom(to)
     setTo(from)
+    setFromName(toName)
+    setToName(fromName)
   }
 
-  const handleSearch = () => {
-    onSearch?.({
+  const handleSearch = async () => {
+    if (!from?.trim() || !to?.trim()) {
+      message.warning('Vui lòng chọn điểm đi và điểm đến')
+      return
+    }
+
+    if (from === to) {
+      message.warning('Điểm đi và điểm đến phải khác nhau')
+      return
+    }
+
+    if (tripType === 'round-trip' && !dates[1]) {
+      message.warning('Vui lòng chọn ngày về')
+      return
+    }
+
+    const searchParams: FlightSearchParams = {
       ticketType: activeTab,
       from,
       to,
@@ -67,7 +102,47 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
         ...passengerCounts,
         seatClass,
       },
-    })
+    }
+
+    try {
+      const input = buildFlightSearchInput({
+        from: from.trim(),
+        to: to.trim(),
+        tripType,
+        departDate: dates[0],
+        returnDate: tripType === 'round-trip' ? dates[1] : null,
+        adults: passengerCounts.adults,
+        children: passengerCounts.children,
+        infants: passengerCounts.infants,
+        seatClass,
+      })
+
+      const session = await searchFlights(input)
+
+      const query = flightSearchStateToSearchParams(
+        formValuesToUrlState({
+          sessionId: session.sessionId,
+          currency: FLIGHT_SEARCH_DEFAULT_CURRENCY,
+          from,
+          to,
+          fromName,
+          toName,
+          tripType,
+          departDate: dates[0],
+          returnDate: tripType === 'round-trip' ? dates[1] : null,
+          adults: passengerCounts.adults,
+          children: passengerCounts.children,
+          infants: passengerCounts.infants,
+          seatClass,
+          ticketType: activeTab,
+        })
+      )
+
+      navigate(`${AppRoutes.flightBooking}?${query.toString()}`)
+      onSearch?.(searchParams)
+    } catch {
+      message.error('Không thể tìm chuyến bay. Vui lòng thử lại sau.')
+    }
   }
 
   return (
@@ -82,7 +157,6 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
       }}
     >
       <div className={`w-full overflow-hidden rounded-[20px] bg-white shadow-lg ${className}`}>
-        {/* Tab Header (Ticket Types) */}
         <div className="px-6 pt-5 pb-0 flex flex-wrap gap-4">
           {TICKET_TYPES.map((type) => {
             const Icon = type.icon
@@ -111,17 +185,24 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
         {/* Form Content */}
         <div className="px-4 py-4 sm:px-6 sm:py-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:flex xl:flex-row items-start xl:items-end gap-4 xl:gap-3 w-full">
-            {/* Điểm đi & Điểm đến */}
             <CitySearchInput
+              key={`${from}|${to}|${fromName}|${toName}`}
               from={from}
               to={to}
-              onFromSelect={setFrom}
-              onToSelect={setTo}
+              fromLabel={fromName}
+              toLabel={toName}
+              onFromSelect={(code, label) => {
+                setFrom(code)
+                setFromName(label)
+              }}
+              onToSelect={(code, label) => {
+                setTo(code)
+                setToName(label)
+              }}
               onSwap={handleSwap}
               className="col-span-1 sm:col-span-2 xl:flex-[2] w-full"
             />
 
-            {/* Thời gian */}
             <div className="col-span-1 xl:flex-[1.1] w-full">
               <div className="flex justify-between items-center mb-2 px-1">
                 <p className="text-[15px] sm:text-[17px] font-semibold text-text-main text-left">
@@ -149,6 +230,7 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
                     format="DD/MM/YYYY"
                     placeholder="Ngày đi"
                     suffixIcon={null}
+                    disabledDate={(current) => current && current < dayjs().startOf('day')}
                   />
                 </div>
 
@@ -177,12 +259,12 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
                     placeholder="Ngày về"
                     suffixIcon={null}
                     disabled={tripType === 'one-way'}
+                    disabledDate={(current) => current && current < dates[0].startOf('day')}
                   />
                 </div>
               </div>
             </div>
 
-            {/* Số khách, hạng ghế */}
             <div className="col-span-1 xl:flex-[0.8] flex items-end gap-2 w-full">
               <PassengerSelectPopover
                 passengerCounts={passengerCounts}
@@ -191,11 +273,12 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
                 onSeatClassChange={setSeatClass}
               />
 
-              {/* Nút tìm kiếm */}
               <div className="hidden xl:block">
                 <Button
                   type="primary"
                   onClick={handleSearch}
+                  loading={isPending}
+                  disabled={isPending}
                   className="!h-[55px] !w-[60px] !rounded-[20px] flex items-center justify-center shadow-md cursor-pointer"
                 >
                   <Search2Icon color="white" width={28} height={28} />
@@ -204,11 +287,12 @@ export function FlightSearchForm({ onSearch, className = '' }: FlightSearchFormP
             </div>
           </div>
 
-          {/* Nút tìm kiếm (Mobile/Tablet) */}
           <div className="xl:hidden mt-6">
             <Button
               type="primary"
               onClick={handleSearch}
+              loading={isPending}
+              disabled={isPending}
               className="w-full !h-[45px] sm:!h-[55px] !rounded-[16px] sm:!rounded-[20px] flex items-center justify-center gap-2 font-semibold !text-[17px] shadow-md cursor-pointer"
             >
               <Search2Icon color="white" width={26} height={26} />

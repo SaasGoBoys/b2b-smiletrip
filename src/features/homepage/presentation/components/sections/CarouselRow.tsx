@@ -15,7 +15,7 @@ export function CarouselRow({ children }: CarouselRowProps) {
     <div className="relative group">
       <div
         ref={ref}
-        className="flex gap-4 overflow-x-auto pb-2 scroll-smooth snap-x snap-mandatory scrollbar-thin [-ms-overflow-style:none] [scrollbar-width:thin]"
+        className="flex items-stretch gap-4 overflow-x-auto pb-2 scroll-smooth snap-x snap-mandatory scrollbar-thin [-ms-overflow-style:none] [scrollbar-width:thin]"
       >
         {children}
       </div>

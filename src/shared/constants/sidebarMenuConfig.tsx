@@ -34,7 +34,6 @@ export const getSidebarMenuItems = (collapsed: boolean): MenuItem[] => {
       label: 'Đặt vé máy bay',
       icon: <PlaneIcon style={iconStyle} />,
       children: [
-        { key: AppRoutes.flightBooking, label: 'Đặt vé' },
         { key: sidebarPaths.flightReservations, label: 'Danh sách đặt chỗ' },
         { key: sidebarPaths.flightCheckin, label: 'Làm thủ tục' },
         { key: sidebarPaths.flightStatus, label: 'Trạng thái chuyến bay' },

@@ -18,8 +18,10 @@ import { ArrowExchangeIcon, PlaneLandingIcon, PlaneTakeoffIcon } from '@/assets/
 interface CitySearchInputProps {
   from: string
   to: string
-  onFromSelect: (value: string) => void
-  onToSelect: (value: string) => void
+  fromLabel?: string
+  toLabel?: string
+  onFromSelect: (code: string, displayLabel: string) => void
+  onToSelect: (code: string, displayLabel: string) => void
   onSwap: () => void
   className?: string
 }
@@ -35,6 +37,8 @@ function defaultDisplayForAirportCode(code: string): string {
 export function CitySearchInput({
   from,
   to,
+  fromLabel,
+  toLabel,
   onFromSelect,
   onToSelect,
   onSwap,
@@ -46,8 +50,8 @@ export function CitySearchInput({
   const [fromSearch, setFromSearch] = useState('')
   const [toSearch, setToSearch] = useState('')
 
-  const [fromDisplay, setFromDisplay] = useState(() => defaultDisplayForAirportCode(from))
-  const [toDisplay, setToDisplay] = useState(() => defaultDisplayForAirportCode(to))
+  const fromDisplay = fromLabel?.trim() || defaultDisplayForAirportCode(from)
+  const toDisplay = toLabel?.trim() || defaultDisplayForAirportCode(to)
 
   const fromAirportQuery = useGetAirportListQuery('from', fromSearch)
   const toAirportQuery = useGetAirportListQuery('to', toSearch)
@@ -73,11 +77,8 @@ export function CitySearchInput({
   const handleSwapClick = () => {
     onSwap()
     const prevFromSearch = fromSearch
-    const prevFromDisplay = fromDisplay
     setFromSearch(toSearch)
     setToSearch(prevFromSearch)
-    setFromDisplay(toDisplay)
-    setToDisplay(prevFromDisplay)
   }
 
   const openCitySelection = (type: 'from' | 'to') => {
@@ -91,13 +92,8 @@ export function CitySearchInput({
         value: type === 'from' ? from : to,
         initialSearchText: '',
         onSelect: (cityCode: string, displayLabel: string) => {
-          if (type === 'from') {
-            onFromSelect(cityCode)
-            setFromDisplay(displayLabel)
-          } else {
-            onToSelect(cityCode)
-            setToDisplay(displayLabel)
-          }
+          if (type === 'from') onFromSelect(cityCode, displayLabel)
+          else onToSelect(cityCode, displayLabel)
         },
       })
     }
@@ -105,12 +101,10 @@ export function CitySearchInput({
 
   const handleCitySelect = (cityCode: string, displayLabel: string) => {
     if (visiblePopover === 'from') {
-      onFromSelect(cityCode)
-      setFromDisplay(displayLabel)
+      onFromSelect(cityCode, displayLabel)
       setFromSearch('')
     } else if (visiblePopover === 'to') {
-      onToSelect(cityCode)
-      setToDisplay(displayLabel)
+      onToSelect(cityCode, displayLabel)
       setToSearch('')
     }
     setVisiblePopover(null)

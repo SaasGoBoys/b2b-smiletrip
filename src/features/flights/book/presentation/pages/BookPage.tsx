@@ -1,4 +1,5 @@
-import { lazy, Suspense, useState } from 'react'
+import { lazy, Suspense } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 import { HeroBanner } from '@/shared/components/common/HeroBanner'
 import { SectionLoader } from '@/shared/components/feedback/SectionLoader'
@@ -34,51 +35,58 @@ const Footer = lazy(() =>
 )
 
 const getCityName = (value: string) => {
+  if (!value) return value
   for (const region of CITY_REGIONS) {
-    const city = region.key === value ? region.label : null
-    if (city) return city
+    const city = region.cities.find((c) => c.code === value || c.value === value)
+    if (city) return city.label
   }
   return value
 }
 
 export default function BookPage() {
-  const [searchParams, setSearchParams] = useState<{
-    from: string
-    to: string
-    searched: boolean
-  }>({
-    from: 'Hà Nội',
-    to: 'TP. Hồ Chí Minh',
-    searched: true,
-  })
+  const [searchParams] = useSearchParams()
+
+  const sessionId = searchParams.get('sessionId') ?? ''
+  const currency = searchParams.get('currency') ?? 'VND'
+  const fromCode = searchParams.get('from') ?? ''
+  const toCode = searchParams.get('to') ?? ''
+  const fromNameParam = searchParams.get('fromName') ?? ''
+  const toNameParam = searchParams.get('toName') ?? ''
+  const searched = Boolean(sessionId)
+
+  const fromLabel = fromNameParam || getCityName(fromCode) || 'Hà Nội'
+  const toLabel = toNameParam || getCityName(toCode) || 'TP. Hồ Chí Minh'
+  const tripTypeParam = searchParams.get('tripType')
+  const tripType =
+    tripTypeParam === 'round-trip' || tripTypeParam === 'one-way' ? tripTypeParam : 'one-way'
+  const departDateKey = searchParams.get('departDate') ?? ''
 
   return (
     <>
       <HeroBanner>
         <Suspense fallback={<SectionLoader />}>
-          <FlightSearchForm
-            onSearch={(params) => {
-              setSearchParams({
-                from: getCityName(params.from),
-                to: getCityName(params.to),
-                searched: true,
-              })
-            }}
-          />
+          <FlightSearchForm key={searchParams.toString()} />
         </Suspense>
       </HeroBanner>
 
       <div className="container my-[30px] md:mt-[250px] xl:my-[120px]">
-        {searchParams.searched && (
+        {searched && (
           <>
             <div className="mt-6 mb-4">
               <Suspense fallback={<SectionLoader />}>
-                <DatePriceSlider />
+                <DatePriceSlider key={departDateKey} />
               </Suspense>
             </div>
 
             <Suspense fallback={<SectionLoader />}>
-              <FlightSearchResults from={searchParams.from} to={searchParams.to} />
+              <FlightSearchResults
+                key={`${sessionId}-${tripType}`}
+                from={fromLabel}
+                to={toLabel}
+                sessionId={sessionId}
+                currency={currency}
+                tripType={tripType}
+              />
             </Suspense>
           </>
         )}

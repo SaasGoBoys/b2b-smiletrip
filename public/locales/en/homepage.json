@@ -32,6 +32,13 @@
   "promos": {
     "sectionTitle": "Exclusive for new users",
     "seeAll": "See all",
+    "expiry": "Valid until: {{date}}",
+    "termsLink": "Terms & conditions",
+    "enterCode": "Enter code",
+    "copy": "Copy",
+    "copied": "Copied",
+    "termsModalClose": "Close",
+    "loadError": "Could not load promotions. Please try again later.",
     "items": {
       "new-user-1": {
         "title": "Up to 10% off your first booking",
@@ -68,7 +75,7 @@
     }
   },
   "flights": {
-    "sectionTitle": "Most popular flights",
+    "sectionTitle": "Cheapest flights",
     "buyNow": "Buy now",
     "from": "From",
     "deals": {

@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Button } from 'antd'
 
-import { SEAT_CLASSES } from './index'
+import { SEAT_CLASSES } from './trainSeatClasses'
 
 import { MinusIcon, PlusIcon } from '@/assets/icons/icons'
 

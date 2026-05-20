@@ -25,9 +25,9 @@ export default function HomePage() {
         </Suspense>
       </HeroBanner>
       <div className="my-[30px] md:mt-[150px] xl:my-0" />
-      <NewUserPromoSection items={content.promos} />
+      <NewUserPromoSection />
       <SaleBannersSection />
-      <PopularFlightsSection deals={content.flightDeals} />
+      <PopularFlightsSection />
       <DestinationsSection items={content.destinations} />
       <FeaturedActivitiesSection items={content.activities} />
       <WhyChooseHomepageSection items={content.why} />

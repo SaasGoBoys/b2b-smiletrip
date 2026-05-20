@@ -1,54 +1,84 @@
 import { useTranslation } from 'react-i18next'
 
-import type { HomepagePromoItem } from '@/features/homepage/domain/entities/HomepageContent.entity'
+import { useModalController } from '@/shared/components/modals/hooks/useModalController'
+import { useRegisterModals } from '@/shared/components/modals/hooks/useRegisterModals'
+import type { ActivePromotionEntity } from '@/shared/kernels/voucher/domain/entities/ActivePromotionEntity'
+import useGetActivePromotionsQuery from '@/shared/kernels/voucher/presentation/hooks/useGetActivePromotionsQuery'
 
+import homepageRegistryModals, {
+  HomepageRegistryModalKeys,
+} from '../modals/homepage.registry.modal'
+import { PromoVoucherCard } from '../promos/PromoVoucherCard'
+
+import { CarouselRow } from './CarouselRow'
 import { SectionHeading } from './SectionHeading'
 
-const VARIANT_RING: Record<HomepagePromoItem['variant'], string> = {
-  sky: 'from-sky-50 to-blue-50 border-sky-100',
-  mint: 'from-emerald-50 to-teal-50 border-emerald-100',
-  lavender: 'from-violet-50 to-purple-50 border-violet-100',
+const PROMO_SLIDE_CLASS = 'shrink-0 snap-start flex w-[min(100%,520px)] sm:w-[480px] lg:w-[560px]'
+
+function PromoCardSkeleton() {
+  return (
+    <div
+      className={`${PROMO_SLIDE_CLASS} h-full min-h-[140px] rounded-2xl border border-[#B8D4E8] bg-white animate-pulse flex`}
+    >
+      <div className="flex-1 p-5 space-y-3">
+        <div className="h-4 bg-gray-200 rounded w-4/5" />
+        <div className="h-3 bg-gray-100 rounded w-1/3" />
+        <div className="h-3 bg-gray-100 rounded w-2/5" />
+      </div>
+      <div className="w-[130px] border-l border-dashed border-gray-200 m-4" />
+    </div>
+  )
 }
 
-interface Props {
-  items: HomepagePromoItem[]
-}
-
-export function NewUserPromoSection({ items }: Props) {
+export function NewUserPromoSection() {
   const { t } = useTranslation('homepage')
+  const { open } = useModalController()
+
+  useRegisterModals(homepageRegistryModals)
+
+  const {
+    data: promotions = [],
+    isPending,
+    isError,
+  } = useGetActivePromotionsQuery({
+    pageNumber: 0,
+    pageSize: 10,
+  })
+
+  const handleTermsClick = (promotion: ActivePromotionEntity) => {
+    open(HomepageRegistryModalKeys.PromoTerms, {
+      title: promotion.name,
+      description: promotion.description,
+    })
+  }
+
+  const showSection = isPending || promotions.length > 0
+
+  if (!showSection && !isError) {
+    return null
+  }
 
   return (
     <section className="bg-gray-50/80 py-12 border-y border-gray-100 sm:pt-25">
       <div className="max-w-[1200px] mx-auto px-4">
         <SectionHeading title={t('promos.sectionTitle')} action={{ label: t('promos.seeAll') }} />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className={`rounded-2xl border bg-linear-to-br p-5 flex flex-col gap-3 shadow-sm ${VARIANT_RING[item.variant]}`}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-lg font-bold text-gray-900 leading-snug">
-                    {t(`promos.items.${item.id}.title`)}
-                  </p>
-                  <p className="text-sm text-gray-600 mt-1">
-                    {t(`promos.items.${item.id}.description`)}
-                  </p>
-                </div>
-                <span className="text-3xl" aria-hidden>
-                  {t(`promos.items.${item.id}.emoji`)}
-                </span>
-              </div>
-              <button
-                type="button"
-                className="mt-auto self-start rounded-full bg-[#4558B6] text-white text-sm font-semibold px-4 py-2 hover:opacity-95 transition-opacity"
-              >
-                {t(`promos.items.${item.id}.cta`)}
-              </button>
-            </div>
-          ))}
-        </div>
+
+        {isError ? (
+          <p className="text-sm text-text-secondary">{t('promos.loadError')}</p>
+        ) : (
+          <CarouselRow>
+            {isPending
+              ? Array.from({ length: 2 }, (_, i) => <PromoCardSkeleton key={i} />)
+              : promotions.map((promotion) => (
+                  <div
+                    key={`${promotion.voucherCode}-${promotion.name}`}
+                    className={PROMO_SLIDE_CLASS}
+                  >
+                    <PromoVoucherCard promotion={promotion} onTermsClick={handleTermsClick} />
+                  </div>
+                ))}
+          </CarouselRow>
+        )}
       </div>
     </section>
   )

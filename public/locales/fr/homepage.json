@@ -68,7 +68,7 @@
     }
   },
   "flights": {
-    "sectionTitle": "Vols les plus populaires",
+    "sectionTitle": "Vols les moins chers",
     "buyNow": "Acheter",
     "from": "Dès",
     "deals": {

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { AREA_OPTIONS } from './TourAreaContent'
+import { AREA_OPTIONS } from './tourAreaOptions'
 import { TourAreaPopover } from './TourAreaPopover'
 
 interface TourAreaSelectProps {
