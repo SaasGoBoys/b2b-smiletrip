@@ -4,11 +4,12 @@ import { Button } from 'antd'
 
 import { useModalController } from '@/shared/components/modals/hooks/useModalController'
 import { useRegisterModals } from '@/shared/components/modals/hooks/useRegisterModals'
+import paymentRegistryModals, {
+  PaymentRegistryModalKeys,
+} from '@/shared/components/payment/payment.registry.modal'
 import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
 
-import flightRegistryModals, {
-  FlightRegistryModalKeys,
-} from '../modals/flight.registry.modal'
+import flightRegistryModals from '../modals/flight.registry.modal'
 
 import { type Flight, FlightCard } from './FlightCard'
 
@@ -183,6 +184,11 @@ export function FlightResultList({ from, to }: Props) {
 
   // Đăng ký Modal của Flight feature
   useRegisterModals(flightRegistryModals)
+  useRegisterModals(paymentRegistryModals)
+
+  const handleOpenBooking = (flight?: Flight) => {
+    open(PaymentRegistryModalKeys.FlightBooking, { departureFlight: flight })
+  }
 
   const isLargeDesktop = !isTabletToXl && !isMobile
   const sortKey = 'criteria' as string
@@ -256,7 +262,7 @@ export function FlightResultList({ from, to }: Props) {
             </button>
           ) : (
             <button
-              onClick={() => open(FlightRegistryModalKeys.FlightFilter)}
+              onClick={() => handleOpenBooking()}
               className="flex items-center gap-1.5 lg:gap-2 text-primary font-semibold hover:opacity-80 transition-all h-full cursor-pointer bg-transparent border-none outline-none"
             >
               <span className="text-[14px] lg:text-[17px] whitespace-nowrap">Bộ lọc</span>
@@ -298,7 +304,7 @@ export function FlightResultList({ from, to }: Props) {
             <FlightCard
               key={flight.id}
               flight={flight}
-              onBook={(f) => console.log('Book:', f.id)}
+              onBook={handleOpenBooking}
             />
           ))}
         </div>

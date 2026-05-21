@@ -1,6 +1,7 @@
 import { ConfigProvider, Select } from 'antd'
 
 import { AirlineLogo } from '@/shared/components/common/AirlineLogo'
+import { PromotionTag } from '@/shared/components/common/PromotionTag'
 import { Tag } from '@/shared/components/common/Tag'
 
 import type { Flight } from './FlightCard'
@@ -29,26 +30,6 @@ const PROMOTIONS = [
   { code: 'BAYFS44', label: 'BAYFS44 giảm đến 999k', variant: 'outline', icon: <TicketIcon width={18} height={18} /> },
   { code: 'BAYFSHOLIDAY2', label: 'BAYFSHOLIDAY giảm đến 50%', variant: 'outline', icon: <TicketIcon width={18} height={18} /> },
 ]
-
-
-
-
-function PromotionTag({ label, variant = 'fill', icon }: { label: string; variant?: 'fill' | 'outline'; icon?: React.ReactNode }) {
-  const isOutline = variant === 'outline'
-  return (
-    <div
-      className={`flex items-center gap-1.5 pl-[7px] pr-[10px] py-[5px] rounded-[15px] text-[13px] font-semibold whitespace-nowrap ${isOutline
-        ? 'border border-danger text-danger bg-white'
-        : 'bg-danger text-white'
-        }`}
-    >
-      {icon}
-      {label}
-    </div>
-  )
-}
-
-
 
 export function FlightDetailPanel({ flight, onBook }: { flight: Flight; onBook?: (flight: Flight) => void }) {
   const formattedPrice = flight.price.toLocaleString('vi-VN') + 'đ'

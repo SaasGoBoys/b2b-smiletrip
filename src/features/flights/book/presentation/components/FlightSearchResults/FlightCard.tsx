@@ -6,6 +6,7 @@ import { Button, Tooltip } from 'antd'
 import { AirlineLogo } from '@/shared/components/common/AirlineLogo'
 import { useModalController } from '@/shared/components/modals/hooks/useModalController'
 import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
+import type { Flight } from '@/shared/types/flight.types'
 
 import { FlightRegistryModalKeys } from '../modals/flight.registry.modal'
 
@@ -20,27 +21,8 @@ import {
   TravelBagIcon
 } from '@/assets/icons/icons'
 
-export interface Flight {
-  id: string
-  airline: string
-  airlineCode: string
-  logoUrl?: string
-  flightNumber: string
-  departTime: string
-  arriveTime: string
-  duration: string
-  isDirectFlight: boolean
-  price: number
-  amenities: {
-    handLuggage: boolean
-    checkInLuggage: boolean
-    charging: boolean
-    meal: boolean
-    entertainment: boolean
-  }
-  promotions?: string[]
-  isFeatured?: boolean
-}
+export type { Flight }
+
 
 interface Props {
   flight: Flight
