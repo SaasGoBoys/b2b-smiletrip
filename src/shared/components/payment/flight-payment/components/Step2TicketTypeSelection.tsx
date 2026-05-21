@@ -122,26 +122,26 @@ export function Step2TicketTypeSelection({ onSelect }: Step2TicketTypeSelectionP
   const renderCard = (type: typeof ticketTypes[0]) => (
     <div
       key={type.id}
-      className="flex-1 min-w-[300px] bg-white rounded-[20px] border border-[#D9D9D9] shadow-sm flex flex-col overflow-hidden transition-all hover:shadow-md"
+      className="flex-1 min-w-[280px] sm:min-w-[300px] md:min-w-[320px] bg-white rounded-[20px] border border-[#D9D9D9] shadow-sm flex flex-col overflow-hidden transition-all hover:shadow-md"
     >
       {/* Top Accent Bar */}
       <div
-        className="h-[10px] w-full"
+        className="h-[8px] sm:h-[10px] w-full"
         style={{ backgroundColor: type.buttonBg }}
       />
 
-      <div className="py-[14px] px-3 bg-white">
-        <h3 className="text-[32px] font-light text-[#4558B6] text-center">{type.name}</h3>
+      <div className="py-2.5 sm:py-[14px] px-3 bg-white">
+        <h3 className="text-[24px] sm:text-[28px] md:text-[32px] font-light text-[#4558B6] text-center">{type.name}</h3>
       </div>
 
       <div className="px-3 pb-3 flex flex-col items-center flex-1">
         <div className="flex flex-col w-full gap-2">
           {type.features.map((feature, idx) => (
-            <div key={idx} className={`pt-2 flex gap-4 ${idx !== 0 ? 'border-t border-[#F0F0F0]' : ''}`}>
+            <div key={idx} className={`pt-2 flex gap-3 sm:gap-4 ${idx !== 0 ? 'border-t border-[#F0F0F0]' : ''}`}>
               <div className="shrink-0 mt-1">{feature.icon}</div>
               <div className="flex flex-col">
-                <span className="text-[16px] font-normal text-[#4558B6]">{feature.title}</span>
-                <span className="text-[16px] text-[#3A3A3A] leading-relaxed">
+                <span className="text-[14px] sm:text-[15px] md:text-[16px] font-normal text-[#4558B6]">{feature.title}</span>
+                <span className="text-[13px] sm:text-[14px] md:text-[16px] text-[#3A3A3A] leading-relaxed">
                   {renderDescription(feature.description)}
                 </span>
               </div>
@@ -154,12 +154,12 @@ export function Step2TicketTypeSelection({ onSelect }: Step2TicketTypeSelectionP
 
       <div className="flex flex-col items-center bg-white">
         <div className="py-2 px-2">
-          <span className="text-[32px] font-semibold text-[#3A3A3A]">{type.price}</span>
+          <span className="text-[24px] sm:text-[28px] md:text-[32px] font-semibold text-[#3A3A3A]">{type.price}</span>
         </div>
         <Button
           type="primary"
           onClick={() => onSelect(type.id)}
-          className="w-full !h-[55px] !rounded-none !rounded-b-[20px] !text-[20px] !font-semibold !border-none !shadow-none hover:opacity-90 transition-opacity !text-white"
+          className="w-full !h-[45px] sm:!h-[50px] md:!h-[55px] !rounded-none !rounded-b-[20px] !text-[16px] sm:!text-[18px] md:!text-[20px] !font-semibold !border-none !shadow-none hover:opacity-90 transition-opacity !text-white"
           style={{ backgroundColor: type.buttonBg }}
         >
           {type.buttonText}
@@ -171,18 +171,20 @@ export function Step2TicketTypeSelection({ onSelect }: Step2TicketTypeSelectionP
   return (
     <>
       {/* Top Header Section */}
-      <div className="flex items-center justify-between px-[18px] py-[14px]">
-        <div className="flex items-center gap-10">
-          <div className={`flex items-center gap-[10px] px-[10px] py-[7px] rounded-[10px] bg-[#CDE7FF]`}>
+      <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-10 px-4 md:px-[18px] py-3 md:py-[14px]">
+        <div className="flex items-center justify-between w-full md:w-auto">
+          <div className="flex items-center gap-[10px] px-[10px] py-[7px] rounded-[10px] bg-[#CDE7FF] w-fit">
             <FlightSolidIcon color='#4558B6' width={18} height={18} />
-            <span className="text-[18px] font-semibold text-[#4558B6]">Khởi hành</span>
+            <span className="text-[14px] sm:text-[16px] md:text-[18px] font-semibold text-[#4558B6]">Khởi hành</span>
           </div>
+        </div>
+        <div className="flex items-center justify-between md:justify-start gap-4 md:gap-10 w-full md:w-auto">
           <div className="flex items-center gap-2">
-            <span className="text-[18px] font-semibold text-[#3A3A3A]">Hà Nội</span>
-            <span className="text-[#3A3A3A] text-[18px] font-medium">→</span>
-            <span className="text-[18px] font-semibold text-[#3A3A3A]">TP HCM</span>
+            <span className="text-[14px] sm:text-[16px] md:text-[18px] font-semibold text-[#3A3A3A]">Hà Nội</span>
+            <span className="text-[#3A3A3A] text-[14px] sm:text-[16px] md:text-[18px] font-medium">→</span>
+            <span className="text-[14px] sm:text-[16px] md:text-[18px] font-semibold text-[#3A3A3A]">TP HCM</span>
           </div>
-          <div className="text-[18px] font-semibold text-[#909090]">
+          <div className="text-[13px] sm:text-[15px] md:text-[18px] font-semibold text-[#909090]">
             Thứ 5, 9 thg 4 2026
           </div>
         </div>
@@ -196,18 +198,18 @@ export function Step2TicketTypeSelection({ onSelect }: Step2TicketTypeSelectionP
           items={[
             {
               key: 'economy',
-              label: <span className="text-[20px]">Phổ thông</span>,
+              label: <span className="text-[15px] sm:text-[18px] md:text-[20px]">Phổ thông</span>,
               children: (
-                <div className="py-3 flex gap-3 overflow-x-auto scrollbar-hide">
+                <div className="py-4 md:py-6 flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide">
                   {ticketTypes.map(renderCard)}
                 </div>
               )
             },
             {
               key: 'business',
-              label: <span className="text-[20px]">Thương gia từ 10.345.230 đ</span>,
+              label: <span className="text-[15px] sm:text-[18px] md:text-[20px]">Thương gia từ 10.345.230 đ</span>,
               children: (
-                <div className="p-6 flex gap-6 overflow-x-auto scrollbar-hide">
+                <div className="py-4 md:py-6 flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide">
                   {ticketTypes.map(renderCard)}
                 </div>
               )
@@ -216,8 +218,6 @@ export function Step2TicketTypeSelection({ onSelect }: Step2TicketTypeSelectionP
         />
       </div>
 
-
-
       <style>{`
         .flight-class-tabs .ant-tabs-nav {
           margin-bottom: 0 !important;
@@ -225,9 +225,21 @@ export function Step2TicketTypeSelection({ onSelect }: Step2TicketTypeSelectionP
         .flight-class-tabs .ant-tabs-nav::before {
           border-bottom: 1px solid #B5BCE2;
         }
+        .flight-class-tabs .ant-tabs-nav-list {
+          width: 100%;
+          display: flex;
+        }
         .flight-class-tabs .ant-tabs-tab {
-          padding: 12px 90px !important;
+          flex: 1;
+          justify-content: center;
+          padding: 12px 16px !important;
           margin: 0 !important;
+        }
+        @media (min-width: 640px) {
+          .flight-class-tabs .ant-tabs-tab {
+            flex: none;
+            padding: 12px 90px !important;
+          }
         }
         .flight-class-tabs .ant-tabs-tab-btn {
           color: #3A3A3A !important;
