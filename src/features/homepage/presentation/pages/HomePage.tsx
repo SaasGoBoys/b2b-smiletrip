@@ -1,38 +1,17 @@
-import { Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 
-import { HeroBanner } from '@/shared/components/common/HeroBanner'
 import { SectionLoader } from '@/shared/components/feedback/SectionLoader'
-import { SearchForm } from '@/shared/components/SearchForm/index'
+import { useBreakpoint } from '@/shared/hooks/useBreakpoint'
 
-import { DestinationsSection } from '../components/sections/DestinationsSection'
-import { FeaturedActivitiesSection } from '../components/sections/FeaturedActivitiesSection'
-import { HomepageFooterSection } from '../components/sections/HomepageFooterSection'
-import { NewUserPromoSection } from '../components/sections/NewUserPromoSection'
-import { PopularFlightsSection } from '../components/sections/PopularFlightsSection'
-import { SaleBannersSection } from '../components/sections/SaleBannersSection'
-import { TopAttractionsSection } from '../components/sections/TopAttractionsSection'
-import { WhyChooseHomepageSection } from '../components/sections/WhyChooseHomepageSection'
-import { useHomepageContent } from '../hooks/useHomepageContent'
+const HomePageMobile = lazy(() => import('./HomePageMobile'))
+const HomePageDesktop = lazy(() => import('./HomePageDesktop'))
 
 export default function HomePage() {
-  const content = useHomepageContent()
+  const { isSmallSize } = useBreakpoint()
 
   return (
-    <div className="min-h-full bg-[var(--ant-color-bg-layout)]">
-      <HeroBanner>
-        <Suspense fallback={<SectionLoader />}>
-          <SearchForm />
-        </Suspense>
-      </HeroBanner>
-      <div className="my-[30px] md:mt-[150px] xl:my-0" />
-      <NewUserPromoSection items={content.promos} />
-      <SaleBannersSection />
-      <PopularFlightsSection deals={content.flightDeals} />
-      <DestinationsSection items={content.destinations} />
-      <FeaturedActivitiesSection items={content.activities} />
-      <WhyChooseHomepageSection items={content.why} />
-      <TopAttractionsSection items={content.attractions} />
-      <HomepageFooterSection />
-    </div>
+    <Suspense fallback={<SectionLoader />}>
+      {isSmallSize ? <HomePageMobile /> : <HomePageDesktop />}
+    </Suspense>
   )
 }

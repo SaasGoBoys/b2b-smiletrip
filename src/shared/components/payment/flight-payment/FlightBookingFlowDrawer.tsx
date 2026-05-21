@@ -22,7 +22,8 @@ interface FlightBookingFlowDrawerProps {
 }
 
 export function FlightBookingFlowDrawer({ type, payload }: ModalEngineProps<FlightBookingFlowDrawerProps>) {
-  const { isMobile } = useBreakpoint()
+  const { isMobile, isTabletToXl } = useBreakpoint()
+  const isFullWidth = isMobile || isTabletToXl
   const { close } = useModalController()
   const navigate = useNavigate()
   const { departureFlight, returnFlight, initialStep = 1 } = payload || {}
@@ -44,27 +45,27 @@ export function FlightBookingFlowDrawer({ type, payload }: ModalEngineProps<Flig
   const renderHeader = () => {
     if (step === 1) {
       return (
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-3 sm:gap-5">
           <button onClick={onClose} className="cursor-pointer hover:opacity-70 transition-opacity border-none bg-transparent outline-none">
             <XCircleIcon width={32} height={32} />
           </button>
-          <span className="text-[20px] font-semibold text-text-main">Xem lại chuyến bay của bạn</span>
+          <span className="text-[16px] sm:text-[18px] md:text-[20px] font-semibold text-text-main">Xem lại chuyến bay của bạn</span>
         </div>
       )
     }
 
     if (step === 2) {
       return (
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-3 sm:gap-5">
           <button onClick={handleBack} className="cursor-pointer hover:opacity-70 transition-opacity border-none bg-transparent outline-none p-0">
             <ChevronLeftCircleIcon width={32} height={32} />
           </button>
           <div className="flex flex-col">
-            <span className="text-[20px] font-semibold text-[#3A3A3A]">Chọn loại vé (Bay đi)</span>
-            <div className="flex items-center gap-1">
-              <span className="text-[14px] font-semibold text-[#909090]">Mức giá khứ hồi:</span>
-              <span className="text-[14px] font-semibold text-[#4558B6]">5.526.189 VND</span>
-              <span className="text-[14px] font-semibold text-[#909090]">/khách</span>
+            <span className="text-[16px] sm:text-[18px] md:text-[20px] font-semibold text-[#3A3A3A]">Chọn loại vé (Bay đi)</span>
+            <div className="flex items-center flex-wrap gap-1">
+              <span className="text-[12px] sm:text-[14px] font-semibold text-[#909090]">Mức giá khứ hồi:</span>
+              <span className="text-[12px] sm:text-[14px] font-semibold text-[#4558B6]">5.526.189 VND</span>
+              <span className="text-[12px] sm:text-[14px] font-semibold text-[#909090]">/khách</span>
             </div>
           </div>
         </div>
@@ -80,14 +81,14 @@ export function FlightBookingFlowDrawer({ type, payload }: ModalEngineProps<Flig
       const formattedTotalPrice = totalPrice.toLocaleString('vi-VN') + ' đ'
 
       return (
-        <div className="flex items-center justify-between px-6 py-2 bg-white">
-          <div className="flex items-baseline gap-1">
-            <span className="text-[32px] font-semibold text-text-main">{formattedTotalPrice}</span>
-            <span className="text-[32px] font-semibold text-text-main">/ khách</span>
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3 bg-white gap-4">
+          <div className="flex items-baseline gap-1.5 flex-wrap">
+            <span className="text-[20px] sm:text-[24px] md:text-[28px] lg:text-[32px] font-semibold text-text-main">{formattedTotalPrice}</span>
+            <span className="text-[12px] sm:text-[14px] font-medium text-text-secondary">/ khách</span>
           </div>
           <button
             onClick={() => setStep(2)}
-            className="h-[48px] px-10 rounded-[12px] text-[22px] font-semibold bg-primary text-white border-none cursor-pointer hover:opacity-90 transition-all"
+            className="h-[40px] sm:h-[48px] px-6 sm:px-10 rounded-[8px] sm:rounded-[12px] text-[15px] sm:text-[18px] md:text-[22px] font-semibold bg-primary text-white border-none cursor-pointer hover:opacity-90 transition-all shrink-0"
           >
             Tiếp tục
           </button>
@@ -102,22 +103,21 @@ export function FlightBookingFlowDrawer({ type, payload }: ModalEngineProps<Flig
       placement="right"
       onClose={onClose}
       open={true}
-      width={isMobile ? '100%' : '1200px'}
+      width={isFullWidth ? '100%' : '1200px'}
       styles={{
         content: {
-          borderRadius: isMobile ? '0' : '20px 0 0 20px',
+          borderRadius: isFullWidth ? '0' : '20px 0 0 20px',
           overflow: 'hidden',
           background: step === 1 ? '#F8FAFB' : 'linear-gradient(180deg, #bcde15ff 0%, #F1F1F1 100%)',
         },
         header: {
           borderBottom: step === 1 ? '1px solid #F0F0F0' : 'none',
-          padding: '16px 24px',
+          padding: isMobile ? '12px 16px' : '16px 24px',
           background: 'white',
         },
         body: {
           padding: '0',
           background: 'transparent',
-          paddingBottom: step === 1 ? '80px' : '0', // Add padding to avoid footer overlap if needed
         },
         footer: {
           padding: 0,
