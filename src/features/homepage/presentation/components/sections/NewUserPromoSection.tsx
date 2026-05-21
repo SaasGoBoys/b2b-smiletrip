@@ -18,7 +18,7 @@ export function NewUserPromoSection({ items }: Props) {
   const { t } = useTranslation('homepage')
 
   return (
-    <section className="bg-gray-50/80 py-12 border-y border-gray-100 sm:pt-25">
+    <section className="bg-gray-50/80 py-12 border-y border-gray-100 border-t-0">
       <div className="max-w-[1200px] mx-auto px-4">
         <SectionHeading title={t('promos.sectionTitle')} action={{ label: t('promos.seeAll') }} />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
