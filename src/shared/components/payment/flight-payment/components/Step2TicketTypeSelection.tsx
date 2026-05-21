@@ -218,44 +218,6 @@ export function Step2TicketTypeSelection({ onSelect }: Step2TicketTypeSelectionP
         />
       </div>
 
-      <style>{`
-        .flight-class-tabs .ant-tabs-nav {
-          margin-bottom: 0 !important;
-        }
-        .flight-class-tabs .ant-tabs-nav::before {
-          border-bottom: 1px solid #B5BCE2;
-        }
-        .flight-class-tabs .ant-tabs-nav-list {
-          width: 100%;
-          display: flex;
-        }
-        .flight-class-tabs .ant-tabs-tab {
-          flex: 1;
-          justify-content: center;
-          padding: 12px 16px !important;
-          margin: 0 !important;
-        }
-        @media (min-width: 640px) {
-          .flight-class-tabs .ant-tabs-tab {
-            flex: none;
-            padding: 12px 90px !important;
-          }
-        }
-        .flight-class-tabs .ant-tabs-tab-btn {
-          color: #3A3A3A !important;
-          font-weight: 400 !important;
-          transition: all 0.3s;
-        }
-        .flight-class-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
-          color: #4558B6 !important;
-          font-weight: 600 !important;
-        }
-        .flight-class-tabs .ant-tabs-ink-bar {
-          height: 3px !important;
-          background: #4558B6 !important;
-          border-radius: 2px 2px 0 0;
-        }
-      `}</style>
     </>
   )
 }
