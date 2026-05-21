@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import DropdownItem from '../common/DropdownItem';
+import DropdownItem from '../../common/DropdownItem';
 
 export const useHeaderConfig = () => {
   const { t } = useTranslation('common');

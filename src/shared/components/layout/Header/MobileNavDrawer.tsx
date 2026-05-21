@@ -10,9 +10,9 @@ import authRegistryModals, {
   AuthRegistryModalKeys,
 } from '@/features/auth/presentation/components/modals/auth.registry.modal'
 
-import { useModalController } from '../modals/hooks/useModalController'
-import { useRegisterModals } from '../modals/hooks/useRegisterModals'
-import ModalEngine from '../modals/ModalEngine'
+import { useModalController } from '../../modals/hooks/useModalController'
+import { useRegisterModals } from '../../modals/hooks/useRegisterModals'
+import ModalEngine from '../../modals/ModalEngine'
 
 import CloseMenuIcon from '@/assets/sidebar/close-menu.svg?react'
 

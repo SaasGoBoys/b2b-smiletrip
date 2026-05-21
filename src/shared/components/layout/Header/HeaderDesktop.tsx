@@ -11,9 +11,9 @@ import authRegistryModals, {
   AuthRegistryModalKeys,
 } from '@/features/auth/presentation/components/modals/auth.registry.modal'
 
-import { useModalController } from '../modals/hooks/useModalController'
-import { useRegisterModals } from '../modals/hooks/useRegisterModals'
-import ModalEngine from '../modals/ModalEngine'
+import { useModalController } from '../../modals/hooks/useModalController'
+import { useRegisterModals } from '../../modals/hooks/useRegisterModals'
+import ModalEngine from '../../modals/ModalEngine'
 
 import { useHeaderConfig } from './header.config'
 import { MobileNavDrawer } from './MobileNavDrawer'
@@ -22,7 +22,7 @@ import { MenuIcon, SearchIcon } from '@/assets/icons/icons'
 
 const LOGO_IMG = '/images/header/logo.webp'
 
-export function Header() {
+export default function HeaderDesktop() {
   const navigate = useNavigate()
   const collapsed = useSidebarStore((state) => state.collapsed)
   const hideLogo = !collapsed
@@ -56,9 +56,8 @@ export function Header() {
 
           <div className="flex items-center gap-[24px] h-full flex-1 min-w-0">
             <div
-              className={`flex items-center py-2 h-full shrink-0 max-md:flex cursor-pointer ${
-                hideLogo ? 'hidden md:hidden' : 'hidden md:flex'
-              }`}
+              className={`flex items-center py-2 h-full shrink-0 max-md:flex cursor-pointer ${hideLogo ? 'hidden md:hidden' : 'hidden md:flex'
+                }`}
               onClick={handleGoHomepage}
             >
               <img
